@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Can add a style sheet if desired with <?xml-stylesheet type="text/css" href="style.css"?> -->
+
+<!DOCTYPE gameMonsters>
+<gameMonsters>
+    <monster>
+        <name>Wacky Rabbit</name>
+        <friendly>True</friendly>
+        <elemental>Air</elemental>
+        <strength>80</strength>
+        <intellect>100</intellect>
+        <agility>120</agility>
+        <description>Large gray rabbit. Big teeth likes carrots.</description>
+    </monster>
+    <monster>
+        <name>Sam Salmon</name>
+        <friendly>True</friendly>
+        <elemental>Water</elemental>
+        <strength>60</strength>
+        <intellect>90</intellect>
+        <agility>130</agility>
+        <description>Silver and pink would prefer to be in a river. Powerful tail wack against enemies.</description>
+    </monster>
+    <!--    <monster>-->
+    <!--        <name></name>-->
+    <!--        <friendly></friendly>-->
+    <!--        <elemental></elemental>-->
+    <!--        <strength></strength>-->
+    <!--        <intellect></intellect>-->
+    <!--        <agility></agility>-->
+    <!--        <description></description>-->
+    <!--    </monster>-->
+    <!--    <monster>-->
+    <!--        <name></name>-->
+    <!--        <friendly></friendly>-->
+    <!--        <elemental></elemental>-->
+    <!--        <strength></strength>-->
+    <!--        <intellect></intellect>-->
+    <!--        <agility></agility>-->
+    <!--        <description></description>-->
+    <!--    </monster>-->
+    <!--    <monster>-->
+    <!--        <name></name>-->
+    <!--        <friendly></friendly>-->
+    <!--        <elemental></elemental>-->
+    <!--        <strength></strength>-->
+    <!--        <intellect></intellect>-->
+    <!--        <agility></agility>-->
+    <!--        <description></description>-->
+    <!--    </monster>-->
+    <!--    <monster>-->
+    <!--        <name></name>-->
+    <!--        <friendly></friendly>-->
+    <!--        <elemental></elemental>-->
+    <!--        <strength></strength>-->
+    <!--        <intellect></intellect>-->
+    <!--        <agility></agility>-->
+    <!--        <description></description>-->
+    <!--    </monster>-->
+</gameMonsters>
