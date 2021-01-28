@@ -13,6 +13,10 @@ public class BattleSystem {
     //tracks the strength point jumps that lead to damage increases
     private static final int STRENGTH_RANGE_JUMPS = 10;
 
+
+    public BattleSystem() {
+        rand = new Random();
+    }
 /*
     Version 1:
     take only Strength attribute into play and monsters attack each other until only one is alive

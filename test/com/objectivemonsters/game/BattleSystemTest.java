@@ -14,7 +14,15 @@ public class BattleSystemTest {
     }
 
     @Test
-    public void attackDamage() {
+    public void testAttackDamage_shouldReturnRandomValueWithinMinAndMaxDmgRange() {
+        int lowestStrength = 1;
+        int min = 1;
+        int max = 10;
+
+        for (int i = 0; i < 50; i++) {
+            int damage = battle.attackDamage(lowestStrength);
+            assertTrue(damage >= min && damage <= max);
+        }
     }
 
     @Test
