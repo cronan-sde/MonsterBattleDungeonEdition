@@ -1,17 +1,51 @@
 package com.objectivemonsters.game;
 
+import com.objectivemonsters.monsters.Monster;
+
+import java.util.Random;
+
 public class BattleSystem {
+    private Random rand;
+    private int minDamage = 1;
+    private int maxDamage = 10;
 
 //    TODO: a battle system, start simple expand to complex in advanced versions
 
-// //
-////    random (1-4) chance of hit general
-////    on success (1-6) amount damage strength * element boost
-////    minus the  damage from opponet HP
-////
-////            add in text response for play by play of the battle
-////
-////            cycle until one combataten is out of HP
+/*
+    Combat engine rules:
+    Strength cap 200?
+    base dmg - <= 20 Strength = 1-10 dmg range: Damage increases +5 every 10 Strength points
+    base dmg - 21-30 = 1-15 dmg
+    base dmg - 31-40 = 1-20 dmg
+    base dmg - 41-50 = 1-25 dmg
+    base dmg - 51-60 = 1-30 dmg
+    base dmg - 61-70 = 1-35 dmg
+    base dmg - 71-80 = 1-40 dmg
+    base dmg - 81-90 = 1-45 dmg
+    base dmg - 91-100 = 1-50 dmg
+    base dmg - > 100-110 = 2-50 dmg range: Minimum base dmg increases +1 every 10 Strength points for Strength > 100
+    base dmg - 111-120 = 3-50 dmg
+    base dmg - 121-130 = 4-50 dmg
+    base dmg - 131-140 = 5-50 dmg
+    base dmg - 141-150 = 6-50 dmg
+    base dmg - 151-160 = 7-50 dmg
+    base dmg - 161-170 = 8-50 dmg
+    base dmg - 171-180 = 9-50 dmg
+    base dmg - 181-190 = 10-50 dmg
+    base dmg - 191-200 = 11-50 dmg
+ */
 
+    public Monster battle(Monster m1, Monster m2) {
+        //battle logic here
+        return m1.getHP() > 0 ? m1 : m2; //return the monster that won the battle
+    }
 
+    /*
+     * Gets the valid dmg range based on the strengthLevel of the monster provided.
+     * returns a random number within that range that represents the total attack damage done
+     */
+    public int attackDamage(int strengthLevel) {
+
+        return rand.nextInt(maxDamage) + minDamage;
+    }
 }
