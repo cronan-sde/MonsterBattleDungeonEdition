@@ -9,7 +9,10 @@ public class BattleSystem {
     private int minDamage = 1;
     private int maxDamage = 10;
 
-//    TODO: a battle system, start simple expand to complex in advanced versions
+/*
+    Version 1:
+    take only Strength attribute into play and monsters attack each other until only one is alive
+ */
 
 /*
     Combat engine rules:
