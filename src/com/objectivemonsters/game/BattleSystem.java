@@ -6,8 +6,12 @@ import java.util.Random;
 
 public class BattleSystem {
     private Random rand;
-    private int minDamage = 1;
-    private int maxDamage = 10;
+    //tracks minimum base damage increase when strength over 100
+    private static final int MIN_DAMAGE_INCREMENTS = 1;
+    //tracks maximum base damage increase when strength under 101
+    private static final int MAX_DAMAGE_INCREMENTS = 5;
+    //tracks the strength point jumps that lead to damage increases
+    private static final int STRENGTH_RANGE_JUMPS = 10;
 
 /*
     Version 1:
@@ -36,6 +40,7 @@ public class BattleSystem {
     base dmg - 171-180 = 9-50 dmg
     base dmg - 181-190 = 10-50 dmg
     base dmg - 191-200 = 11-50 dmg
+
  */
 
     public Monster battle(Monster m1, Monster m2) {
@@ -48,7 +53,22 @@ public class BattleSystem {
      * returns a random number within that range that represents the total attack damage done
      */
     public int attackDamage(int strengthLevel) {
+        int minDmg = 1;
+        int maxDmg = 10;
 
-        return rand.nextInt(maxDamage) + minDamage;
+        if (strengthLevel > 20) {
+            //formula to find damage range
+            int rangeJumps = strengthLevel / STRENGTH_RANGE_JUMPS;
+            if (rangeJumps - STRENGTH_RANGE_JUMPS <= 0) {
+                maxDmg = rangeJumps * MAX_DAMAGE_INCREMENTS;
+                minDmg = 1;
+            }
+            else {
+                maxDmg = 50;
+                minDmg = (rangeJumps - STRENGTH_RANGE_JUMPS) + MIN_DAMAGE_INCREMENTS;
+            }
+        }
+
+        return rand.nextInt(maxDmg) + minDmg;
     }
 }
