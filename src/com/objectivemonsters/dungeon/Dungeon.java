@@ -5,15 +5,15 @@ import com.objectivemonsters.monsters.Monster;
 
 import java.util.List;
 
-// the dungeon containing all game items and objects
+// the dungeon containing all game Item and objects
 public class Dungeon {
 
     // collection of rooms in this level of dungeon
     List<Room> dungeonRooms;
     // collection of monsters in this level of dungeon
     List<Monster> dungeonMonsters;
-    // items available in this level of dungeon
-    List<Item> dungeonItems;
+    // Item available in this level of dungeon
+    List<Item> dungeonItem;
     // when escape is true, generate new dungeon level, this is true when player uses shard created key to open door
     Boolean escape;
     // Dungeon level for advanced dungeons
@@ -21,10 +21,10 @@ public class Dungeon {
 
     //constructors
 
-    public Dungeon(List<Room> dungeonRooms, List<Monster> dungeonMonsters, List<Item> dungeonItems, Boolean escape, int level) {
+    public Dungeon(List<Room> dungeonRooms, List<Monster> dungeonMonsters, List<Item> dungeonItem, Boolean escape, int level) {
         this.dungeonRooms = dungeonRooms;
         this.dungeonMonsters = dungeonMonsters;
-        this.dungeonItems = dungeonItems;
+        this.dungeonItem = dungeonItem;
         this.escape = escape;
         this.level = level;
     }
@@ -48,12 +48,12 @@ public class Dungeon {
         this.dungeonMonsters = dungeonMonsters;
     }
 
-    public List<Item> getDungeonItems() {
-        return dungeonItems;
+    public List<Item> getDungeonItem() {
+        return dungeonItem;
     }
 
-    public void setDungeonItems(List<Item> dungeonItems) {
-        this.dungeonItems = dungeonItems;
+    public void setDungeonItem(List<Item> dungeonItem) {
+        this.dungeonItem = dungeonItem;
     }
 
     public Boolean getEscape() {
@@ -80,7 +80,7 @@ public class Dungeon {
         return "Dungeon{" +
                 "dungeonRooms=" + dungeonRooms +
                 ", dungeonMonsters=" + dungeonMonsters +
-                ", dungeonItems=" + dungeonItems +
+                ", dungeonItem=" + dungeonItem +
                 ", escape=" + escape +
                 ", level=" + level +
                 '}';
