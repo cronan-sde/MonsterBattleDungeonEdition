@@ -7,7 +7,7 @@ import java.util.List;
 // room description and objects and exits
 public class Room {
     // room id
-    int roomId;
+    private int roomId;
     // room name
     String name;
     // describe the room

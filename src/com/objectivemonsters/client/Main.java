@@ -1,5 +1,6 @@
 package com.objectivemonsters.client;
 
+import com.objectivemonsters.game.GameController;
 import com.objectivemonsters.util.TextParser;
 
 public class Main {
