@@ -9,15 +9,15 @@ public class Room {
     // room id
     private int roomId;
     // room name
-    String name;
+    private String name;
     // describe the room
-    String description;
+    private String description;
     // exits from rooms are called archways
-    List<String> archways;
+    private List<String> archways;
     // monster in room, one per room, could expand and change to array list later
-    Monster roomMonster;
+    private Monster roomMonster;
     // Item in room
-    List<Item> item;
+    private List<Item> item;
 
     // Constructor
 

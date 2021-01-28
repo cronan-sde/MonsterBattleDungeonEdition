@@ -9,15 +9,15 @@ import java.util.List;
 public class Dungeon {
 
     // collection of rooms in this level of dungeon
-    List<Room> dungeonRooms;
+    private List<Room> dungeonRooms;
     // collection of monsters in this level of dungeon
-    List<Monster> dungeonMonsters;
+    private List<Monster> dungeonMonsters;
     // Item available in this level of dungeon
-    List<Item> dungeonItem;
+    private List<Item> dungeonItem;
     // when escape is true, generate new dungeon level, this is true when player uses shard created key to open door
-    Boolean escape;
+    private Boolean escape;
     // Dungeon level for advanced dungeons
-    int level;
+    private int level;
 
     //constructors
 
