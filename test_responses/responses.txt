@@ -1,0 +1,4 @@
+go north
+open door
+inspect monster
+fight monster

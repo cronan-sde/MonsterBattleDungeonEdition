@@ -38,8 +38,9 @@ public class Prompter {
      * Outputs provided text.  Simply calls {@code System.out.println(info)}.
      * @param messages Any informative text the game wishes to display to the user.
      */
-    public void info(String messages) {
+    public String info(String messages) {
         System.out.println(messages);
+        return messages;
     }
 
     /**
