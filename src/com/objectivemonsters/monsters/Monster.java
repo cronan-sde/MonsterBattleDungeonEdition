@@ -61,9 +61,9 @@ public class Monster {
         return elm;
     }
 
-    public void setElm(Elemental elm) {
-        this.elm = elm;
-    }
+//    public void setElm(Elemental elm) {
+//        this.elm = elm;
+//    }
 
     public int getStrength() {
         return strength;
@@ -105,7 +105,7 @@ public class Monster {
         return "Monster{" +
                 "name='" + name + '\'' +
                 ", HP=" + HP +
-                ", elm=" + elm +
+//                ", elm=" + elm +
                 ", strength=" + strength +
                 ", intellect=" + intellect +
                 ", agility=" + agility +

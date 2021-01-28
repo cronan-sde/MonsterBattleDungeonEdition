@@ -7,6 +7,8 @@ public class Main {
 
     public static void main(String[] args) {
         TextParser tp = new TextParser();
-        tp.monsterXML();
+        tp.createMons();
+        //GameController controller = new GameController();
+        //controller.initialize();
     }
 }

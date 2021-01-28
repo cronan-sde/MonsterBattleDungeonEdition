@@ -6,8 +6,9 @@
     <monster>
         <name>Wacky Rabbit</name>
         <friendly>True</friendly>
+        <HP>100</HP>
         <elemental>Air</elemental>
-        <strength>80</strength>
+        <strength>190</strength>
         <intellect>100</intellect>
         <agility>120</agility>
         <description>Large gray rabbit. Big teeth likes carrots.</description>
@@ -15,46 +16,51 @@
     <monster>
         <name>Sam Salmon</name>
         <friendly>True</friendly>
+        <HP>100</HP>
         <elemental>Water</elemental>
-        <strength>60</strength>
+        <strength>190</strength>
         <intellect>90</intellect>
         <agility>130</agility>
         <description>Silver and pink would prefer to be in a river. Powerful tail wack against enemies.</description>
     </monster>
-    <!--    <monster>-->
-    <!--        <name></name>-->
-    <!--        <friendly></friendly>-->
-    <!--        <elemental></elemental>-->
-    <!--        <strength></strength>-->
-    <!--        <intellect></intellect>-->
-    <!--        <agility></agility>-->
-    <!--        <description></description>-->
-    <!--    </monster>-->
-    <!--    <monster>-->
-    <!--        <name></name>-->
-    <!--        <friendly></friendly>-->
-    <!--        <elemental></elemental>-->
-    <!--        <strength></strength>-->
-    <!--        <intellect></intellect>-->
-    <!--        <agility></agility>-->
-    <!--        <description></description>-->
-    <!--    </monster>-->
-    <!--    <monster>-->
-    <!--        <name></name>-->
-    <!--        <friendly></friendly>-->
-    <!--        <elemental></elemental>-->
-    <!--        <strength></strength>-->
-    <!--        <intellect></intellect>-->
-    <!--        <agility></agility>-->
-    <!--        <description></description>-->
-    <!--    </monster>-->
-    <!--    <monster>-->
-    <!--        <name></name>-->
-    <!--        <friendly></friendly>-->
-    <!--        <elemental></elemental>-->
-    <!--        <strength></strength>-->
-    <!--        <intellect></intellect>-->
-    <!--        <agility></agility>-->
-    <!--        <description></description>-->
-    <!--    </monster>-->
+        <monster>
+            <name>Drowsy Dragon</name>
+            <friendly>True</friendly>
+            <HP>100</HP>
+            <elemental>Fire</elemental>
+            <strength>190</strength>
+            <intellect>120</intellect>
+            <agility>75</agility>
+            <description></description>
+        </monster>
+        <monster>
+            <name>Shady Spook</name>
+            <friendly></friendly>
+            <HP>100</HP>
+            <elemental>Air</elemental>
+            <strength>190</strength>
+            <intellect>90</intellect>
+            <agility>130</agility>
+            <description>Can't seem me. Hear me shriek!</description>
+        </monster>
+        <monster>
+            <name>Hoppy Frog</name>
+            <friendly>False</friendly>
+            <HP>100</HP>
+            <elemental>Water</elemental>
+            <strength>190</strength>
+            <intellect>60</intellect>
+            <agility>150</agility>
+            <description>Extra large, dark green, giant legs. Menacing smile. Do frogs have teeth?</description>
+        </monster>
+        <monster>
+            <name>Sneaky Slime Blob</name>
+            <friendly></friendly>
+            <HP>100</HP>
+            <elemental>Fire</elemental>
+            <strength>190</strength>
+            <intellect>60</intellect>
+            <agility>10</agility>
+            <description>Rather a sticky mess with eyes and teeth - bright orange glow surround it.</description>
+        </monster>
 </gameMonsters>
