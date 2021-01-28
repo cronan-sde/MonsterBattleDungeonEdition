@@ -47,13 +47,35 @@ public class BattleSystem {
 
  */
 
+/*
+ * Currently very simplistic automated turn based system
+ * Monster m1 attacks, damage removed from m2 hp, new hp set for m2
+ * Monster m2 attacks, damage removed from m1 hp, new hp set for m1
+ * Just getting all mechanics working before making more usable
+ */
     public Monster battle(Monster m1, Monster m2) {
         //battle logic here
+        while (m1.getHP() > 0 && m2.getHP() > 0) {
+            //m1 takes turn
+            int m1AtckDmg = attackDamage(m1.getStrength());
+            int m2DmgHp = m2.getHP() - m1AtckDmg;
+            m2.setHP(m2DmgHp);
+            if (m2.getHP() <= 0) {
+                break;
+            }
+            //m2 takes turn
+            int m2AtckDmg = attackDamage(m2.getStrength());
+            int m1DmgHp = m1.getHP() - m2AtckDmg;
+            m1.setHP(m1DmgHp);
+        }
+
         return m1.getHP() > 0 ? m1 : m2; //return the monster that won the battle
     }
 
     /*
      * Gets the valid dmg range based on the strengthLevel of the monster provided.
+     * uses the generateMinAndMaxDmg() utility method to get the min and max values to be used
+     * with the random number generator.
      * returns a random number within that range that represents the total attack damage done
      */
     public int attackDamage(int strengthLevel) {
@@ -64,6 +86,11 @@ public class BattleSystem {
         return rand.nextInt(maxDmg) + minDmg;
     }
 
+    /*
+     * Utility method to get the min and max damage range of a monster
+     * based on their strengthLevel. Returns the min and max values as an int[]
+     * index 0 - min, index 1 - max
+     */
     public int[] generateMinAndMaxDmg(int strengthLevel) {
         int[] minAndMax = new int[2];
         int minDmg = 1;

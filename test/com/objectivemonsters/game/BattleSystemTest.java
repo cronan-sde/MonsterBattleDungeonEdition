@@ -1,9 +1,12 @@
 package com.objectivemonsters.game;
 
+import com.objectivemonsters.monsters.Elemental;
+import com.objectivemonsters.monsters.Monster;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class BattleSystemTest {
     private BattleSystem battle;
@@ -72,5 +75,14 @@ public class BattleSystemTest {
         minAndMax = battle.generateMinAndMaxDmg(upperLowerBoundStrength);
         assertEquals(expectedUpperLowerMin, minAndMax[0]);
         assertEquals(expectedMax, minAndMax[1]);
+    }
+
+    @Test
+    public void testBattle_shouldReturnTheMonsterThatWinsTheBattle_whenPassedTwoMonsters() {
+        Monster m1 = new Monster("Buck", 100, Elemental.AIR, 120, 3,3,"cool guy", true);
+        Monster m2 = new Monster("Bad", 100, Elemental.FIRE, 99, 5, 5, "bad man", false);
+
+        Monster winner = battle.battle(m1,m2);
+        assertTrue(winner.getHP() > 0);
     }
 }
