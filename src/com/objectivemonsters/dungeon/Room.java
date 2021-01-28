@@ -4,7 +4,7 @@ import com.objectivemonsters.consumables.Item;
 import com.objectivemonsters.monsters.Monster;
 
 import java.util.List;
-
+// room description and objects and exits
 public class Room {
     // room id
     int roomId;
@@ -16,7 +16,7 @@ public class Room {
     List<String> archways;
     // monster in room, one per room, could expand and change to array list later
     Monster roomMonster;
-    // items in room
+    // Item in room
     List<Item> item;
 
     // Constructor
