@@ -53,15 +53,25 @@ public class BattleSystem {
      * returns a random number within that range that represents the total attack damage done
      */
     public int attackDamage(int strengthLevel) {
+        int[] minAndMaxRange = generateMinAndMaxDmg(strengthLevel);
+        int minDmg = minAndMaxRange[0];
+        int maxDmg = minAndMaxRange[1];
+
+        return rand.nextInt(maxDmg) + minDmg;
+    }
+
+    public int[] generateMinAndMaxDmg(int strengthLevel) {
+        int[] minAndMax = new int[2];
         int minDmg = 1;
         int maxDmg = 10;
 
         if (strengthLevel > 20) {
             //formula to find damage range
-            int rangeJumps = strengthLevel / STRENGTH_RANGE_JUMPS;
+            double totalJumps = (double) strengthLevel/STRENGTH_RANGE_JUMPS;
+            int rangeJumps = (int) Math.ceil(totalJumps);
+
             if (rangeJumps - STRENGTH_RANGE_JUMPS <= 0) {
                 maxDmg = rangeJumps * MAX_DAMAGE_INCREMENTS;
-                minDmg = 1;
             }
             else {
                 maxDmg = 50;
@@ -69,6 +79,9 @@ public class BattleSystem {
             }
         }
 
-        return rand.nextInt(maxDmg) + minDmg;
+        minAndMax[0] = minDmg;
+        minAndMax[1] = maxDmg;
+
+        return minAndMax;
     }
 }
