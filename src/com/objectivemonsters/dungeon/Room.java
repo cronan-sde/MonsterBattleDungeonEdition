@@ -12,8 +12,8 @@ public class Room {
     private String name;
     // describe the room
     private String description;
-    // exits from rooms are called archways
-    private List<String> archways;
+    // exits from rooms are called roomLeadTo
+    private List<String> roomLeadTo;
     // monster in room, one per room, could expand and change to array list later
     private Monster roomMonster;
     // Item in room
@@ -21,11 +21,11 @@ public class Room {
 
     // Constructor
 
-    public Room(int roomId, String name, String description, List<String> archways, Monster roomMonster, List<Item> item) {
+    public Room(int roomId, String name, String description, List<String> roomLeadTo, Monster roomMonster, List<Item> item) {
         this.roomId = roomId;
         this.name = name;
         this.description = description;
-        this.archways = archways;
+        this.roomLeadTo = roomLeadTo;
         this.roomMonster = roomMonster;
         this.item = item;
     }
@@ -57,12 +57,12 @@ public class Room {
         this.description = description;
     }
 
-    public List<String> getArchways() {
-        return archways;
+    public List<String> getroomLeadTo() {
+        return roomLeadTo;
     }
 
-    public void setArchways(List<String> archways) {
-        this.archways = archways;
+    public void setroomLeadTo(List<String> roomLeadTo) {
+        this.roomLeadTo = roomLeadTo;
     }
 
     public Monster getRoomMonster() {
@@ -89,7 +89,7 @@ public class Room {
                 "roomId=" + roomId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", archways=" + archways +
+                ", roomLeadTo=" + roomLeadTo +
                 ", roomMonster=" + roomMonster +
                 ", item=" + item +
                 '}';
