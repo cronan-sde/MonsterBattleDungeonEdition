@@ -56,6 +56,8 @@ public class BattleSystem {
  * version 1 - use Thread.sleep to control flow of battle, and use simple println statements to visualize fight
  */
     public Monster battle(Monster m1, Monster m2) {
+        //battle starting message
+        System.out.println("The monsters are squaring off");
         //battle logic here
         while (m1.getHP() > 0 && m2.getHP() > 0) {
             //m1 takes turn

@@ -75,7 +75,7 @@ public class GameInitializer {
                 }
                 // instantiate room and populate room to roomList.
                 // roomList.add(i, new Room((i+1), roomName, roomDescription, roomLeadTo));
-                if (roomName.equals("humanoid bones")) {
+                if (roomName.equals("humanoidbones")) {
                     roomList.add(i, new Room((i+1), roomName, roomDescription, roomLeadTo, monsterHoppy, roomItem));
 
                 } else {
