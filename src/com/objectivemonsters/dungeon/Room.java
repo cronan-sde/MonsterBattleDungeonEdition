@@ -3,6 +3,7 @@ package com.objectivemonsters.dungeon;
 import com.objectivemonsters.consumables.Item;
 import com.objectivemonsters.monsters.Monster;
 
+import java.util.ArrayList;
 import java.util.List;
 // room description and objects and exits
 public class Room {
@@ -19,7 +20,7 @@ public class Room {
     // Item in room
     private List<Item> item;
 
-    // Constructor
+    // constructor
     public Room(int roomId, String name, String description, List<String> roomLeadTo) {
         this.roomId = roomId;
         this.name = name;
