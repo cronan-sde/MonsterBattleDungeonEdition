@@ -20,6 +20,7 @@ public class BattleSystem {
 /*
     Version 1:
     take only Strength attribute into play and monsters attack each other until only one is alive
+    automate the battle and print helpful display messages to user to watch the battle happen
  */
 
 /*
