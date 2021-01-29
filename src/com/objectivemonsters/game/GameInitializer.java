@@ -10,7 +10,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GameInitializer {
@@ -37,11 +36,6 @@ public class GameInitializer {
     public List<Room> roomsInit() {
         // return a Nodelist object (roomsList) of room from XMl.
         roomsNodeList = parser.readXMLFiles(dungeonXMLPath, "room");
-        // assign total numbers of rooms to numOfRooms
-        int numOfRooms = roomsNodeList.getLength();
-        //a List of route(s) the room lead to.
-
-        List<String> roomLeadTo = new ArrayList<>();
 
         // a List contains item(s) in the room
         List<Item> roomItem = new ArrayList<>();
@@ -61,31 +55,35 @@ public class GameInitializer {
 //        recoverPotion = new Item("recover potion", "drink",10);// TODO: should move to itemAssignment().
         //roomItem = Arrays.asList(recoverPotion); // TODO: should move to itemAssignment().
 
+        int numOfRooms = roomsNodeList.getLength();
+        Element eElement;
+        String adjacentRoom;
+        int len;
+        String roomDescription;
+        String roomName;
+        Node node;
+
         // iterate and instantiate all rooms
         for ( int i = 0; i < numOfRooms; i++ ){
             node =  roomsNodeList.item(i); // return XML for a single room at index 'i'.
             List<String> roomLeadTo = new ArrayList<>(); // provide a new list each iteration.
             if (node.getNodeType() == Node.ELEMENT_NODE){
 
-                Element eElement = (Element) node;
+                eElement = (Element) node;
 
-                String roomName = eElement.getElementsByTagName("roomName").item(0).getTextContent(); // e.g. "dungeon playground";
-                String roomDescription = eElement.getElementsByTagName("roomFeature").item(0).getTextContent();
+                roomName = eElement.getElementsByTagName("roomName").item(0).getTextContent(); // e.g. "dungeon playground";
+                roomDescription = eElement.getElementsByTagName("roomFeature").item(0).getTextContent();
                 if (roomName.equals("humanoid bones")) {
                 roomList.add(i,new Room((i+1), roomName, roomDescription, roomLeadTo, monsterHoppy, roomItem));
             } else {
-                    roomList.add(i,new Room((i+1), roomName, roomDescription, roomLeadTo, monsterZoya, roomItem);
+                    roomList.add(i,new Room((i+1), roomName, roomDescription, roomLeadTo, monsterZoya, roomItem));
                 }
+            }
+
         }
         return roomList;
     }
 
-    // method to yield a random number between 1 and range.
-    public int getRandomNum(int range){
-        int result = 0;
-        result = (int) ((Math.random() * range) + 1);
-        return result;
-    }
 
     // TODO: random assign monster to each room
 //    public void monsterAssignment() {
@@ -140,5 +138,4 @@ public class GameInitializer {
         // instantiate dungeon
         //TODO: in spring 1
     }
-
 }
