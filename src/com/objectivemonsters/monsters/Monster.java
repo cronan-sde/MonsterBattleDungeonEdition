@@ -18,17 +18,33 @@ public class Monster {
     // determine if a monster is friend or foe.
 
     // Constructors
+    // no-arg
+    public Monster() {
+    }
+    // all args
 
-    public Monster(String name, int HP, Elemental elm, int strength, int intellect, int agility, String desc, boolean isFriendly) {
+    public Monster(String name, boolean isFriendly, int HP, Elemental elm, int strength, int intellect, int agility, String desc) {
         this.name = name;
+        this.isFriendly = isFriendly;
         this.HP = HP;
         this.elm = elm;
         this.strength = strength;
         this.intellect = intellect;
         this.agility = agility;
         this.desc = desc;
-        this.isFriendly = isFriendly;
     }
+
+
+//    public Monster(String name, int HP, Elemental elm, int strength, int intellect, int agility, String desc, boolean isFriendly) {
+//        this.name = name;
+//        this.HP = HP;
+//        this.elm = elm;
+//        this.strength = strength;
+//        this.intellect = intellect;
+//        this.agility = agility;
+//        this.desc = desc;
+//        this.isFriendly = isFriendly;
+//    }
 
 
     // Getters and Setters
@@ -61,9 +77,9 @@ public class Monster {
         return elm;
     }
 
-//    public void setElm(Elemental elm) {
-//        this.elm = elm;
-//    }
+    public void setElm(Elemental elm) {
+        this.elm = elm;
+    }
 
     public int getStrength() {
         return strength;
@@ -96,6 +112,7 @@ public class Monster {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
 
     // tailored toString
 
