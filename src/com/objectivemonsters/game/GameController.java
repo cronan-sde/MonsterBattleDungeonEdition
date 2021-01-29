@@ -29,6 +29,11 @@ public class GameController {
     private String playerName;
 
     //ctor
+    public GameController() {
+        this.prompter = new Prompter(new Scanner(System.in));
+        this.battleSystem = new BattleSystem();
+    }
+
     public GameController(Dungeon dungeon, Player player) {
         //Later version create setters, and pass to setters to validate
         this.prompter = new Prompter(new Scanner(System.in));
