@@ -1,6 +1,7 @@
 package com.objectivemonsters.game;
 
 import com.objectivemonsters.consumables.Item;
+import com.objectivemonsters.dungeon.Dungeon;
 import com.objectivemonsters.dungeon.Room;
 import com.objectivemonsters.monsters.Elemental;
 import com.objectivemonsters.monsters.Monster;
@@ -16,6 +17,7 @@ import java.util.List;
 public class GameInitializer {
     // Fields
     TextParser parser = new TextParser();
+    Dungeon dungeon;
     Monster monster;
     Item item;
     Room room;
@@ -38,8 +40,6 @@ public class GameInitializer {
         roomsNodeList = parser.readXMLFiles(dungeonXMLPath, "room");
         // assign total numbers of rooms to numOfRooms
         int numOfRooms = roomsNodeList.getLength();
-        //a List of route(s) the room lead to.
-
         Element eElement;
         String adjacentRoom;
         int len;
@@ -84,9 +84,12 @@ public class GameInitializer {
 
     }
 
-    public void dungeonInit() {
-        // instantiate dungeon
-        //TODO: in spring 1
-    }
+    public Dungeon dungeonInit() {
+        List<Monster> mList = new ArrayList<>();
+        List<Item> iList = new ArrayList<>();
 
+        // instantiate dungeon
+        dungeon = new Dungeon(roomsInit(), mList, iList, false,0 );
+        return dungeon;
+    }
 }
