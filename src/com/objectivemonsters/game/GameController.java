@@ -49,7 +49,7 @@ public class GameController {
         //show user the room they are in
         startRoom = dungeon.getDungeonRooms().get(0);
         currentRoom = startRoom;
-        displayRoomScene(startRoom);
+//        displayRoomScene(startRoom);
 
         //begin game loop
         boolean gameOver = false;
@@ -90,17 +90,13 @@ public class GameController {
     //Display the scene of the room
     public void displayRoomScene(Room currentRoom) {
         System.out.println(playerName + ", you are currently in the " + currentRoom.getName());
-        String[] action = prompter.prompt("What would you like to do? ", gameVerbs, "That's not a recognizable command, please try again").split(" ");
-        String verb = action[0];
-        String noun = action[1];
-        if (verb.equals("look") && noun.equals("around")) {
-            System.out.println("You scan the room to see " + currentRoom.getDescription());
-            System.out.println("You also notice there appears to be exits into other rooms " + currentRoom.getroomLeadTo());
-            if (currentRoom.getRoomMonster() != null) {
-                System.out.println("As you are looking around you notice a creature in the corner by the name of " + currentRoom.getRoomMonster().getName());
-                String friendOrFoe = currentRoom.getRoomMonster().isFriendly() ? "This monster appears to be friendly" : "Be careful this creature is no friend to you";
-                System.out.println(friendOrFoe);
-            }
+
+        System.out.println("You scan the room to see " + currentRoom.getDescription());
+        System.out.println("You also notice there appears to be exits into other rooms " + currentRoom.getroomLeadTo());
+        if (currentRoom.getRoomMonster() != null) {
+            System.out.println("As you are looking around you notice a creature in the corner by the name of " + currentRoom.getRoomMonster().getName());
+            String friendOrFoe = currentRoom.getRoomMonster().isFriendly() ? "This monster appears to be friendly" : "Be careful this creature is no friend to you";
+            System.out.println(friendOrFoe);
         }
     }
 
@@ -111,7 +107,6 @@ public class GameController {
         String[] action = prompter.prompt("What would you like to do? ", gameVerbs, "I'm sorry I don't recognize those commands, please try again").split(" ");
         String verb = action[0];
         String noun = action[1];
-        List<String> availableExits = currentRoom.getroomLeadTo();
         Monster roomMonster = currentRoom.getRoomMonster();
 
         if (verb.equals("look") && noun.equals("around")) {
@@ -130,7 +125,7 @@ public class GameController {
         else if (verb.equals("fight") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
             //battle monsters
             Monster battleWinner = battleSystem.battle(player.getpMonsters().get(0), roomMonster);
-            if (battleWinner.getName().equals(roomMonster)) {
+            if (battleWinner.getName().equals(roomMonster.getName())) {
                 isGameStillGoing = false;
                 System.out.println("Your monster has perished in battle, and now " + roomMonster.getName() + " has turned its attention towards you!\n" +
                         "You have been devoured in the dungeon! GAME OVER!");
