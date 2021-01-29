@@ -14,12 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GameInitializer {
-    // Pseudocode
-    // step 1: random and instantiate item
-    // step 2: random and instantiate Monster
-    // step 3: load XML
-    // step 4: slice parsed xml to instantiate all rooms via iteration
-
     // Fields
     TextParser parser = new TextParser();
     Monster monster;
@@ -29,8 +23,8 @@ public class GameInitializer {
     List<Monster> monsList = new ArrayList<>();
     NodeList roomsNodeList;
     NodeList monstersNodeList;
-    String dungeonXMLPath = "resources/dungeon.xml" ;
-    String monsterXMLPath = "resources/monster.xml" ;
+    private String dungeonXMLPath = "resources/dungeon.xml" ;
+
 
     // Methods
     public void initialize() {
@@ -41,13 +35,12 @@ public class GameInitializer {
     }
 
     public List<Room> roomsInit() {
-
         // return a Nodelist object (roomsList) of room from XMl.
         roomsNodeList = parser.readXMLFiles(dungeonXMLPath, "room");
         // assign total numbers of rooms to numOfRooms
         int numOfRooms = roomsNodeList.getLength();
-
         //a List of route(s) the room lead to.
+<<<<<<< HEAD
         List<String> roomLeadTo = new ArrayList<>();
 
         // a List contains item(s) in the room
@@ -67,11 +60,22 @@ public class GameInitializer {
 
 //        recoverPotion = new Item("recover potion", "drink",10);// TODO: should move to itemAssignment().
         //roomItem = Arrays.asList(recoverPotion); // TODO: should move to itemAssignment().
+=======
+
+        Element eElement;
+        String adjacentRoom;
+        int len;
+        String roomDescription;
+        String roomName;
+        Node node;
+
 
         // iterate and instantiate all rooms
         for ( int i = 0; i < numOfRooms; i++ ){
-            Node node =  roomsNodeList.item(i); // return XML for a single room at index 'i'.
+            node =  roomsNodeList.item(i); // return XML for a single room at index 'i'.
+            List<String> roomLeadTo = new ArrayList<>(); // provide a new list each iteration.
             if (node.getNodeType() == Node.ELEMENT_NODE){
+<<<<<<< HEAD
                 Element eElement = (Element) node;
 
                 String roomName = eElement.getElementsByTagName("roomName").item(0).getTextContent(); // e.g. "dungeon playground";
@@ -81,6 +85,20 @@ public class GameInitializer {
             } else {
                     roomList.add(i,new Room((i+1), roomName, roomDescription, roomLeadTo, monsterZoya, roomItem);
                 }
+=======
+                eElement = (Element) node;
+                roomName = eElement.getElementsByTagName("roomName").item(0).getTextContent();
+                roomDescription = eElement.getElementsByTagName("roomFeature").item(0).getTextContent();
+                len = eElement.getElementsByTagName("roomleadTo").getLength();
+                for (int x = 0; x < len; x++) {
+                    adjacentRoom = eElement.getElementsByTagName("roomleadTo").item(x).getTextContent();
+                    roomLeadTo.add(x, adjacentRoom);
+                }
+
+                // instantiate room and populate room to roomList.
+                roomList.add(i, new Room((i+1), roomName, roomDescription, roomLeadTo));
+            }
+>>>>>>> feb018e2c681dae8138334609d75d6553eac087f
         }
         return roomList;
     }
@@ -145,7 +163,5 @@ public class GameInitializer {
         // instantiate dungeon
         //TODO: in spring 1
     }
-
-
 
 }
