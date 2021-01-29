@@ -20,6 +20,14 @@ public class Room {
     private List<Item> item;
 
     // Constructor
+    public Room(int roomId, String name, String description, List<String> roomLeadTo) {
+        this.roomId = roomId;
+        this.name = name;
+        this.description = description;
+        this.roomLeadTo = roomLeadTo;
+        this.roomMonster = null; // roomMonster should be assigned by GameInitializer.monsterAssignment if any.
+        this.item = null; // roomItem should be assigned by GameInitializer.itemAssignment if any.
+    }
 
     public Room(int roomId, String name, String description, List<String> roomLeadTo, Monster roomMonster, List<Item> item) {
         this.roomId = roomId;
@@ -29,7 +37,6 @@ public class Room {
         this.roomMonster = roomMonster;
         this.item = item;
     }
-
 
     // Getters and Setters
 
