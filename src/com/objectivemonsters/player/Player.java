@@ -8,11 +8,16 @@ import java.util.List;
 public class Player {
     // advanced editions allow player to pick name and some details
     // for now basic
-    String name; // more advanced version
-    List<Item> pItems;
-    List<Monster> pMonsters;
+    private String name; // more advanced version
+    private List<Item> pItems;
+    private List<Monster> pMonsters;
 
-    // TODO: CONSTRUCTOR
+    // CONSTRUCTOR
+    public Player(String name, List<Item> pItems, List<Monster> pMonsters) {
+        this.name = name;
+        this.pItems = pItems;
+        this.pMonsters = pMonsters;
+    }
 
     // Getters and Setters
 
@@ -41,6 +46,14 @@ public class Player {
     }
 
 
-    // TODO: tailored toString
+    // tailored toString
 
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", pItems=" + pItems +
+                ", pMonsters=" + pMonsters +
+                '}';
+    }
 }

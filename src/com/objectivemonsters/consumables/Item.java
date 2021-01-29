@@ -1,11 +1,11 @@
 package com.objectivemonsters.consumables;
 
 public class Item {
-    String name;
+    private String name;
     // TODO: comment here
-    String type;
+    private String type;
     // in advanced versions, too much weight will limit amount can carry
-    int weight;
+    private int weight;
 
     // constructor
 

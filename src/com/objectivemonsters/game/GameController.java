@@ -42,7 +42,6 @@ public class GameController {
 
     // random assign monster to each room
     public void monsterAssignment() {
-       //TODO: in spring 1
     }
 
     // random assign item to each room
@@ -101,5 +100,7 @@ public class GameController {
     }
 
     // TODO: control game flow here
+
+
 
 }
