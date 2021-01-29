@@ -79,8 +79,8 @@ public class BattleSystemTest {
 
     @Test
     public void testBattle_shouldReturnTheMonsterThatWinsTheBattle_whenPassedTwoMonsters() {
-        Monster m1 = new Monster("Buck", 100, Elemental.AIR, 120, 3,3,"cool guy", true);
-        Monster m2 = new Monster("Bad", 100, Elemental.FIRE, 99, 5, 5, "bad man", false);
+        Monster m1 = new Monster("Charmander", 100, Elemental.AIR, 120, 3,3,"cool guy", true);
+        Monster m2 = new Monster("Mewto", 100, Elemental.FIRE, 99, 5, 5, "bad man", false);
 
         Monster winner = battle.battle(m1,m2);
         assertTrue(winner.getHP() > 0);
