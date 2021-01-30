@@ -121,6 +121,7 @@ public class GameController {
         else if (verb.equals("take") && roomMonster.isFriendly()) {
             //add monster to users monster collection
             player.getpMonsters().add(roomMonster);
+            System.out.println("Monster added to your inventory");
         }
         else if (verb.equals("fight") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
             //battle monsters
@@ -145,6 +146,7 @@ public class GameController {
 
         for (String room : currentRoom.getroomLeadTo()) {
             if (room.equals(word)) {
+
                 result = true;
                 break;
             }

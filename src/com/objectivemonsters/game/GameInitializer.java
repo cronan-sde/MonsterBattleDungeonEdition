@@ -116,7 +116,7 @@ public class GameInitializer {
 >>>>>>> feb018e2c681dae8138334609d75d6553eac087f
 =======
                 // roomList.add(i, new Room((i+1), roomName, roomDescription, roomLeadTo));
-                if (roomName.equals("humanoid bones")) {
+                if (roomName.equals("humanoidbones")) {
                     roomList.add(i, new Room((i+1), roomName, roomDescription, roomLeadTo, monsterHoppy, roomItem));
 
                 } else {
