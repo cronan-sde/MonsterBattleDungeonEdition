@@ -21,7 +21,7 @@ public class Monster {
     // no-arg
     public Monster() {
     }
-    
+
     // all args
     public Monster(String name, boolean isFriendly, int HP, Elemental elm, int strength, int intellect, int agility, String desc) {
         this.name = name;

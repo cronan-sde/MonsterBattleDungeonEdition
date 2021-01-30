@@ -31,14 +31,14 @@ public class RoomTest extends TestCase {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        // initialize a single room
-        roomId = 1;
-        roomName = "dungeon playground";
-        roomDescription = "a lovely playground for people who lost their way, many monsters are waiting to be friends with you.";
-        roomLeadTo = Arrays.asList("humanoid bones","torn chamber");
-        monsterZoya = new Monster("zoya", 100, Elemental.AIR, 50,22,15,"paranoid",false);
-        recoverPotion = new Item("recover potion", "drink",10);
-        roomItem = Arrays.asList(recoverPotion);
+//        // initialize a single room
+//        roomId = 1;
+//        roomName = "dungeon playground";
+//        roomDescription = "a lovely playground for people who lost their way, many monsters are waiting to be friends with you.";
+//        roomLeadTo = Arrays.asList("humanoid bones","torn chamber");
+//        monsterZoya = new Monster("zoya", 100, Elemental.AIR, 50,22,15,"paranoid",false);
+//        recoverPotion = new Item("recover potion", "drink",10);
+//        roomItem = Arrays.asList(recoverPotion);
 
     }
 
