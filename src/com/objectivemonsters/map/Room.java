@@ -7,20 +7,35 @@ import java.util.List;
 
 // room description and objects and exits
 public class Room {
+
     // room id
     private int roomId;
     // room name
     private String name;
     // describe the room
     private String description;
-    // exits from rooms are called roomLeadTo
+    //  from rooms are called roomLeadTo
     private List<String> roomLeadTo;
+    // exits from rooms are called exits
+    private List<String> exits;
     // monster in room, one per room, could expand and change to array list later
     private Monster roomMonster;
     // Item in room
     private List<Item> item;
 
     // constructors
+    public Room(){
+        // empty ctor
+    }
+
+    public Room(int roomId, String name, String description, List<String> roomLeadTo, List<String> exits) {
+        this.roomId = roomId;
+        this.name = name;
+        this.description = description;
+        this.roomLeadTo = roomLeadTo;
+        this.exits = exits;
+    }
+
     public Room(int roomId, String name, String description, List<String> roomLeadTo) {
         this.roomId = roomId;
         this.name = name;
@@ -50,8 +65,12 @@ public class Room {
         return description;
     }
 
-    public List<String> getroomLeadTo() {
+    public List<String> getRoomLeadTo() {
         return roomLeadTo;
+    }
+
+    public List<String> getExits() {
+        return exits;
     }
 
     public Monster getRoomMonster() {
@@ -61,6 +80,8 @@ public class Room {
     public List<Item> getItem() {
         return item;
     }
+
+
 
     // Tailored toString
     @Override

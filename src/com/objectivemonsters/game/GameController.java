@@ -120,7 +120,7 @@ public class GameController {
         System.out.println(playerName + ", you are currently in the " + currentRoom.getName());
 
         System.out.println("You scan the room to see " + currentRoom.getDescription());
-        System.out.println("You also notice there appears to be exits into other rooms " + currentRoom.getroomLeadTo());
+        System.out.println("You also notice there appears to be exits into other rooms " + currentRoom.getRoomLeadTo());
         if (currentRoom.getRoomMonster() != null) {
             System.out.println("As you are looking around you notice a creature in the corner by the name of " + currentRoom.getRoomMonster().getName());
             String friendOrFoe = currentRoom.getRoomMonster().isFriendly() ? "This monster appears to be friendly" : "Be careful this creature is no friend to you";
@@ -172,7 +172,7 @@ public class GameController {
     public boolean isWordAnExit(String word) {
         boolean result = false;
 
-        for (String room : currentRoom.getroomLeadTo()) {
+        for (String room : currentRoom.getRoomLeadTo()) {
             if (room.equals(word)) {
 
                 result = true;
