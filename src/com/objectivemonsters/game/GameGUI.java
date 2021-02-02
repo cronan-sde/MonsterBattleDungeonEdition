@@ -10,6 +10,7 @@ import java.util.List;
  * GameGUI is the GUI for the game, it will display a start screen to welcome user to game along with
  * helpful hints on how to play. When user presses [enter] the GUI will change to the main game.
  * GameGUI will update its components as the state of the game changes
+ * TODO: Tie classes needed into GameGUI to be able to update interface, and pass data to and from game controller
  */
 public class GameGUI extends JFrame implements KeyListener {
     //width and height for frame
@@ -19,7 +20,7 @@ public class GameGUI extends JFrame implements KeyListener {
     //game fonts
     private static final String GAME_FONT = "Times New Roman";
 
-    //list of acceptable verbs
+    //list of acceptable verbs - hard coded currently - TODO: get game verbs from somewhere else, XML?
     java.util.List<String> gameVerbs = List.of("GO", "LOOK", "TAKE", "FIGHT");
 
     //JPanels needed for Frame for the start game screen
