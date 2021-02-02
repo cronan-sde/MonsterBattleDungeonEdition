@@ -1,7 +1,9 @@
 package com.objectivemonsters.game;
 
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class GameGUI extends JFrame {
     //width and height for frame
@@ -11,7 +13,14 @@ public class GameGUI extends JFrame {
     //game fonts
     private static final String GAME_FONT = "Times New Roman";
 
-    //JPanels needed for Frame
+    //list of acceptable verbs
+    java.util.List<String> gameVerbs = List.of("GO", "LOOK", "TAKE", "FIGHT");
+
+    //JPanels needed for Frame for the start game screen
+    private JPanel welcomePanel, hintPanel, playPanel;
+    private JTextArea welcomeText, hintText, playText;
+
+    //JPanels needed for Frame for the main game screen
     private JPanel inventoryPanel, mainTextPanel, inputPanel;
     //labels for inventoryPanel
     private JLabel userMonsterLabel, userInventoryLabel, userShardLabel, userKeyLabel, inputTextLabel;
@@ -29,24 +38,104 @@ public class GameGUI extends JFrame {
         setLayout(null);
         setVisible(true);
         setLocationRelativeTo(null); //opens window in center of screen
+        setTitle("Monster Battles: Dungeon Edition");
+
+        //Add initial start screen with hints and text to tell user to press enter to continue
+        setStartScreen();
+        add(getWelcomePanel());
+        add(getHintPanel());
+        add(getPlayPanel());
+        setStartDialogue();
+        //Once enter is pressed display main game screen
 
         //set then add inventory panel to frame
-        setInventoryPanel();
-        add(getInventoryPanel());
+//        setInventoryPanel();
+//        add(getInventoryPanel());
+//
+//        //set then add main text panel to frame
+//        setMainTextPanel();
+//        add(getMainTextPanel());
+//
+//        //set then add input panel to frame
+//        setInputPanel();
+//        add(getInputPanel());
+//
+//        //update inventory panel
+//        updateInventory();
+//
+//        //start location
+//        dungeonStart();
+    }
 
-        //set then add main text panel to frame
-        setMainTextPanel();
-        add(getMainTextPanel());
+    /*
+     * Sets up the starting scene with a welcome message, hints on how to play the game, and a prompt on starting the game on a keypress
+     */
+    public void setStartScreen() {
+        //set welcome panel up
+        welcomePanel = new JPanel();
+        welcomePanel.setBounds(150, 15, 600, 100);
+        welcomePanel.setBackground(Color.BLACK);
 
-        //set then add input panel to frame
-        setInputPanel();
-        add(getInputPanel());
+        //set and add welcome text to welcome panel
+        welcomeText = new JTextArea();
+        welcomeText.setBounds(20, 15, 600, 100);
+        welcomeText.setBackground(Color.BLACK);
+        welcomeText.setForeground(Color.RED);
+        welcomeText.setFont(new Font(GAME_FONT, Font.PLAIN, 20));
+        welcomeText.setLineWrap(true);
+        welcomeText.setEditable(false);
+        welcomePanel.add(welcomeText);
 
-        //update inventory panel
-        updateInventory();
+        //set hint panel up
+        hintPanel = new JPanel();
+        hintPanel.setBounds(50, 150, 650, 300);
+        hintPanel.setBackground(Color.BLACK);
 
-        //start location
-        dungeonStart();
+        //set and add hint text to hint panel
+        hintText = new JTextArea();
+        hintText.setBounds(50, 150, 650, 300);
+        hintText.setBackground(Color.BLACK);
+        hintText.setForeground(Color.CYAN);
+        hintText.setFont(new Font(GAME_FONT, Font.PLAIN, 22));
+        hintText.setLineWrap(true);
+        hintText.setEditable(false);
+        hintPanel.add(hintText);
+
+        //set up playPanel
+        playPanel = new JPanel();
+        playPanel.setBounds(90,500,600,100);
+        playPanel.setBackground(Color.BLACK);
+
+        //set up play text and add to playpanel
+        playText = new JTextArea();
+        playText.setFont(new Font(GAME_FONT, Font.BOLD, 20));
+        playText.setBackground(Color.BLACK);
+        playText.setForeground(Color.GREEN);
+        playText.setEditable(false);
+        playPanel.add(playText);
+    }
+
+    public void setStartDialogue() {
+        welcomeText.setText("Welcome to MONSTER BATTLES: DUNGEON EDITION");
+        hintText.setText("In order to traverse the dungeon, you will be provided with options on what to do." +
+                " You must type a recognized action, followed by a noun, in order to move and interact.\n" +
+                "Example: If you would like to move into an available room, you would type GO ROOMNAME.\n" +
+                "If you would like to inspect your surroundings, you would type LOOK AROUND\n" + "If you find a friendly monster you can recruit them to fight for you" +
+                " by typing TAKE MONSTER\n" +
+                "List of recognized actions - " + gameVerbs);
+        playText.setText("-- press [enter] to start your journey --");
+    }
+
+    public JPanel getWelcomePanel() {
+        return welcomePanel;
+    }
+
+    public JPanel getHintPanel() {
+        return hintPanel;
+    }
+
+    public JPanel getPlayPanel() {
+        return playPanel;
     }
 
     public void updateInventory() {
@@ -68,6 +157,7 @@ public class GameGUI extends JFrame {
         JTextArea mainText = getMainTextArea();
         mainText.setText(roomDesc);
     }
+
 
     /*
      * Getters and Setters for panels and components
