@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE storyText>
+<storyText>
+    <welcome>Welcome</welcome>
+    <opening>You are in a dimly lit room. There is a candle flickering on the far side. The walls are  stone, cold and hard. You hear water dripping onto the stone floor. You hear footsteps. As your eyes adjust to darkness you can make out exits, possibly to other rooms. Suddenly you hear a loud yawn and turn to see three friendly monsters eyeing you. </opening>
+    <moreInfo>Scrawled on a far wall you read: Monsters, Monsters, everywhere - Escape you desire? - Some are angry some are friends</moreInfo>
+    <friendlyGesture>One of the monsters speaks in a soft voice: You will need our help. We know how to fight the angry monsters for you. One of us might be willing to go with you, if you ask nicely.</friendlyGesture>
+    <hint>Would you like hints on how to play the game? Type 'y' or 'n'</hint>
+</storyText>
