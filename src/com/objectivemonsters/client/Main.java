@@ -1,6 +1,4 @@
 package com.objectivemonsters.client;
-import asciiPanel.AsciiPanel;
-
 import com.objectivemonsters.dungeon.Dungeon;
 import com.objectivemonsters.game.GameController;
 import com.objectivemonsters.game.GameInitializer;
