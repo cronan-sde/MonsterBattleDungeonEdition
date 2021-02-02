@@ -111,6 +111,7 @@ public class GameGUI extends JFrame implements KeyListener {
         MonsterGenerator mongen = new MonsterGenerator();
         List<Monster> monster = mongen.allMonsters();
         player = new Player("player1", new ArrayList<>(), new ArrayList<>());
+        player.setName("Cool Dude");
         controller = new GameController(dungeon, monster, player);
 
         //initialize main game screen
