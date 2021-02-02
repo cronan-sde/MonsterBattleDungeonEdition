@@ -1,12 +1,16 @@
 package com.objectivemonsters.game;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 
+/*
+ * GameGUI is the GUI for the game, it will display a start screen to welcome user to game along with
+ * helpful hints on how to play. When user presses [enter] the GUI will change to the main game.
+ * GameGUI will update its components as the state of the game changes
+ */
 public class GameGUI extends JFrame implements KeyListener {
     //width and height for frame
     private static final int FRAME_WIDTH = 800;
