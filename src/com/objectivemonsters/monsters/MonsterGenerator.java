@@ -77,6 +77,7 @@ public class MonsterGenerator {
 
         Monster monty = new Monster();
         int rando = (int)((Math.random() * ranMons.size()) + 1);
+        System.out.println(rando);
 
         for (int j = 0; j < ranMons.size(); j++) {
             if (j == rando) {
