@@ -1,9 +1,15 @@
 package com.objectivemonsters.game;
 
+import com.objectivemonsters.dungeon.Dungeon;
+import com.objectivemonsters.monsters.Monster;
+import com.objectivemonsters.monsters.MonsterGenerator;
+import com.objectivemonsters.player.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -42,6 +48,11 @@ public class GameGUI extends JFrame implements KeyListener {
     //text field for user input
     private JTextField inputText;
 
+    //Game pieces
+    private Player player;
+    private Dungeon dungeon;
+    private GameController controller;
+
 
     //ctor to create GUI
     public GameGUI() {
@@ -62,6 +73,104 @@ public class GameGUI extends JFrame implements KeyListener {
         //add keyListener to all components
         addKeyListener(this);
 
+    }
+
+    /*
+     * Generating the main GUI for the game
+     * hides the start screen panels
+     * initializes the main games panels and components
+     * adds main game panels to the frame
+     * calls updateInventory() and dungeonStart()
+     */
+    public void hideStartScreen() {
+        //hide start screen
+        welcomePanel.setVisible(false);
+        hintPanel.setVisible(false);
+        playPanel.setVisible(false);
+
+        //start game
+        startGame();
+    }
+
+    /*
+     * MAIN GAME SCREEN
+     */
+
+    /*
+     * Method will set main game screen with current inventory and current room description
+     * game loop will be in this method
+     */
+    public void startGame() {
+        //initialize game pieces
+        GameInitializer initializer = new GameInitializer();
+        dungeon = initializer.dungeonInit();
+        MonsterGenerator mongen = new MonsterGenerator();
+        List<Monster> monster = mongen.allMonsters();
+        player = new Player("player1", new ArrayList<>(), new ArrayList<>());
+        controller = new GameController(dungeon, monster, player);
+
+        //initialize main game screen
+        showMainGame();
+    }
+
+    public void showMainGame() {
+        //initialize main gui components
+        setInventoryPanel();
+        setMainTextPanel();
+        setInputPanel();
+        //add to frame
+        add(getInventoryPanel());
+        add(getMainTextPanel());
+        add(getInputPanel());
+        //set inventory and desc text for main room
+        updateInventory();
+        dungeonStart();
+    }
+
+    /*
+     * Updates the user inventory labels to reflect Players current state
+     * TODO: ensure working, call after every player turn? or somehow track when items and monsters are picked up then call
+     */
+    public void updateInventory() {
+        JLabel userMonsters = getUserMonsterLabel();
+        JLabel userInventory = getUserInventoryLabel();
+        JLabel userShards = getUserShardLabel();
+        JLabel userKeys = getUserKeyLabel();
+
+        userMonsters.setText("MONSTERS:" + playerMonstersLabel());
+        userInventory.setText("Inventory:" + player.getpItems());
+        userShards.setText("Shards: 0/10"); //TODO: figure out shards, total shards will be # of bad monsters in dungeon
+        userKeys.setText("Keys: 0/1"); //TODO: figure out key, currently only 1 key per level, shards morph into key
+    }
+
+    //create player monster label string
+    private String playerMonstersLabel() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("[");
+        for (Monster monster : player.getpMonsters()) {
+            if (monster.getName().equals(player.getpMonsters().get(player.getpMonsters().size() - 1).getName())) {
+                sb.append(monster.getName());
+            }
+            else {
+                sb.append(monster.getName()).append(", ");
+            }
+        }
+        sb.append("]");
+
+        return sb.toString();
+    }
+
+    /*
+     * Sets the main text area to the description of current room
+     * TODO: currently gets first room in dungeon list, need to get this information and dynamically change roomDesc
+     */
+    public void dungeonStart() {
+        String roomName = controller.getCurrentRoom().getName();
+        String roomDesc = controller.getCurrentRoom().getDescription();
+
+        JTextArea mainText = getMainTextArea();
+        mainText.setText("You have entered the " + roomName + " room. " + roomDesc);
     }
 
     /*
@@ -147,59 +256,6 @@ public class GameGUI extends JFrame implements KeyListener {
         return playPanel;
     }
 
-    /*
-     * Generating the main GUI for the game
-     * hides the start screen panels
-     * initializes the main games panels and components
-     * adds main game panels to the frame
-     * calls updateInventory() and dungeonStart()
-     */
-    public void generateMainGameGUI() {
-        //hide start screen
-        welcomePanel.setVisible(false);
-        hintPanel.setVisible(false);
-        playPanel.setVisible(false);
-        //initialize main gui components
-        setInventoryPanel();
-        setMainTextPanel();
-        setInputPanel();
-        //add to frame
-        add(getInventoryPanel());
-        add(getMainTextPanel());
-        add(getInputPanel());
-        //set inventory and desc text for main room
-        updateInventory();
-        dungeonStart();
-    }
-
-    /*
-     * Updates the user inventory labels to reflect Players current state
-     * TODO: currently hard-coded, need to get this information and dynamically update labels when player state changes
-     */
-    public void updateInventory() {
-        JLabel userMonsters = getUserMonsterLabel();
-        JLabel userInventory = getUserInventoryLabel();
-        JLabel userShards = getUserShardLabel();
-        JLabel userKeys = getUserKeyLabel();
-
-        userMonsters.setText("MONSTERS: Drowsy Dragon");
-        userInventory.setText("Inventory: HP Potion");
-        userShards.setText("Shards: 0/10");
-        userKeys.setText("Keys: 0/1");
-    }
-
-    /*
-     * Sets the main text area to the description of current room
-     * TODO: currently hard-coded, need to get this information and dynamically change roomDesc
-     */
-    public void dungeonStart() {
-        String roomDesc = "You are currently in the humanoid bones room. It is dark and damp, and filled with creepy crawlers." +
-                " Lots of other creepy scary stuff going on and look a monster";
-
-        JTextArea mainText = getMainTextArea();
-        mainText.setText(roomDesc);
-    }
-
 
     /*
      * Getters and Setters for main game panels and components
@@ -269,7 +325,7 @@ public class GameGUI extends JFrame implements KeyListener {
         mainTextArea.setBounds(100, 150, 600, 250);
         mainTextArea.setBackground(Color.BLACK);
         mainTextArea.setForeground(Color.WHITE);
-        mainTextArea.setFont(new Font(GAME_FONT, Font.PLAIN, 28));
+        mainTextArea.setFont(new Font(GAME_FONT, Font.ITALIC, 25));
         mainTextArea.setLineWrap(true);
         mainTextArea.setEditable(false);
 
@@ -352,12 +408,16 @@ public class GameGUI extends JFrame implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if (isStartScreen && e.getKeyCode() == KeyEvent.VK_ENTER) {
             isStartScreen = false;
-            generateMainGameGUI();
+            hideStartScreen();
         }
         else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             String userInput = getInputText().getText();
-            System.out.println("USER INPUT: " + userInput);
-            getInputText().setText("");
+            String description = controller.playerAction(userInput);
+           if (description.length() != 0) {
+               getMainTextArea().setText(description);
+           }
+           getInputText().setText("");
+           updateInventory();
         }
     }
 
