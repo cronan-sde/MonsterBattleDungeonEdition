@@ -1,6 +1,5 @@
 package com.objectivemonsters.monsters;
 
-import com.objectivemonsters.dungeon.Room;
 import com.objectivemonsters.util.TextParser;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

@@ -1,9 +1,8 @@
-package com.objectivemonsters.dungeon;
+package com.objectivemonsters.map;
 
 import com.objectivemonsters.consumables.Item;
 import com.objectivemonsters.monsters.Monster;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // room description and objects and exits

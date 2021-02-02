@@ -1,7 +1,7 @@
 package com.objectivemonsters.client;
-import com.objectivemonsters.dungeon.Dungeon;
+import com.objectivemonsters.map.Dungeon;
 import com.objectivemonsters.game.GameController;
-import com.objectivemonsters.game.MapInit;
+import com.objectivemonsters.map.MapInit;
 import com.objectivemonsters.monsters.Monster;
 import com.objectivemonsters.monsters.MonsterGenerator;
 import com.objectivemonsters.player.Player;

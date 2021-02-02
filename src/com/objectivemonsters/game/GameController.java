@@ -1,7 +1,7 @@
 package com.objectivemonsters.game;
 
-import com.objectivemonsters.dungeon.Dungeon;
-import com.objectivemonsters.dungeon.Room;
+import com.objectivemonsters.map.Dungeon;
+import com.objectivemonsters.map.Room;
 import com.objectivemonsters.monsters.Monster;
 import com.objectivemonsters.monsters.MonsterGenerator;
 import com.objectivemonsters.player.Player;

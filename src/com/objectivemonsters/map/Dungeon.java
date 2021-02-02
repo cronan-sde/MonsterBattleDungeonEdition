@@ -1,4 +1,4 @@
-package com.objectivemonsters.dungeon;
+package com.objectivemonsters.map;
 
 import com.objectivemonsters.consumables.Item;
 import com.objectivemonsters.monsters.Monster;

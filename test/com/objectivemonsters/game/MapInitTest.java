@@ -1,6 +1,7 @@
 package com.objectivemonsters.game;
 
-import com.objectivemonsters.dungeon.Room;
+import com.objectivemonsters.map.MapInit;
+import com.objectivemonsters.map.Room;
 import org.junit.Before;
 import org.junit.Test;
 
