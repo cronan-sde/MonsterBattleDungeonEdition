@@ -3,6 +3,7 @@ package com.objectivemonsters.game;
 import com.objectivemonsters.dungeon.Dungeon;
 import com.objectivemonsters.dungeon.Room;
 import com.objectivemonsters.monsters.Monster;
+import com.objectivemonsters.monsters.MonsterGenerator;
 import com.objectivemonsters.player.Player;
 import com.objectivemonsters.util.Prompter;
 
@@ -19,6 +20,8 @@ public class GameController {
     private Prompter prompter;
     //need dungeon
     private Dungeon dungeon;
+    //need monsters
+    private List<Monster> gameMonsters;
     //need player
     private Player player;
     //start room
@@ -28,19 +31,25 @@ public class GameController {
     //testing prompter and user name entry
     private String playerName;
 
+    // generate monsters
+    MonsterGenerator monGeny = new MonsterGenerator();
+
     //ctor
     public GameController() {
         this.prompter = new Prompter(new Scanner(System.in));
         this.battleSystem = new BattleSystem();
     }
 
-    public GameController(Dungeon dungeon, Player player) {
+    public GameController(Dungeon dungeon, List<Monster> gammons, Player player) {
         //Later version create setters, and pass to setters to validate
         this.prompter = new Prompter(new Scanner(System.in));
         this.battleSystem = new BattleSystem();
         this.dungeon = dungeon;
+        this.gameMonsters = gammons;
         this.player = player;
     }
+
+
 
     //start game
     public void startGame() {
@@ -65,6 +74,25 @@ public class GameController {
 
     //welcome
     public void welcome() {
+        List<Monster> locaMons = monGeny.aMonsters(gameMonsters);
+
+        for (Monster mons : locaMons
+             ) {
+            System.out.println(mons.getName());
+        }
+
+        List<Monster> locMons = monGeny.fMonsters(gameMonsters);
+        for (Monster monsters : locMons
+        ) {
+            System.out.println(monsters.getName());
+        }
+
+        Monster newMon = new Monster();
+        newMon = monGeny.randoMon(gameMonsters);
+        System.out.println(newMon);
+
+        System.out.println(monGeny.randoMon(gameMonsters));
+
         System.out.println("---------------------------------------");
         System.out.println("WELCOME TO MONSTER BATTLES: DUNGEON EDITION");
         System.out.println("---------------------------------------");

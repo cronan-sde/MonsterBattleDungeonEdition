@@ -18,20 +18,17 @@ public class GameInitializer {
     // Fields
     TextParser parser = new TextParser();
     Dungeon dungeon;
-    Monster monster;
     Item item;
     Room room;
     List<Room> roomList = new ArrayList<>();
-    List<Monster> monsList = new ArrayList<>();
     NodeList roomsNodeList;
-    NodeList monstersNodeList;
     private String dungeonXMLPath = "resources/dungeon.xml" ;
 
 
     // Methods
     public void initialize() {
         roomsInit(); // DONE: 1st get all the rooms object created
-         //  monsterAssignment(); //TODO: traverse list of room returned by roomsInit() assign monster.
+        //  monsterAssignment(); //TODO: traverse list of room returned by roomsInit() assign monster.
         // itemAssignment(); //TODO: traverse list of room returned by roomsInit() assign item if any.
         // dungeonInit(); //TODO: initialize dungeon.
     }
@@ -88,54 +85,8 @@ public class GameInitializer {
     }
 
 
-    // TODO: random assign monster to each room
-//    public void monsterAssignment() {
-//        monstersNodeList = parser.readXMLFiles("resources/monster.xml", "monster");
-//
-//        int numberMons = monstersNodeList.getLength();
-//
-//        // iterate through Node List from XML and add all to Monster arraylist
-//        for (int i = 0; i < numberMons; i++) {
-//            Node node = monstersNodeList.item(i);
-//            if (node.getNodeType() == Node.ELEMENT_NODE) {
-//                Element eElement = (Element) node;
-//
-//                String name = eElement.getElementsByTagName("name").item(0).getTextContent();
-//                Boolean isFriendly = true;
-//                String friendly = eElement.getElementsByTagName("friendly").item(0).getTextContent();
-//                if (friendly.equals("true")) {
-//                    isFriendly = true;
-//                } else {
-//                    isFriendly = false;
-//                }
-//                int HP = eElement.getAttribute("HP");
-//                int Strength;
-//                int intellect;
-//                int agility;
-//                String desc = eElement.getElementsByTagName("description").item(0).getTextContent();
-//
-//
-////
-//
-//                monty.setStrength(eElement.getElementsByTagName("strength").item(0).getTextContent());
-//                monty.setIntellect(eElement.getElementsByTagName("intellect").item(0).getTextContent());
-//                monty.setAgility(eElement.getElementsByTagName("agility").item(0).getTextContent());
-//
-//
-//
-//
-//                monsList.add(i,new Monster
-//
-//            }
-//        }
-
-//        int rando = (int) ((Math.random() * numberMons) +1);
-//
-//
-//    }
-
     // TODO: random assign item to each room
-//
+
 
     public Dungeon dungeonInit() {
         List<Monster> mList = new ArrayList<>();
@@ -146,4 +97,3 @@ public class GameInitializer {
         return dungeon;
     }
 }
-
