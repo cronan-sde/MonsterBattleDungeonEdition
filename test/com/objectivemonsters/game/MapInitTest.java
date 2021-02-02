@@ -6,10 +6,8 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
-public class GameInitializerTest {
-    GameInitializer initializer = new GameInitializer();
+public class MapInitTest {
+    MapInit initializer = new MapInit();
     @Before
     public void setUp() throws Exception {
     }

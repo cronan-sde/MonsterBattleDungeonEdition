@@ -20,6 +20,16 @@ public class Dungeon {
     private int level;
 
     //constructors
+    // no-arg
+    public Dungeon() {
+    }
+
+    public Dungeon(List<Room> dungeonRooms, List<Monster> dungeonMonsters,boolean escape, int level) {
+        this.dungeonRooms = dungeonRooms;
+        this.dungeonMonsters = dungeonMonsters;
+        this.escape = escape;
+        this.level = level;
+    }
 
     public Dungeon(List<Room> dungeonRooms, List<Monster> dungeonMonsters, List<Item> dungeonItem, Boolean escape, int level) {
         this.dungeonRooms = dungeonRooms;
@@ -29,9 +39,7 @@ public class Dungeon {
         this.level = level;
     }
 
-
     // Getters and  Setters
-
     public List<Room> getDungeonRooms() {
         return dungeonRooms;
     }
@@ -78,8 +86,6 @@ public class Dungeon {
     public String toString() {
         return "Dungeon{" +
                 "dungeonRooms=" + dungeonRooms +
-                ", dungeonMonsters=" + dungeonMonsters +
-                ", dungeonItem=" + dungeonItem +
                 ", escape=" + escape +
                 ", level=" + level +
                 '}';
