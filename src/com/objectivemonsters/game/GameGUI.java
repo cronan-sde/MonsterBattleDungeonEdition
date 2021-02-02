@@ -3,9 +3,11 @@ package com.objectivemonsters.game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 
-public class GameGUI extends JFrame {
+public class GameGUI extends JFrame implements KeyListener {
     //width and height for frame
     private static final int FRAME_WIDTH = 800;
     private static final int FRAME_HEIGHT = 600;
@@ -19,6 +21,9 @@ public class GameGUI extends JFrame {
     //JPanels needed for Frame for the start game screen
     private JPanel welcomePanel, hintPanel, playPanel;
     private JTextArea welcomeText, hintText, playText;
+
+    //boolean to track if user is on start screen or main game screen
+    private boolean isStartScreen = true;
 
     //JPanels needed for Frame for the main game screen
     private JPanel inventoryPanel, mainTextPanel, inputPanel;
@@ -39,14 +44,18 @@ public class GameGUI extends JFrame {
         setVisible(true);
         setLocationRelativeTo(null); //opens window in center of screen
         setTitle("Monster Battles: Dungeon Edition");
-
         //Add initial start screen with hints and text to tell user to press enter to continue
         setStartScreen();
         add(getWelcomePanel());
         add(getHintPanel());
         add(getPlayPanel());
         setStartDialogue();
+
+        //add keyListener to all components
+        addKeyListener(this);
+
         //Once enter is pressed display main game screen
+
 
         //set then add inventory panel to frame
 //        setInventoryPanel();
@@ -84,27 +93,31 @@ public class GameGUI extends JFrame {
         welcomeText.setFont(new Font(GAME_FONT, Font.PLAIN, 20));
         welcomeText.setLineWrap(true);
         welcomeText.setEditable(false);
+        welcomeText.addKeyListener(this);
         welcomePanel.add(welcomeText);
 
         //set hint panel up
         hintPanel = new JPanel();
         hintPanel.setBounds(50, 150, 650, 300);
         hintPanel.setBackground(Color.BLACK);
+        hintPanel.addKeyListener(this);
 
         //set and add hint text to hint panel
         hintText = new JTextArea();
         hintText.setBounds(50, 150, 650, 300);
         hintText.setBackground(Color.BLACK);
         hintText.setForeground(Color.CYAN);
-        hintText.setFont(new Font(GAME_FONT, Font.PLAIN, 22));
+        hintText.setFont(new Font(GAME_FONT, Font.PLAIN, 20));
         hintText.setLineWrap(true);
         hintText.setEditable(false);
+        hintText.addKeyListener(this);
         hintPanel.add(hintText);
 
         //set up playPanel
         playPanel = new JPanel();
         playPanel.setBounds(90,500,600,100);
         playPanel.setBackground(Color.BLACK);
+        playPanel.addKeyListener(this);
 
         //set up play text and add to playpanel
         playText = new JTextArea();
@@ -112,6 +125,7 @@ public class GameGUI extends JFrame {
         playText.setBackground(Color.BLACK);
         playText.setForeground(Color.GREEN);
         playText.setEditable(false);
+        playText.addKeyListener(this);
         playPanel.add(playText);
     }
 
@@ -136,6 +150,27 @@ public class GameGUI extends JFrame {
 
     public JPanel getPlayPanel() {
         return playPanel;
+    }
+
+    /*
+     * Generating the main GUI for the game
+     */
+    public void generateMainGameGUI() {
+        //hide start screen
+        welcomePanel.setVisible(false);
+        hintPanel.setVisible(false);
+        playPanel.setVisible(false);
+        //initialize main gui components
+        setInventoryPanel();
+        setMainTextPanel();
+        setInputPanel();
+        //add to frame
+        add(getInventoryPanel());
+        add(getMainTextPanel());
+        add(getInputPanel());
+        //set inventory and desc text for main room
+        updateInventory();
+        dungeonStart();
     }
 
     public void updateInventory() {
@@ -239,6 +274,10 @@ public class GameGUI extends JFrame {
         setInputLabelAndText();
     }
 
+    public JTextField getInputText() {
+        return inputText;
+    }
+
     public void setInputLabelAndText() {
         JPanel inputPan = getInputPanel();
         inputTextLabel = new JLabel(">");
@@ -251,6 +290,7 @@ public class GameGUI extends JFrame {
         inputText.setBackground(Color.BLACK);
         inputText.setForeground(Color.WHITE);
         inputText.setBorder(null);
+        inputText.addKeyListener(this);
         inputPan.add(inputText);
     }
 
@@ -281,5 +321,31 @@ public class GameGUI extends JFrame {
      */
     public static void main(String[] args) {
         new GameGUI();
+    }
+
+    /*
+     * Implementing abstract methods from the KeyListener class
+     */
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (isStartScreen && e.getKeyCode() == KeyEvent.VK_ENTER) {
+            isStartScreen = false;
+            generateMainGameGUI();
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            String userInput = getInputText().getText();
+            System.out.println("USER INPUT: " + userInput);
+            getInputText().setText("");
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }
