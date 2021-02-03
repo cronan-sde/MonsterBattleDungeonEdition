@@ -9,6 +9,7 @@ import java.awt.*;
 public class BattleScene extends JPanel {
     private JLabel userMonsterHP, evilMonsterHP;
     private JTextPane battleTextArea;
+    private JTextArea stayOrFlee;
     private HTMLEditorKit htmlEditorKit;
 
     public BattleScene(int width, int height, String fontName) {
@@ -31,13 +32,22 @@ public class BattleScene extends JPanel {
         add(evilMonsterHP);
 
         battleTextArea = new JTextPane();
-        battleTextArea.setBounds(100, 150, 600, 250);
+        battleTextArea.setBounds(50, 150, 700, 250);
         battleTextArea.setBackground(Color.BLACK);
         battleTextArea.setForeground(Color.WHITE);
         battleTextArea.setFont(new Font(fontName, Font.BOLD, 22));
         battleTextArea.setEditable(false);
         setUpToReadHTMLAndSetCSSRules();
         add(battleTextArea);
+
+        stayOrFlee = new JTextArea();
+        stayOrFlee.setBounds(125,500,600,100);
+        stayOrFlee.setFont(new Font(fontName, Font.BOLD, 20));
+        stayOrFlee.setBackground(Color.BLACK);
+        stayOrFlee.setForeground(Color.CYAN);
+        stayOrFlee.setEditable(false);
+        stayOrFlee.setText("-- press [space-bar] to continue fighting or [escape] to flee --");
+        add(stayOrFlee);
 
         setVisible(true);
     }
@@ -57,6 +67,7 @@ public class BattleScene extends JPanel {
         css.addRule(".enemy {color: red;}");
         css.addRule(".attack {color: orange;}");
         css.addRule(".damage {color: yellow;}");
+        css.addRule(".text {color: white;}");
 
         Document doc = htmlEditorKit.createDefaultDocument();
         battleTextArea.setDocument(doc);

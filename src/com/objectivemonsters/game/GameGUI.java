@@ -36,6 +36,7 @@ public class GameGUI extends JFrame implements KeyListener {
 
     //boolean to track if user is on start screen or main game screen
     private boolean isStartScreen = true;
+    private boolean isBattleScreen = false;
 
 
     //Game pieces
@@ -78,13 +79,30 @@ public class GameGUI extends JFrame implements KeyListener {
         startScene.setVisible(false);
 
         //start game
-//        startGame();
+        startGame();
+    }
+
+    public void hideMainScreen() {
+        //hide main screen
+        mainScene.setVisible(false);
+
+        //call show battle
         showBattle();
     }
 
     public void showBattle() {
+        isBattleScreen = true;
         battleScene = new BattleScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
+        battleScene.addKeyListener(this);
         add(battleScene);
+
+        //hardcoded dummy text to show potential
+        String htmlBattle = "<h2 class='text'>" +
+                "<span class='user'>Drowsy Dragon</span> charges out and <span class='attack'>slashes </span><span class='enemy'>Bad Guy</span> across the " +
+                "face causing <span class='damage'>25 dmg.</span>" +
+                "</h2>";
+        battleScene.setHTMLString(htmlBattle);
+        battleScene.getEvilMonsterHP().setText("Bad Monster: 75 HP");
     }
 
 //    public void showHTML() {
@@ -188,12 +206,27 @@ public class GameGUI extends JFrame implements KeyListener {
         }
         else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             String userInput = mainScene.getInputText().getText();
-            String description = controller.playerAction(userInput);
-           if (description.length() != 0) {
-               mainScene.getMainTextArea().setText(description);
-           }
-           mainScene.getInputText().setText("");
-           updateInventory();
+            if (userInput.toLowerCase().equals("fight monster")) {
+                isBattleScreen = true;
+                hideMainScreen();
+            }
+            else {
+                String description = controller.playerAction(userInput);
+                if (description.length() != 0) {
+                    mainScene.getMainTextArea().setText(description);
+                }
+                mainScene.getInputText().setText("");
+                updateInventory();
+            }
+        }
+        else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_SPACE) {
+            //get 1 round of battle info to display
+            //update hp labels
+        }
+        else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            isBattleScreen = false;
+            battleScene.setVisible(false);
+            mainScene.setVisible(true);
         }
     }
 
