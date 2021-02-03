@@ -33,6 +33,8 @@ public class GameController {
     private Room startRoom;
     //current room
     private Room currentRoom;
+    //current monster
+    private Monster currentMonster;
     //testing prompter and user name entry
     private String playerName;
 
@@ -45,11 +47,6 @@ public class GameController {
     // generate storyText
     StoryLineGenerator slg = new StoryLineGenerator();
 
-    //ctor
-    public GameController() {
-        this.prompter = new Prompter(new Scanner(System.in));
-        this.battleSystem = new BattleSystem();
-    }
 
     public GameController(Dungeon dungeon, List<Monster> gammons, Player player) {
         //Later version create setters, and pass to setters to validate
@@ -61,6 +58,8 @@ public class GameController {
 
         startRoom = dungeon.getDungeonRooms().get(0);
         currentRoom = startRoom;
+
+
     }
 
 
@@ -144,15 +143,16 @@ public class GameController {
     //Display the scene of the room
     public String displayRoomScene() {
         StringBuilder sb = new StringBuilder();
+        currentMonster = monGeny.randoMon(gameMonsters);
 
-        sb.append(playerName).append(", you are currently in the ").append(currentRoom.getName());
+        sb.append(player.getName()).append(", you are currently in the ").append(currentRoom.getName());
         sb.append(". You scan the room to see ").append(currentRoom.getDescription());
-        sb.append(". You also notice there appears to be exits into other rooms ").append(currentRoom.getRoomLeadTo());
-        if (currentRoom.getRoomMonster() != null) {
-            sb.append(". As you are looking around you notice a creature in the corner by the name of ").append(currentRoom.getRoomMonster().getName());
-            String friendOrFoe = currentRoom.getRoomMonster().isFriendly() ? " This monster appears to be friendly" : " Be careful this creature is no friend to you";
+        sb.append(". You also notice there appears to be exits into other rooms ").append(currentRoom.getExits());
+//        if (currentRoom.getRoomMonster() != null) {
+            sb.append(". As you are looking around you notice a creature in the corner by the name of ").append(currentMonster.getName());
+            String friendOrFoe = currentMonster.isFriendly()? " This monster appears to be friendly" : " Be careful this creature is no friend to you";
             sb.append(friendOrFoe);
-        }
+//        }
         return sb.toString();
     }
 
@@ -165,7 +165,7 @@ public class GameController {
         String[] action = playerAction.split(" ");
         String verb = action[0];
         String noun = action[1];
-        Monster roomMonster = currentRoom.getRoomMonster();
+        Monster roomMonster = currentMonster;
 
         if (verb.equals("look") && noun.equals("around")) {
             message = displayRoomScene();
@@ -183,17 +183,17 @@ public class GameController {
         }
         else if (verb.equals("fight") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
             //battle monsters
-            Monster battleWinner = battleSystem.battle(player.getpMonsters().get(0), roomMonster);
-            if (battleWinner.getName().equals(roomMonster.getName())) {
-//                isGameStillGoing = false;
-                message = "Your monster has perished in battle, and now " + roomMonster.getName() + " has turned its attention towards you!\n" +
-                        "You have been devoured in the dungeon! GAME OVER!";
-            }
-            else {
-//                isGameStillGoing = false;
-                message = "Your monster is triumphant, the evil " + roomMonster.getName() + " has been slayed.\n" +
-                        playerName + " you have defeated all the monsters in this dungeon, you are truly a great adventurer";
-            }
+            message = battleSystem.battle(player.getpMonsters().get(0), roomMonster);
+//            if (battleWinner.getName().equals(roomMonster.getName())) {
+////                isGameStillGoing = false;
+//                message = "Your monster has perished in battle, and now " + roomMonster.getName() + " has turned its attention towards you!\n" +
+//                        "You have been devoured in the dungeon! GAME OVER!";
+//            }
+//            else {
+////                isGameStillGoing = false;
+//                message = "Your monster is triumphant, the evil " + roomMonster.getName() + " has been slayed.\n" +
+//                        playerName + " you have defeated all the monsters in this dungeon, you are truly a great adventurer";
+//            }
         }
         return message;
     }
@@ -230,9 +230,13 @@ public class GameController {
         }
     }
 
+    public Monster getCurrentMonster() {
+        return currentMonster;
+    }
 
     public Room getCurrentRoom() {
         return currentRoom;
     }
 }
+
 
