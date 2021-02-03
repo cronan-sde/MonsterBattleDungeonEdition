@@ -169,34 +169,44 @@ public class GameController {
 
         if (verb.equals("look") && noun.equals("around")) {
             message = displayRoomScene();
-        }
-        else if (verb.equals("go") && isWordAnExit(noun)) {
+        } else if (verb.equals("go") && isWordAnExit(noun)) {
             //set new room to current room
             setCurrentRoom(getNextRoomName(noun));
             //move player to new room
             message = displayRoomScene();
-        }
-        else if (verb.equals("take") && roomMonster.isFriendly()) {
+        } else if (verb.equals("take") && roomMonster.isFriendly()) {
             //add monster to users monster collection
             player.getpMonsters().add(roomMonster);
             System.out.println("Monster added to your inventory");
-        }
-        else if (verb.equals("fight") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
+        } else if (verb.equals("fight") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
             //battle monsters
             message = battleSystem.battle(player.getpMonsters().get(0), roomMonster);
-//            if (battleWinner.getName().equals(roomMonster.getName())) {
-////                isGameStillGoing = false;
-//                message = "Your monster has perished in battle, and now " + roomMonster.getName() + " has turned its attention towards you!\n" +
-//                        "You have been devoured in the dungeon! GAME OVER!";
-//            }
-//            else {
-////                isGameStillGoing = false;
-//                message = "Your monster is triumphant, the evil " + roomMonster.getName() + " has been slayed.\n" +
-//                        playerName + " you have defeated all the monsters in this dungeon, you are truly a great adventurer";
-//            }
-        }
+            if (player.getpMonsters().get(0).getHP() <= 0) {
+                // sorry died
+                message = "Sorry your monster died. "; // TODO: offer another chance with another monster? link in txt from xml
+            } else if  (currentMonster.getHP() <= 0) {
+                // if enemy killed call function for winning
+                message = killedAngryMonster();
+
+            }
+            }
+
         return message;
     }
+
+    public String killedAngryMonster() {
+        player.getpMonsters().get(0).setHP(100);
+        int currStrength = player.getpMonsters().get(0).getStrength();
+        player.getpMonsters().get(0).setStrength((currStrength+10));
+        // display message of joy for winning - Yay your monster won  -- your monster gets a 10 point strength boost
+        // and you see a shard and pick it up now automatically have it in your shard inventory -- revisit exact shard
+        // situation later
+        String message = "Yay you won. Your battle monster gained 10 strength points and a HP refresh. You picked up a metal shard that fell from the monster ";
+        return message;
+    }
+
+
+
 
     //check if noun typed is an actual available exit
     public boolean isWordAnExit(String word) {

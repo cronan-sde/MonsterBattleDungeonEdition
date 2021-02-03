@@ -106,12 +106,17 @@ public class GameGUI extends JFrame implements KeyListener {
         battleScene.getBattleTextArea().addKeyListener(this);
         battleScene.addKeyListener(this);
         add(battleScene);
+        fightMoves();
+    }
 
-        //hardcoded dummy text to show potential
+    public void fightMoves(){
+
         String htmlBattle = controller.playerAction("fight monster");
         battleScene.setHTMLString(htmlBattle);
         updateHPBars();
     }
+
+
 
     public void updateHPBars() {
         battleScene.getUserMonsterHP().setText(player.getpMonsters().get(0).getName() + " : " + player.getpMonsters().get(0).getHP() + " HP");
@@ -232,6 +237,18 @@ public class GameGUI extends JFrame implements KeyListener {
             }
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_SPACE) {
+            if (player.getpMonsters().get(0).getHP() <= 0 || controller.getCurrentMonster().getHP() <= 0) {
+                isBattleScreen = false;
+                isMainScreen = true;
+                battleScene.setVisible(false);
+                mainScene.setVisible(true);
+                mainScene.getMainTextArea().setText(controller.playerAction("fight monster"));
+
+//                dungeonStart();
+            } else {
+                fightMoves();
+            }
+
             System.out.println("IN CONTINUE BATTLE");
             //check if game is over
             //get 1 round of battle info to display
