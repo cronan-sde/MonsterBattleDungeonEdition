@@ -108,12 +108,15 @@ public class GameGUI extends JFrame implements KeyListener {
         add(battleScene);
 
         //hardcoded dummy text to show potential
-        String htmlBattle = "<h2 class='text'>" +
-                "<span class='user'>Drowsy Dragon</span> charges out and <span class='attack'>slashes </span><span class='enemy'>Bad Guy</span> across the " +
-                "face causing <span class='damage'>25 dmg.</span>" +
-                "</h2>";
+        String htmlBattle = controller.playerAction("fight monster");
         battleScene.setHTMLString(htmlBattle);
-        battleScene.getEvilMonsterHP().setText("Bad Monster: 75 HP");
+        updateHPBars();
+    }
+
+    public void updateHPBars() {
+        battleScene.getUserMonsterHP().setText(player.getpMonsters().get(0).getName() + " : " + player.getpMonsters().get(0).getHP() + " HP");
+        battleScene.getEvilMonsterHP().setText(controller.getCurrentMonster().getName() + " : " + controller.getCurrentMonster().getHP() + " HP");
+
     }
 
     /*
