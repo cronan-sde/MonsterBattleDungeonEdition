@@ -5,8 +5,11 @@ import com.objectivemonsters.map.Room;
 import com.objectivemonsters.monsters.Monster;
 import com.objectivemonsters.monsters.MonsterGenerator;
 import com.objectivemonsters.player.Player;
+import com.objectivemonsters.storylines.BattleTextGenerator;
+import com.objectivemonsters.storylines.StoryLineGenerator;
 import com.objectivemonsters.util.Prompter;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,6 +25,8 @@ public class GameController {
     private Dungeon dungeon;
     //need monsters
     private List<Monster> gameMonsters;
+    //battle text hits
+   private HashMap<String, String> storyBits = new HashMap<>();
     //need player
     private Player player;
     //start room
@@ -33,6 +38,12 @@ public class GameController {
 
     // generate monsters
     MonsterGenerator monGeny = new MonsterGenerator();
+
+    // generate battleText
+    BattleTextGenerator btg = new BattleTextGenerator();
+
+    // generate storyText
+    StoryLineGenerator slg = new StoryLineGenerator();
 
     //ctor
     public GameController() {
@@ -92,6 +103,18 @@ public class GameController {
         System.out.println(newMon);
 
         System.out.println(monGeny.randoMon(gameMonsters));
+        System.out.println(btg.oneMiss());
+        storyBits = slg.getStoryTxt();
+
+
+        System.out.println(storyBits.get("welcome") + " Zelda"); // change Zelda to player name
+        System.out.println(storyBits.get("opening"));
+        System.out.println(storyBits.get("moreInfo"));
+        System.out.println(storyBits.get("friendlyGesture"));
+        System.out.println(storyBits.get("hint"));
+
+
+        System.out.println();
 
         System.out.println("---------------------------------------");
         System.out.println("WELCOME TO MONSTER BATTLES: DUNGEON EDITION");

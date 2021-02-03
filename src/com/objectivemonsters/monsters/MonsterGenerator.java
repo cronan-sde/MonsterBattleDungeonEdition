@@ -11,6 +11,8 @@ import java.util.List;
 
 public class MonsterGenerator {
     List<Monster> monsters = new ArrayList<>();
+    List<String> monLocalFriendly = new ArrayList<>();
+    List<String> monLocalAngry = new ArrayList<>();
     TextParser tp = new TextParser();
 
     // Generate a list of monsters from xml
@@ -18,7 +20,7 @@ public class MonsterGenerator {
         /* pass in the file link and node name in call on textParser to return a node list of monsters */
         NodeList monsNod = tp.readXMLFiles("resources/monster.xml", "monster");
 
-        // iterate through the node list to extract each monster adn store in a object list of monsters
+        // iterate through the node list to extract each monster and store in a object list of monsters
         for (int i = 0; i < monsNod.getLength(); i++) {
             // initialize a new node based on index
             Node nod = monsNod.item(i);
@@ -75,7 +77,8 @@ public class MonsterGenerator {
     public Monster randoMon(List<Monster> ranMons) {
 
         Monster monty = new Monster();
-        int rando = (int)((Math.random() * ranMons.size()) + 1);
+        int rando = (int)((Math.random() * ranMons.size()));
+        System.out.println(rando);
 
         for (int j = 0; j < ranMons.size(); j++) {
             if (j == rando) {
@@ -87,7 +90,42 @@ public class MonsterGenerator {
 
     // Morph a dead Angry monster to a Friendly monster
 
-    // Locate a monster in the room (from XML) Angry
+    // Locate a monster in the room (from XML) Friendly
+    public List<String> friendlyMonsterLocation() {
+        NodeList friendLocal = tp.readXMLFiles("resources/friendlyMonLocation.xml", "friendlyLocation");
+
+        // iterate through the node list to extract each nonster and store it in a list
+        for (int i = 0; i < friendLocal.getLength(); i++) {
+            // initalize a new node based on index
+            Node nod = friendLocal.item(i);
+            //check if type is an element
+//            if (nod.getNodeType() == Node.ELEMENT_NODE) {
+            // set new element to case node
+            Element eElement = (Element) nod;
+            // add to string list
+            monLocalFriendly.add(eElement.getElementsByTagName("local1").item(0).getTextContent());
+            monLocalFriendly.add(eElement.getElementsByTagName("local2").item(0).getTextContent());
+            monLocalFriendly.add(eElement.getElementsByTagName("local3").item(0).getTextContent());
+            monLocalFriendly.add(eElement.getElementsByTagName("local4").item(0).getTextContent());
+            monLocalFriendly.add(eElement.getElementsByTagName("local5").item(0).getTextContent());
+        }
+        return monLocalFriendly;
+    }
+    // return one random MISS text
+    public String oneMiss(){
+        String locaTxt = "";
+        List<String> local = friendlyMonsterLocation();
+
+        int rando = (int)((Math.random() * local.size()));
+        System.out.println(rando);
+
+        for (int j = 0; j < local.size(); j++) {
+            if (j == rando) {
+                locaTxt = local.get(j);
+            }
+        }
+        return locaTxt;
+    }
 
     // Locate a monster in the room (from XML) Friendly
 

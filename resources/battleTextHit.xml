@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE battleHits>
+<battleHits>
+    <hit1>Ouch, you struck your opponent!</hit1>
+    <hit2>Your opponent screams in pain from your attack.</hit2>
+    <hit3>A mighty blow hit your opponent.</hit3>
+</battleHits>
