@@ -68,46 +68,6 @@ public class GameGUI extends JFrame implements KeyListener {
     }
 
     /*
-     * Generating the main GUI for the game
-     * hides the start screen panels
-     * initializes the main games panels and components
-     * adds main game panels to the frame
-     * calls updateInventory() and dungeonStart()
-     */
-    public void hideStartScreen() {
-        //hide start screen
-        startScene.setVisible(false);
-
-        //start game
-        startGame();
-    }
-
-    public void hideMainScreen() {
-        //hide main screen
-        mainScene.setVisible(false);
-
-        //call show battle
-        showBattle();
-    }
-
-    public void showBattle() {
-        isBattleScreen = true;
-        battleScene = new BattleScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
-        battleScene.getBattleTextArea().addKeyListener(this);
-        battleScene.addKeyListener(this);
-        add(battleScene);
-
-        //hardcoded dummy text to show potential
-        String htmlBattle = "<h2 class='text'>" +
-                "<span class='user'>Drowsy Dragon</span> charges out and <span class='attack'>slashes </span><span class='enemy'>Bad Guy</span> across the " +
-                "face causing <span class='damage'>25 dmg.</span>" +
-                "</h2>";
-        battleScene.setHTMLString(htmlBattle);
-        battleScene.getEvilMonsterHP().setText("Bad Monster: 75 HP");
-    }
-
-
-    /*
      * Method will set main game screen with current inventory and current room description
      * game loop will be in this method
      */
@@ -122,17 +82,36 @@ public class GameGUI extends JFrame implements KeyListener {
         controller = new GameController(dungeon, monster, player);
 
         //initialize main game screen
-        showMainGame();
+        showMainGameScene();
     }
 
     //Initializes the main game scene
-    public void showMainGame() {
+    public void showMainGameScene() {
         mainScene = new MainScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
         mainScene.getInputText().addKeyListener(this);
         add(mainScene);
         //set inventory and desc text for main room
         updateInventory();
         dungeonStart();
+    }
+
+    /*
+     * Display the battle scene
+     */
+    public void showBattleScene() {
+        isBattleScreen = true;
+        battleScene = new BattleScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
+        battleScene.getBattleTextArea().addKeyListener(this);
+        battleScene.addKeyListener(this);
+        add(battleScene);
+
+        //hardcoded dummy text to show potential
+        String htmlBattle = "<h2 class='text'>" +
+                "<span class='user'>Drowsy Dragon</span> charges out and <span class='attack'>slashes </span><span class='enemy'>Bad Guy</span> across the " +
+                "face causing <span class='damage'>25 dmg.</span>" +
+                "</h2>";
+        battleScene.setHTMLString(htmlBattle);
+        battleScene.getEvilMonsterHP().setText("Bad Monster: 75 HP");
     }
 
     /*
@@ -171,7 +150,7 @@ public class GameGUI extends JFrame implements KeyListener {
 
     /*
      * Sets the main text area to the description of current room
-     * TODO: currently gets first room in dungeon list, need to get this information and dynamically change roomDesc
+     * Done: currently gets first room in dungeon list, need to get this information and dynamically change roomDesc
      */
     public void dungeonStart() {
         String roomName = controller.getCurrentRoom().getName();
@@ -180,6 +159,30 @@ public class GameGUI extends JFrame implements KeyListener {
         JTextArea mainText = mainScene.getMainTextArea();
         mainText.setText("You have entered the " + roomName + " room. " + roomDesc);
     }
+
+    /*
+     * Generating the main GUI for the game
+     * hides the start screen panels
+     * initializes the main games panels and components
+     * adds main game panels to the frame
+     * calls updateInventory() and dungeonStart()
+     */
+    public void hideStartScreen() {
+        //hide start screen
+        startScene.setVisible(false);
+
+        //start game
+        startGame();
+    }
+
+    public void hideMainScreen() {
+        //hide main screen
+        mainScene.setVisible(false);
+
+        //call show battle
+        showBattleScene();
+    }
+
 
 
     /*
