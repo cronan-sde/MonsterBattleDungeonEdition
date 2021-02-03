@@ -16,7 +16,7 @@ public class GameOverScene extends JPanel {
 
         //create text areas
         gameOverText = new JTextArea();
-        gameOverText.setBounds(150, 15, 600, 100);
+        gameOverText.setBounds(250, 15, 600, 100);
         gameOverText.setBackground(Color.BLACK);
         gameOverText.setForeground(Color.RED);
         gameOverText.setFont(new Font(fontName, Font.PLAIN, 30));
