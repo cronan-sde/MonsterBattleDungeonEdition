@@ -102,7 +102,7 @@ public class MainScene extends JPanel {
         mainTextArea.setBounds(100, 150, 600, 250);
         mainTextArea.setBackground(Color.BLACK);
         mainTextArea.setForeground(Color.WHITE);
-        mainTextArea.setFont(new Font(fontName, Font.ITALIC, 25));
+        mainTextArea.setFont(new Font(fontName, Font.ITALIC, 22));
         mainTextArea.setLineWrap(true);
         mainTextArea.setEditable(false);
 
