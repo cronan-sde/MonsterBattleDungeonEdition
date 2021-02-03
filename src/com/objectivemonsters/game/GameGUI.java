@@ -36,8 +36,8 @@ public class GameGUI extends JFrame implements KeyListener {
 
     //boolean to track if user is on start screen or main game screen
     private boolean isStartScreen = true;
+    private boolean isMainScreen = false;
     private boolean isBattleScreen = false;
-
 
     //Game pieces
     private Player player;
@@ -61,6 +61,7 @@ public class GameGUI extends JFrame implements KeyListener {
 
         //Add initial start screen with hints and text to tell user to press enter to continue
         startScene = new StartScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
+        startScene.getHintText().addKeyListener(this);
         startScene.addKeyListener(this);
         add(startScene);
 
@@ -183,6 +184,12 @@ public class GameGUI extends JFrame implements KeyListener {
         showBattleScene();
     }
 
+    public void hideBattleScreen() {
+        battleScene.setVisible(false);
+
+        //show game over
+//        showGameOver();
+    }
 
 
     /*
@@ -200,11 +207,11 @@ public class GameGUI extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (isStartScreen && e.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("IN KEY PRESSED");
             isStartScreen = false;
+            isMainScreen = true;
             hideStartScreen();
         }
-        else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        else if (isMainScreen && e.getKeyCode() == KeyEvent.VK_ENTER) {
             String userInput = mainScene.getInputText().getText();
             if (userInput.toLowerCase().equals("fight monster")) {
                 isBattleScreen = true;
@@ -222,6 +229,7 @@ public class GameGUI extends JFrame implements KeyListener {
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_SPACE) {
             System.out.println("IN CONTINUE BATTLE");
+            //check if game is over
             //get 1 round of battle info to display
             //update hp labels
         }

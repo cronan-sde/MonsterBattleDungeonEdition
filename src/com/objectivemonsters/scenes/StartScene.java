@@ -61,4 +61,8 @@ public class StartScene extends JPanel {
                 "List of recognized actions - [GO, LOOK, TAKE, FIGHT]");
         playGameText.setText("-- press [enter] to start your journey --");
     }
+
+    public JTextArea getHintText() {
+        return hintText;
+    }
 }
