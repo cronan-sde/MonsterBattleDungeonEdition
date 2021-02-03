@@ -1,6 +1,7 @@
 package com.objectivemonsters.game;
 
-import com.objectivemonsters.dungeon.Dungeon;
+import com.objectivemonsters.map.Dungeon;
+import com.objectivemonsters.map.MapInit;
 import com.objectivemonsters.monsters.Monster;
 import com.objectivemonsters.monsters.MonsterGenerator;
 import com.objectivemonsters.player.Player;
@@ -74,10 +75,10 @@ public class GameGUI extends JFrame implements KeyListener {
      */
     public void startGame() {
         //initialize game pieces
-        GameInitializer initializer = new GameInitializer();
-        dungeon = initializer.dungeonInit();
+        MapInit initializer = new MapInit();
         MonsterGenerator mongen = new MonsterGenerator();
         List<Monster> monster = mongen.allMonsters();
+        Dungeon dungeon = initializer.dungeonInit(monster);
         player = new Player("player1", new ArrayList<>(), new ArrayList<>());
         player.setName("Cool Dude");
         controller = new GameController(dungeon, monster, player);
