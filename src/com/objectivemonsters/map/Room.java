@@ -91,6 +91,7 @@ public class Room {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", roomLeadTo=" + roomLeadTo +
+                ", exits=" + exits +
                 '}';
     }
 }
