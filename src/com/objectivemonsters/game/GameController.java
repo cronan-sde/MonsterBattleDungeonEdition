@@ -3,6 +3,7 @@ package com.objectivemonsters.game;
 import com.objectivemonsters.dungeon.Dungeon;
 import com.objectivemonsters.dungeon.Room;
 import com.objectivemonsters.monsters.Monster;
+import com.objectivemonsters.monsters.MonsterGenerator;
 import com.objectivemonsters.player.Player;
 import com.objectivemonsters.util.Prompter;
 
@@ -19,6 +20,8 @@ public class GameController {
     private Prompter prompter;
     //need dungeon
     private Dungeon dungeon;
+    //need monsters
+    private List<Monster> gameMonsters;
     //need player
     private Player player;
     //start room
@@ -28,43 +31,71 @@ public class GameController {
     //testing prompter and user name entry
     private String playerName;
 
+    // generate monsters
+    MonsterGenerator monGeny = new MonsterGenerator();
+
     //ctor
     public GameController() {
         this.prompter = new Prompter(new Scanner(System.in));
         this.battleSystem = new BattleSystem();
     }
 
-    public GameController(Dungeon dungeon, Player player) {
+    public GameController(Dungeon dungeon, List<Monster> gammons, Player player) {
         //Later version create setters, and pass to setters to validate
         this.prompter = new Prompter(new Scanner(System.in));
         this.battleSystem = new BattleSystem();
         this.dungeon = dungeon;
+        this.gameMonsters = gammons;
         this.player = player;
+
+        startRoom = dungeon.getDungeonRooms().get(0);
+        currentRoom = startRoom;
     }
+
+
 
     //start game
     public void startGame() {
         //welcome user and give hints
-        welcome();
+//        welcome();
         //show user the room they are in
-        startRoom = dungeon.getDungeonRooms().get(0);
-        currentRoom = startRoom;
+//        startRoom = dungeon.getDungeonRooms().get(0);
+//        currentRoom = startRoom;
 //        displayRoomScene(startRoom);
 
-        //begin game loop
-        boolean gameOver = false;
-        while (!gameOver) {
-
-            boolean stillPlaying = playerAction();
-
-            if (!stillPlaying) {
-                gameOver = true;
-            }
-        }
+//        //begin game loop
+//        boolean gameOver = false;
+//        while (!gameOver) {
+//
+//            boolean stillPlaying = playerAction();
+//
+//            if (!stillPlaying) {
+//                gameOver = true;
+//            }
+//        }
     }
 
     //welcome
     public void welcome() {
+        List<Monster> locaMons = monGeny.aMonsters(gameMonsters);
+
+        for (Monster mons : locaMons
+             ) {
+            System.out.println(mons.getName());
+        }
+
+        List<Monster> locMons = monGeny.fMonsters(gameMonsters);
+        for (Monster monsters : locMons
+        ) {
+            System.out.println(monsters.getName());
+        }
+
+        Monster newMon = new Monster();
+        newMon = monGeny.randoMon(gameMonsters);
+        System.out.println(newMon);
+
+        System.out.println(monGeny.randoMon(gameMonsters));
+
         System.out.println("---------------------------------------");
         System.out.println("WELCOME TO MONSTER BATTLES: DUNGEON EDITION");
         System.out.println("---------------------------------------");
@@ -88,35 +119,39 @@ public class GameController {
     }
 
     //Display the scene of the room
-    public void displayRoomScene(Room currentRoom) {
-        System.out.println(playerName + ", you are currently in the " + currentRoom.getName());
+    public String displayRoomScene() {
+        StringBuilder sb = new StringBuilder();
 
-        System.out.println("You scan the room to see " + currentRoom.getDescription());
-        System.out.println("You also notice there appears to be exits into other rooms " + currentRoom.getroomLeadTo());
+        sb.append(playerName).append(", you are currently in the ").append(currentRoom.getName());
+        sb.append(". You scan the room to see ").append(currentRoom.getDescription());
+        sb.append(". You also notice there appears to be exits into other rooms ").append(currentRoom.getroomLeadTo());
         if (currentRoom.getRoomMonster() != null) {
-            System.out.println("As you are looking around you notice a creature in the corner by the name of " + currentRoom.getRoomMonster().getName());
-            String friendOrFoe = currentRoom.getRoomMonster().isFriendly() ? "This monster appears to be friendly" : "Be careful this creature is no friend to you";
-            System.out.println(friendOrFoe);
+            sb.append(". As you are looking around you notice a creature in the corner by the name of ").append(currentRoom.getRoomMonster().getName());
+            String friendOrFoe = currentRoom.getRoomMonster().isFriendly() ? " This monster appears to be friendly" : " Be careful this creature is no friend to you";
+            sb.append(friendOrFoe);
         }
+        return sb.toString();
     }
 
     //action user wishes to take
     //TODO: more work needed, this is very basic for sprint 1
-    public boolean playerAction() {
-        boolean isGameStillGoing = true;
-        String[] action = prompter.prompt("What would you like to do? ", gameVerbs, "I'm sorry I don't recognize those commands, please try again").split(" ");
+    public String playerAction(String playerAction) {
+//        boolean isGameStillGoing = true;
+        String message = "";
+//        String[] action = prompter.prompt("What would you like to do? ", gameVerbs, "I'm sorry I don't recognize those commands, please try again").split(" ");
+        String[] action = playerAction.split(" ");
         String verb = action[0];
         String noun = action[1];
         Monster roomMonster = currentRoom.getRoomMonster();
 
         if (verb.equals("look") && noun.equals("around")) {
-            displayRoomScene(currentRoom);
+            message = displayRoomScene();
         }
         else if (verb.equals("go") && isWordAnExit(noun)) {
             //set new room to current room
             setCurrentRoom(noun);
             //move player to new room
-            displayRoomScene(currentRoom);
+            message = displayRoomScene();
         }
         else if (verb.equals("take") && roomMonster.isFriendly()) {
             //add monster to users monster collection
@@ -127,17 +162,17 @@ public class GameController {
             //battle monsters
             Monster battleWinner = battleSystem.battle(player.getpMonsters().get(0), roomMonster);
             if (battleWinner.getName().equals(roomMonster.getName())) {
-                isGameStillGoing = false;
-                System.out.println("Your monster has perished in battle, and now " + roomMonster.getName() + " has turned its attention towards you!\n" +
-                        "You have been devoured in the dungeon! GAME OVER!");
+//                isGameStillGoing = false;
+                message = "Your monster has perished in battle, and now " + roomMonster.getName() + " has turned its attention towards you!\n" +
+                        "You have been devoured in the dungeon! GAME OVER!";
             }
             else {
-                isGameStillGoing = false;
-                System.out.println("Your monster is triumphant, the evil " + roomMonster.getName() + " has been slayed.\n" +
-                        playerName + " you have defeated all the monsters in this dungeon, you are truly a great adventurer");
+//                isGameStillGoing = false;
+                message = "Your monster is triumphant, the evil " + roomMonster.getName() + " has been slayed.\n" +
+                        playerName + " you have defeated all the monsters in this dungeon, you are truly a great adventurer";
             }
         }
-        return isGameStillGoing;
+        return message;
     }
 
     //check if noun typed is an actual available exit
@@ -163,5 +198,9 @@ public class GameController {
                 break;
             }
         }
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
     }
 }

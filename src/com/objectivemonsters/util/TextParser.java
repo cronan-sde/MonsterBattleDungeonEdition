@@ -12,31 +12,7 @@ import java.io.File;
 
 public class TextParser {
 
-
-    public NodeList  monsterXML() {
-        String fileName = "resources/monster.xml";
-        return readXMLFiles(fileName, "monster");
-    }
-
-    public void createMons() {
-        NodeList monsNod = monsterXML();
-
-        int numberMons = monsNod.getLength();
-
-        int rando = (int) ((Math.random() * numberMons) + 1);
-        System.out.println(rando);
-
-        Node nod = monsNod.item(rando);
-        if (nod.getNodeType() == Node.ELEMENT_NODE) {
-            Element eElement = (Element) nod;
-//            Monster monty = new Monster(); -- need to instatiate with all the constructor args
-//            monty.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
-//            monty.setDesc(eElement.getElementsByTagName("description").item(0).getTextContent());
-//            System.out.println(monty);
-        }
-    }
-
-
+    // call and pass in the XML doc and node name to return a node list of the xml 
     public NodeList readXMLFiles(String textDoc, String nodNam){
 
         try {
