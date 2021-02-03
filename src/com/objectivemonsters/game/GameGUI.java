@@ -93,6 +93,7 @@ public class GameGUI extends JFrame implements KeyListener {
     public void showBattle() {
         isBattleScreen = true;
         battleScene = new BattleScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
+        battleScene.getBattleTextArea().addKeyListener(this);
         battleScene.addKeyListener(this);
         add(battleScene);
 
@@ -105,10 +106,6 @@ public class GameGUI extends JFrame implements KeyListener {
         battleScene.getEvilMonsterHP().setText("Bad Monster: 75 HP");
     }
 
-//    public void showHTML() {
-//        String html = "<h1><span class='user'>Drowsy</span><span class='attack'>slashes</span><span class='enemy'>Dick</span>causing<span class='damage'>100 dmg</span></h1>";
-//        battleScene.setHTMLString(html);
-//    }
 
     /*
      * Method will set main game screen with current inventory and current room description
@@ -208,6 +205,7 @@ public class GameGUI extends JFrame implements KeyListener {
             String userInput = mainScene.getInputText().getText();
             if (userInput.toLowerCase().equals("fight monster")) {
                 isBattleScreen = true;
+                mainScene.getInputText().setText("");
                 hideMainScreen();
             }
             else {
@@ -220,10 +218,12 @@ public class GameGUI extends JFrame implements KeyListener {
             }
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_SPACE) {
+            System.out.println("IN CONTINUE BATTLE");
             //get 1 round of battle info to display
             //update hp labels
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            System.out.println("IN BATTLE ESCAPE");
             isBattleScreen = false;
             battleScene.setVisible(false);
             mainScene.setVisible(true);
