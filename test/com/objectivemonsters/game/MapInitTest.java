@@ -1,15 +1,14 @@
 package com.objectivemonsters.game;
 
-import com.objectivemonsters.dungeon.Room;
+import com.objectivemonsters.map.MapInit;
+import com.objectivemonsters.map.Room;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
-public class GameInitializerTest {
-    GameInitializer initializer = new GameInitializer();
+public class MapInitTest {
+    MapInit initializer = new MapInit();
     @Before
     public void setUp() throws Exception {
     }

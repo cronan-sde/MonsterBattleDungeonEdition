@@ -1,12 +1,15 @@
 package com.objectivemonsters.game;
 
-import com.objectivemonsters.dungeon.Dungeon;
-import com.objectivemonsters.dungeon.Room;
+import com.objectivemonsters.map.Dungeon;
+import com.objectivemonsters.map.Room;
 import com.objectivemonsters.monsters.Monster;
 import com.objectivemonsters.monsters.MonsterGenerator;
 import com.objectivemonsters.player.Player;
+import com.objectivemonsters.storylines.BattleTextGenerator;
+import com.objectivemonsters.storylines.StoryLineGenerator;
 import com.objectivemonsters.util.Prompter;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,6 +25,8 @@ public class GameController {
     private Dungeon dungeon;
     //need monsters
     private List<Monster> gameMonsters;
+    //battle text hits
+   private HashMap<String, String> storyBits = new HashMap<>();
     //need player
     private Player player;
     //start room
@@ -33,6 +38,12 @@ public class GameController {
 
     // generate monsters
     MonsterGenerator monGeny = new MonsterGenerator();
+
+    // generate battleText
+    BattleTextGenerator btg = new BattleTextGenerator();
+
+    // generate storyText
+    StoryLineGenerator slg = new StoryLineGenerator();
 
     //ctor
     public GameController() {
@@ -95,6 +106,18 @@ public class GameController {
         System.out.println(newMon);
 
         System.out.println(monGeny.randoMon(gameMonsters));
+        System.out.println(btg.oneMiss());
+        storyBits = slg.getStoryTxt();
+
+
+        System.out.println(storyBits.get("welcome") + " Zelda"); // change Zelda to player name
+        System.out.println(storyBits.get("opening"));
+        System.out.println(storyBits.get("moreInfo"));
+        System.out.println(storyBits.get("friendlyGesture"));
+        System.out.println(storyBits.get("hint"));
+
+
+        System.out.println();
 
         System.out.println("---------------------------------------");
         System.out.println("WELCOME TO MONSTER BATTLES: DUNGEON EDITION");
@@ -124,7 +147,7 @@ public class GameController {
 
         sb.append(playerName).append(", you are currently in the ").append(currentRoom.getName());
         sb.append(". You scan the room to see ").append(currentRoom.getDescription());
-        sb.append(". You also notice there appears to be exits into other rooms ").append(currentRoom.getroomLeadTo());
+        sb.append(". You also notice there appears to be exits into other rooms ").append(currentRoom.getRoomLeadTo());
         if (currentRoom.getRoomMonster() != null) {
             sb.append(". As you are looking around you notice a creature in the corner by the name of ").append(currentRoom.getRoomMonster().getName());
             String friendOrFoe = currentRoom.getRoomMonster().isFriendly() ? " This monster appears to be friendly" : " Be careful this creature is no friend to you";
@@ -149,7 +172,7 @@ public class GameController {
         }
         else if (verb.equals("go") && isWordAnExit(noun)) {
             //set new room to current room
-            setCurrentRoom(noun);
+            setCurrentRoom(getNextRoomName(noun));
             //move player to new room
             message = displayRoomScene();
         }
@@ -179,15 +202,22 @@ public class GameController {
     public boolean isWordAnExit(String word) {
         boolean result = false;
 
-        for (String room : currentRoom.getroomLeadTo()) {
+        for (String room : currentRoom.getExits()) {
             if (room.equals(word)) {
-
                 result = true;
                 break;
             }
         }
 
         return result;
+    }
+
+    // Base on input direction e.g. east return the next room name.
+    public String getNextRoomName(String word){
+        String nextRoomName;
+        int index = currentRoom.getExits().indexOf(word);
+        nextRoomName = currentRoom.getRoomLeadTo().get(index);
+        return nextRoomName;
     }
 
     //set the current room
@@ -200,7 +230,9 @@ public class GameController {
         }
     }
 
+
     public Room getCurrentRoom() {
         return currentRoom;
     }
 }
+

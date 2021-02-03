@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE battleText>
+<battleText>
+    <angryDead>Congratulations! You defeated the Angry Monster!</angryDead>
+    <friendlyDead>Sadly your monster has been defeated.</friendlyDead>
+    <runaway>The Angry Monster got scared and ran away.</runaway>
+    <morph>The angry monster has morphed into friendly monster </morph>
+</battleText>
