@@ -46,59 +46,7 @@ public class StartScene extends JPanel {
         setStartDialogue();
         setVisible(true);
     }
-    /*
-     * Sets up the starting scene with a welcome message, hints on how to play the game, and a prompt on starting the game on a keypress
-     */
-//    public void setStartScreen() {
-//        //set welcome panel up
-//        welcomePanel = new JPanel();
-//        welcomePanel.setBounds(150, 15, 600, 100);
-//        welcomePanel.setBackground(Color.BLACK);
-//
-//        //set and add welcome text to welcome panel
-//        welcomeText = new JTextArea();
-//        welcomeText.setBounds(20, 15, 600, 100);
-//        welcomeText.setBackground(Color.BLACK);
-//        welcomeText.setForeground(Color.RED);
-//        welcomeText.setFont(new Font(GAME_FONT, Font.PLAIN, 20));
-//        welcomeText.setLineWrap(true);
-//        welcomeText.setEditable(false);
-//        welcomeText.addKeyListener(this);
-//        welcomePanel.add(welcomeText);
-//
-//        //set hint panel up
-//        hintPanel = new JPanel();
-//        hintPanel.setBounds(50, 150, 650, 300);
-//        hintPanel.setBackground(Color.BLACK);
-//        hintPanel.addKeyListener(this);
-//
-//        //set and add hint text to hint panel
-//        hintText = new JTextArea();
-//        hintText.setBounds(50, 150, 650, 300);
-//        hintText.setBackground(Color.BLACK);
-//        hintText.setForeground(Color.CYAN);
-//        hintText.setFont(new Font(GAME_FONT, Font.PLAIN, 20));
-//        hintText.setLineWrap(true);
-//        hintText.setEditable(false);
-//        hintText.addKeyListener(this);
-//        hintPanel.add(hintText);
-//
-//        //set up playPanel
-//        playPanel = new JPanel();
-//        playPanel.setBounds(90,500,600,100);
-//        playPanel.setBackground(Color.BLACK);
-//        playPanel.addKeyListener(this);
-//
-//        //set up play text and add to playpanel
-//        playText = new JTextArea();
-//        playText.setFont(new Font(GAME_FONT, Font.BOLD, 20));
-//        playText.setBackground(Color.BLACK);
-//        playText.setForeground(Color.GREEN);
-//        playText.setEditable(false);
-//        playText.addKeyListener(this);
-//        playPanel.add(playText);
-//    }
-//
+
     /*
      * hard coding start screen dialogues
      * TODO: generate hint text from XML?

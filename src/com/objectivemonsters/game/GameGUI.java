@@ -4,6 +4,7 @@ import com.objectivemonsters.dungeon.Dungeon;
 import com.objectivemonsters.monsters.Monster;
 import com.objectivemonsters.monsters.MonsterGenerator;
 import com.objectivemonsters.player.Player;
+import com.objectivemonsters.scenes.BattleScene;
 import com.objectivemonsters.scenes.MainScene;
 import com.objectivemonsters.scenes.StartScene;
 
@@ -43,8 +44,9 @@ public class GameGUI extends JFrame implements KeyListener {
     private GameController controller;
 
     //testing scenes
-    StartScene startScene;
-    MainScene mainScene;
+    private StartScene startScene;
+    private MainScene mainScene;
+    private BattleScene battleScene;
 
 
     //ctor to create GUI
@@ -76,8 +78,19 @@ public class GameGUI extends JFrame implements KeyListener {
         startScene.setVisible(false);
 
         //start game
-        startGame();
+//        startGame();
+        showBattle();
     }
+
+    public void showBattle() {
+        battleScene = new BattleScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
+        add(battleScene);
+    }
+
+//    public void showHTML() {
+//        String html = "<h1><span class='user'>Drowsy</span><span class='attack'>slashes</span><span class='enemy'>Dick</span>causing<span class='damage'>100 dmg</span></h1>";
+//        battleScene.setHTMLString(html);
+//    }
 
     /*
      * Method will set main game screen with current inventory and current room description
