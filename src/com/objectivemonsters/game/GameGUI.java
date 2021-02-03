@@ -244,7 +244,7 @@ public class GameGUI extends JFrame implements KeyListener {
     }
 
     /*
-     * MAIN METHOD ONLY FOR TESTING PURPOSES, WILL BE REMOVED IN FINAL VERSION
+     * TODO: MAIN METHOD ONLY FOR TESTING PURPOSES, WILL BE REMOVED IN FINAL VERSION AND CALLED FROM MAIN CLIENT
      */
     public static void main(String[] args) {
         new GameGUI();
