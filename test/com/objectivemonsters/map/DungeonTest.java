@@ -1,14 +1,12 @@
-package com.objectivemonsters.dungeon;
+package com.objectivemonsters.map;
 
 import com.objectivemonsters.consumables.Item;
-import com.objectivemonsters.monsters.Elemental;
 import com.objectivemonsters.monsters.Monster;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DungeonTest extends TestCase {
