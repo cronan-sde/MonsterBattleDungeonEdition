@@ -87,33 +87,15 @@ public class GameController {
 
     //welcome
     public void welcome() {
-        List<Monster> locaMons = monGeny.aMonsters(gameMonsters);
-
-        for (Monster mons : locaMons
-             ) {
-            System.out.println(mons.getName());
-        }
-
-        List<Monster> locMons = monGeny.fMonsters(gameMonsters);
-        for (Monster monsters : locMons
-        ) {
-            System.out.println(monsters.getName());
-        }
-
-        Monster newMon = new Monster();
-        newMon = monGeny.randoMon(gameMonsters);
-        System.out.println(newMon);
-
-        System.out.println(monGeny.randoMon(gameMonsters));
-        System.out.println(btg.oneMiss());
-        storyBits = slg.getStoryTxt();
+       monGeny.randomMonster();
 
 
-        System.out.println(storyBits.get("welcome") + " Zelda"); // change Zelda to player name
-        System.out.println(storyBits.get("opening"));
-        System.out.println(storyBits.get("moreInfo"));
-        System.out.println(storyBits.get("friendlyGesture"));
-        System.out.println(storyBits.get("hint"));
+
+//        System.out.println();
+//        System.out.println(storyBits.get("opening"));
+//        System.out.println(storyBits.get("moreInfo"));
+//        System.out.println(storyBits.get("friendlyGesture"));
+//        System.out.println(storyBits.get("hint"));
 
 
         System.out.println();
@@ -122,13 +104,16 @@ public class GameController {
         System.out.println("WELCOME TO MONSTER BATTLES: DUNGEON EDITION");
         System.out.println("---------------------------------------");
         playerName = prompter.prompt("What is your name? >");
-        System.out.println("Welcome " + playerName);
+        System.out.println("Welcome " + playerName);  // replace inside () w/ storyBits.get("welcome") + playerName
         System.out.println("You awake in a dungeon full of monsters, some are willing to help you escape, others wish to consume you!\n" +
                 "Escaping this dungeon requires you to defeat the evil monsters, but you are nowhere near powerful enough to defeat them on your own!\n" +
-                "Perhaps you can find monsters that are willing to help you in your quest.\n");
-        String getHint = prompter.prompt("Would you like hints on how to play the game? type y/n >");
+                "Perhaps you can find monsters that are willing to help you in your quest.\n"); // TODO: replace inside () w/ storyBits.get("opening")
+        // TODO:  if possible, delayed time response and then: sout(storyBits.get("moreInfo"));
+        // TODO: if possible, delayed time response and then: sout(storyBits.get("friendlyGesture"));
+
+        String getHint = prompter.prompt("Would you like hints on how to play the game? type y/n >"); // TODO: if possible, delayed time response and then: sout(storyBits.get("moreInfo"));
         if (getHint.equals("y")) {
-            hints();
+            hints(); // replace w/ System.out.println(storyBits.get("hint"));
         }
     }
 
@@ -143,7 +128,7 @@ public class GameController {
     //Display the scene of the room
     public String displayRoomScene() {
         StringBuilder sb = new StringBuilder();
-        currentMonster = monGeny.randoMon(gameMonsters);
+        currentMonster = monGeny.randomMonster();
 
         sb.append(player.getName()).append(", you are currently in the ").append(currentRoom.getName());
         sb.append(". You scan the room to see ").append(currentRoom.getDescription());

@@ -11,83 +11,68 @@ import java.util.List;
 
 public class BattleTextGenerator {
 
-TextParser tp = new TextParser();
-// TODO: optimize to read XMLs at startup and store for later
-List<String> hits = new ArrayList<>();
-List<String> miss = new ArrayList<>();
-HashMap<String, String> battleText = new HashMap<>();
+    TextParser tp;
+    private ArrayList<String> battleHits = new ArrayList<>();
+    private ArrayList<String> battleMiss = new ArrayList<>();
+
 
 // Generate a map of the battle text HITS from xml
-    public List<String> battleTextHit() {
-        NodeList battleNod = tp.readXMLFiles("resources/battleTextHit.xml", "battleHits");
+    public ArrayList<String> battleTextHit() {
+        NodeList battleHitsNod = tp.readXMLFiles("resources/battleTextHit.xml", "battleHits");
 
-        // iterate through the node list to extract each nonster and store it in a list
-        for (int i = 0; i < battleNod.getLength(); i++) {
+        // iterate through the node list to extract each monster and store it in a list
+        for (int i = 0; i < battleHitsNod.getLength(); i++) {
             // initalize a new node based on index
-            Node nod = battleNod.item(i);
+            Node nod = battleHitsNod.item(i);
             //check if type is an element
-//            if (nod.getNodeType() == Node.ELEMENT_NODE) {
+            if (nod.getNodeType() == Node.ELEMENT_NODE) {
                 // set new element to case node
                 Element eElement = (Element) nod;
                 // add to string list
-                hits.add(eElement.getElementsByTagName("hit1").item(0).getTextContent());
-                hits.add(eElement.getElementsByTagName("hit2").item(0).getTextContent());
-                hits.add(eElement.getElementsByTagName("hit3").item(0).getTextContent());
-        }
-        return hits;
-    }
-
-    // return one random HIT text line
-    public String oneHit(){
-        String hitText = "";
-        List<String> local = new ArrayList<>();
-        local = battleTextHit();
-
-        int rando = (int)((Math.random() * local.size()));
-        System.out.println(rando);
-
-        for (int j = 0; j < local.size(); j++) {
-            if (j == rando) {
-                hitText = local.get(j);
+                battleHits.add(eElement.getElementsByTagName("hit1").item(0).getTextContent());
+                battleHits.add(eElement.getElementsByTagName("hit2").item(0).getTextContent());
+                battleHits.add(eElement.getElementsByTagName("hit3").item(0).getTextContent());
             }
         }
-        return hitText;
+        return battleHits;
     }
 
-    // Generate a map of the battle text HITS from xml
-    public List<String> battleTextMiss() {
-        NodeList battleNod = tp.readXMLFiles("resources/battleTextMiss.xml", "battleMiss");
+    // Generate a list of the battle text MISS from xml
+        public ArrayList<String> battleTextMiss() {
+            NodeList battleMissNod = tp.readXMLFiles("resources/battleTextHit.xml", "battleHits");
 
-        // iterate through the node list to extract each nonster and store it in a list
-        for (int i = 0; i < battleNod.getLength(); i++) {
-            // initalize a new node based on index
-            Node nod = battleNod.item(i);
-            //check if type is an element
-//            if (nod.getNodeType() == Node.ELEMENT_NODE) {
-            // set new element to case node
-            Element eElement = (Element) nod;
-            // add to string list
-            miss.add(eElement.getElementsByTagName("miss1").item(0).getTextContent());
-            miss.add(eElement.getElementsByTagName("miss2").item(0).getTextContent());
-            miss.add(eElement.getElementsByTagName("miss3").item(0).getTextContent());
-        }
-        return miss;
-    }
-    // return one random MISS text
-    public String oneMiss(){
-        String missText = "";
-        List<String> local = new ArrayList<>();
-        local = battleTextMiss();
-
-        int rando = (int)((Math.random() * local.size()));
-        System.out.println(rando);
-
-        for (int j = 0; j < local.size(); j++) {
-            if (j == rando) {
-                missText = local.get(j);
+            // iterate through the node list to extract each monster and store it in a list
+            for (int i = 0; i < battleMissNod.getLength(); i++) {
+                // initalize a new node based on index
+                Node nod = battleMissNod.item(i);
+                //check if type is an element
+                if (nod.getNodeType() == Node.ELEMENT_NODE) {
+                    // set new element to case node
+                    Element eElement = (Element) nod;
+                    // add to string list
+                    battleMiss.add(eElement.getElementsByTagName("miss1").item(0).getTextContent());
+                    battleMiss.add(eElement.getElementsByTagName("miss2").item(0).getTextContent());
+                    battleMiss.add(eElement.getElementsByTagName("miss3").item(0).getTextContent());
+                }
             }
+            return battleMiss;
         }
-        return missText;
+
+
+
+    public ArrayList<String> getBattleHits() {
+        return battleHits;
     }
 
+    private void setBattleHits(ArrayList<String> battleHits) {
+        this.battleHits = battleTextHit();
+    }
+
+    public ArrayList<String> getBattleMiss() {
+        return battleMiss;
+    }
+
+    private void setBattleMiss(ArrayList<String> battleMiss) {
+        this.battleMiss = battleTextMiss();
+    }
 }
