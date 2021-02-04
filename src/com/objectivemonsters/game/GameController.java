@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GameController {
+    //XP BOOSTS
+    private static final int STRENGTH_XP_BOOST = 10;
 
     //list of acceptable verbs
     List<String> gameVerbs = List.of("GO", "LOOK", "TAKE", "FIGHT");
@@ -144,9 +146,7 @@ public class GameController {
     //action user wishes to take
     //TODO: more work needed, this is very basic for sprint 1
     public String playerAction(String playerAction) {
-//        boolean isGameStillGoing = true;
         String message = "";
-//        String[] action = prompter.prompt("What would you like to do? ", gameVerbs, "I'm sorry I don't recognize those commands, please try again").split(" ");
         String[] action = playerAction.split(" ");
         String verb = action[0];
         String noun = action[1];
@@ -154,21 +154,24 @@ public class GameController {
 
         if (verb.equals("look") && noun.equals("around")) {
             message = displayRoomScene();
-        } else if (verb.equals("go") && isWordAnExit(noun)) {
+        }
+        else if (verb.equals("go") && isWordAnExit(noun)) {
             //set new room to current room
             setCurrentRoom(getNextRoomName(noun));
             //move player to new room
             message = displayRoomScene();
-        } else if (verb.equals("take") && roomMonster.isFriendly()) {
+        }
+        else if (verb.equals("take") && roomMonster.isFriendly()) {
             //add monster to users monster collection
             player.getpMonsters().add(roomMonster);
-            System.out.println("Monster added to your inventory");
-        } else if (verb.equals("fight") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
+        }
+        else if (verb.equals("fight") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
+            Monster playerMonster = player.getpMonsters().get(0);
             //battle monsters
-            message = battleSystem.battle(player.getpMonsters().get(0), roomMonster);
-            if (player.getpMonsters().get(0).getHP() <= 0) {
-                // sorry died
-                message = "Sorry your monster died. "; // TODO: offer another chance with another monster? link in txt from xml
+            message = battleSystem.battle(playerMonster, roomMonster);
+            if (playerMonster.getHP() <= 0) {
+               //player monster loses
+                message = userMonsterLoses(playerMonster);
             } else if  (currentMonster.getHP() <= 0) {
                 // if enemy killed call function for winning
                 message = killedAngryMonster();
@@ -180,14 +183,39 @@ public class GameController {
     }
 
     public String killedAngryMonster() {
-        player.getpMonsters().get(0).setHP(100);
-        int currStrength = player.getpMonsters().get(0).getStrength();
-        player.getpMonsters().get(0).setStrength((currStrength+10));
+        Monster playerMonster = player.getpMonsters().get(0);
+        playerMonster.setHP(100);
+        int currStrength = playerMonster.getStrength();
+        playerMonster.setStrength((currStrength + STRENGTH_XP_BOOST));
         // display message of joy for winning - Yay your monster won  -- your monster gets a 10 point strength boost
         // and you see a shard and pick it up now automatically have it in your shard inventory -- revisit exact shard
         // situation later
-        String message = "Yay you won. Your battle monster gained 10 strength points and a HP refresh. You picked up a metal shard that fell from the monster ";
-        return message;
+        player.dropShard();
+        System.out.println(player.getpShards().size());
+        String htmlMess = "<h2 class='text'><span class='user'>" + playerMonster.getName() + "</span> " +
+                "has defeated <span class='enemy'> " + currentMonster.getName() + "</span><br><span class='user'> " + playerMonster.getName() + "</span> " +
+                "has grown in experience regaining full HP and a strength boost from <span class='damage'> " + currStrength + " Strength - " + playerMonster.getStrength() +
+                " Strength</span><br>You also pick up a <span class='shard'>"+ player.getpShards().get(player.getpShards().size() - 1)+"</span> that has fallen from the defeated creature</h2>";
+        return htmlMess;
+    }
+
+    public String userMonsterLoses(Monster losingUserMonster) {
+        player.getpMonsters().remove(losingUserMonster);
+
+        String htmlMess = "<h2 class='text'><span class='user'>" + losingUserMonster.getName() + "</span> has died in battle to <span class='enemy'> "
+                + currentMonster.getName() + "</span></h2>";
+
+        return htmlMess;
+    }
+
+    //check is user is out of monsters
+    public boolean isGameOver() {
+        boolean isOver = false;
+        if (player.getpMonsters().size() == 0) {
+            isOver = true;
+        }
+
+        return isOver;
     }
 
 
