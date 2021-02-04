@@ -12,7 +12,7 @@ public class MonsterLocationsList {
 
     private List<String> friendlyMonsterLocations = new ArrayList<>();
     private List<String> angryMonsterLocations = new ArrayList<>();
-    TextParser tp;
+    TextParser tp = new TextParser();
 
     // Locate a monster in the room (from XML) Friendly
     private List<String> friendlyLocations() {

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class BattleTextGenerator {
 
-    TextParser tp;
+    TextParser tp = new TextParser();
     private ArrayList<String> battleHits = new ArrayList<>();
     private ArrayList<String> battleMiss = new ArrayList<>();
 

@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class StoryLineGenerator {
 
-    TextParser tp;
+    TextParser tp = new TextParser();
     HashMap<String, String> storyLines = new HashMap();
 
     public HashMap getStoryTxt() {

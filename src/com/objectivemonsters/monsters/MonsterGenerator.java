@@ -10,7 +10,7 @@ ONE random: MONSTER, FRIENDLY MONSTER, ANGRY MONSTERS
 
  */
 public class MonsterGenerator {
-    MonsterList ml;
+    MonsterList ml = new MonsterList();
 
     private Monster monty;
     private List<Monster> monLocalFriendly = new ArrayList<>();

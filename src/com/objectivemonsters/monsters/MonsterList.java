@@ -10,8 +10,8 @@ import java.util.List;
 
 public class MonsterList {
 
-    private List<Monster> monsters = new ArrayList<>();
-    TextParser tp;
+    List<Monster> monsters = new ArrayList<>();
+    TextParser tp = new TextParser();
 
     // GENERATE LIST OF MONSTERS FROM XML
     public List<Monster> allMonsters() {
