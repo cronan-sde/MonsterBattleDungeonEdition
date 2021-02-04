@@ -86,6 +86,10 @@ public class BattleScene extends JPanel {
         return battleTextArea;
     }
 
+    public JTextArea getStayOrFlee() {
+        return stayOrFlee;
+    }
+
     /*
      * Method to take in an html formatted string and set the contents of battle text area
      * to its html format
