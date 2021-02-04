@@ -205,11 +205,12 @@ public class GameController {
         // display message of joy for winning - Yay your monster won  -- your monster gets a 10 point strength boost
         // and you see a shard and pick it up now automatically have it in your shard inventory -- revisit exact shard
         // situation later
-
+        player.dropShard();
+        System.out.println(player.getpShards().size());
         String htmlMess = "<h2 class='text'><span class='user'>" + playerMonster.getName() + "</span> " +
                 "has defeated <span class='enemy'> " + currentMonster.getName() + "</span><br><span class='user'> " + playerMonster.getName() + "</span> " +
                 "has grown in experience regaining full HP and a strength boost from <span class='damage'> " + currStrength + " Strength - " + playerMonster.getStrength() +
-                " Strength</span><br>You also pick up a <span class='shard'>shiny metal shard</span> that has fallen from the defeated creature</h2>";
+                " Strength</span><br>You also pick up a <span class='shard'>"+ player.getpShards().get(player.getpShards().size() - 1)+"</span> that has fallen from the defeated creature</h2>";
         return htmlMess;
     }
 
