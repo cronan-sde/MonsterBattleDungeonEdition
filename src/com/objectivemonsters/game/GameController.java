@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GameController {
+    //XP BOOSTS
+    private static final int STRENGTH_XP_BOOST = 10;
 
     //list of acceptable verbs
     List<String> gameVerbs = List.of("GO", "LOOK", "TAKE", "FIGHT");
@@ -195,14 +197,19 @@ public class GameController {
     }
 
     public String killedAngryMonster() {
-        player.getpMonsters().get(0).setHP(100);
-        int currStrength = player.getpMonsters().get(0).getStrength();
-        player.getpMonsters().get(0).setStrength((currStrength+10));
+        Monster playerMonster = player.getpMonsters().get(0);
+        playerMonster.setHP(100);
+        int currStrength = playerMonster.getStrength();
+        playerMonster.setStrength((currStrength + STRENGTH_XP_BOOST));
         // display message of joy for winning - Yay your monster won  -- your monster gets a 10 point strength boost
         // and you see a shard and pick it up now automatically have it in your shard inventory -- revisit exact shard
         // situation later
-        String message = "Yay you won. Your battle monster gained 10 strength points and a HP refresh. You picked up a metal shard that fell from the monster ";
-        return message;
+//        String message = "Yay you won. Your battle monster gained 10 strength points and a HP refresh. You picked up a metal shard that fell from the monster ";
+        String htmlMess = "<h2 class='text'><span class='user'>" + playerMonster.getName() + "</span> " +
+                "has defeated <span class='enemy'> " + currentMonster.getName() + "</span><br><span class='user'> " + playerMonster.getName() + "</span> " +
+                "has grown in experience regaining full HP and a strength boost from <span class='damage'> " + currStrength + " Strength - " + playerMonster.getStrength() +
+                " Strength</span><br>You also pick up a <span class='shard'>shiny metal shard</span> that has fallen from the defeated creature";
+        return htmlMess;
     }
 
 

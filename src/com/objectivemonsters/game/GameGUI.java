@@ -109,11 +109,30 @@ public class GameGUI extends JFrame implements KeyListener {
         fightMoves();
     }
 
-    public void fightMoves(){
-
-        String htmlBattle = controller.playerAction("fight monster");
-        battleScene.setHTMLString(htmlBattle);
+    //display combat messages returned from game controller
+    public void fightMoves() {
+        Monster playerMonster = player.getpMonsters().get(0);
+        if (playerMonster.getHP() <= 0 || controller.getCurrentMonster().getHP() <= 0) {
+            String htmlBattle = controller.playerAction("fight monster");
+            battleScene.setHTMLString(htmlBattle);
+        }
+        else {
+            String htmlBattle = controller.playerAction("fight monster");
+            battleScene.setHTMLString(htmlBattle);
+        }
         updateHPBars();
+    }
+
+    public void battleToMainScreen() {
+        isBattleScreen = false;
+        isMainScreen = true;
+        battleScene.setVisible(false);
+        mainScene.setVisible(true);
+        mainScene.getMainTextArea().setText(controller.playerAction("fight monster"));
+    }
+
+    public void battleToGameOver() {
+
     }
 
 
@@ -237,22 +256,8 @@ public class GameGUI extends JFrame implements KeyListener {
             }
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_SPACE) {
-            if (player.getpMonsters().get(0).getHP() <= 0 || controller.getCurrentMonster().getHP() <= 0) {
-                isBattleScreen = false;
-                isMainScreen = true;
-                battleScene.setVisible(false);
-                mainScene.setVisible(true);
-                mainScene.getMainTextArea().setText(controller.playerAction("fight monster"));
-
-//                dungeonStart();
-            } else {
-                fightMoves();
-            }
-
+            fightMoves();
             System.out.println("IN CONTINUE BATTLE");
-            //check if game is over
-            //get 1 round of battle info to display
-            //update hp labels
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.out.println("IN BATTLE ESCAPE");
