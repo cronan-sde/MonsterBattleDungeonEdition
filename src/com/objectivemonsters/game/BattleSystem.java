@@ -54,6 +54,7 @@ public class BattleSystem {
  * Monster m2 attacks, damage removed from m1 hp, new hp set for m1
  * Just getting all mechanics working before making more usable
  * version 1 - use Thread.sleep to control flow of battle, and use simple println statements to visualize fight
+ * returns an html string for use by the GameGUI to present formatted battle text
  */
     public String battle(Monster m1, Monster m2) {
         StringBuilder sb = new StringBuilder();
@@ -63,31 +64,30 @@ public class BattleSystem {
             int m1AtckDmg = attackDamage(m1.getStrength());
             int m2DmgHp = m2.getHP() - m1AtckDmg;
             m2.setHP(m2DmgHp);
+            //display m1 attack
+            sb.append("<span class='user'>").append(m1.getName()).append("</span>").append("<span class='attack'> charges out and slashes </span>").append("<span class='enemy'>" ).append(m2.getName()).append("</span> accross the face in a powerful attack that caused ").append("<span class='damage' >").append(m1AtckDmg).append(" dmg. </span><br>");
             // check if m2 is dead
             if (m2.getHP() <= 0) {
-//                m2 hp = 0
-                // attack
-                sb.append("<span class='user'>").append(m1.getName()).append("</span>").append("<span class='attack'> charges out and slashes </span>").append("<span class='enemy'>" ).append(m2.getName()).append("</span> accross the face in a powerful attack that caused ").append("<span class='damage' >").append(m1AtckDmg).append(" dmg. </span>");
+                // m2 hit message
                 sb.append("<span class='enemy'> ").append(m2.getName()).append("</span>").append(" lets out a cry while collapsing to the ground dead");
 
             } else {
                 //m2 hit message
-                sb.append("<span class='user'>").append(m1.getName()).append("</span>").append("<span class='attack'> charges out and slashes </span>").append("<span class='enemy'>" ).append(m2.getName()).append("</span> accross the face in a powerful attack that caused ").append("<span class='damage' >").append(m1AtckDmg).append(" dmg. </span>");
-                sb.append("<span class='enemy'> ").append(m2.getName()).append("</span>").append(" stumbles back from the attack, but begins to regain its balance");
+                sb.append("<span class='enemy'> ").append(m2.getName()).append("</span>").append(" stumbles back from the attack, but begins to regain its balance<br>");
 
                 //m2 takes turn
                 int m2AtckDmg = attackDamage(m2.getStrength());
                 int m1DmgHp = m1.getHP() - m2AtckDmg;
                 m1.setHP(m1DmgHp);
+                //display m2 attack
+                sb.append("<span class='enemy'>").append(m2.getName()).append("</span>").append(" dashes forward <span class='attack'>and swings its arms, slamming into  </span>").append("<span class='user'>" ).append(m1.getName()).append("</span> causing ").append("<span class='damage' >").append(m2AtckDmg).append(" dmg. </span><br>");
                 //check if m1 is dead
                 if (m1.getHP() <= 0) {
-                    //m1 hp = 0
-                    printBattleMessage(m2.getName() + " dashes toward " + m1.getName() + " and swings its arms, slamming into " + m1.getName() + " causing " + m2AtckDmg + " dmg.",m1.getName() + " falls to the ground, trying to get back up, but finally collapses to the floor for the last time");
-
+                    //m1 dead
+                    sb.append("<span class='user'> ").append(m1.getName()).append("</span>").append(" falls to the ground, trying to get back up, but finally collapses to the floor for the last time");
                 }
                 //m1 hit message
-                printBattleMessage(m2.getName() + " dashes toward " + m1.getName() + " and swings its arms, slamming into " + m1.getName() + " causing " + m2AtckDmg + " dmg.",m1.getName() + " falls back wincing in pain, but begins to regain its composure");
-
+                sb.append("<span class='user'> ").append(m1.getName()).append("</span>").append(" falls back wincing in pain, but begins to regain its composure");
             }
 
         sb.append("</h2>");
