@@ -6,6 +6,7 @@ import com.objectivemonsters.monsters.Monster;
 import com.objectivemonsters.monsters.MonsterGenerator;
 import com.objectivemonsters.player.Player;
 import com.objectivemonsters.scenes.BattleScene;
+import com.objectivemonsters.scenes.GameOverScene;
 import com.objectivemonsters.scenes.MainScene;
 import com.objectivemonsters.scenes.StartScene;
 
@@ -39,6 +40,7 @@ public class GameGUI extends JFrame implements KeyListener {
     private boolean isStartScreen = true;
     private boolean isMainScreen = false;
     private boolean isBattleScreen = false;
+    private boolean isGameOverScreen = false;
 
     //Game pieces
     private Player player;
@@ -49,6 +51,7 @@ public class GameGUI extends JFrame implements KeyListener {
     private StartScene startScene;
     private MainScene mainScene;
     private BattleScene battleScene;
+    private GameOverScene gameOverScene;
 
 
     //ctor to create GUI
@@ -125,17 +128,34 @@ public class GameGUI extends JFrame implements KeyListener {
 
     //call when spacebar is clicked after win display is shown
     public void battleToMainScreen() {
-        isBattleScreen = false;
-        isMainScreen = true;
-        battleScene.setVisible(false);
-        mainScene.setVisible(true);
-
-        dungeonStart();
+        if (controller.isGameOver()) {
+            //display gameover screen
+            isBattleScreen = false;
+            isGameOverScreen = true;
+            battleScene.setVisible(false);
+            showGameOverScreen();
+        }
+        else {
+            isBattleScreen = false;
+            isMainScreen = true;
+            battleScene.setVisible(false);
+            mainScene.setVisible(true);
+            dungeonStart();
+        }
     }
 
     //call when spacebar is clicked after lose display is shown
-    public void battleToGameOver() {
+    public void showGameOverScreen() {
         //load game over screen
+        gameOverScene = new GameOverScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
+        gameOverScene.getWinLoseText().addKeyListener(this);
+        gameOverScene.addKeyListener(this);
+        add(gameOverScene);
+        gameOverScene.setVisible(true);
+        gameOverScene.getWinLoseText().setText("You're monsters have all been slain and without their help\n" +
+                controller.getCurrentMonster().getName() + " has consumed you!");
+        gameOverScene.getWinLoseText().setForeground(Color.RED);
+
     }
 
 
@@ -215,12 +235,6 @@ public class GameGUI extends JFrame implements KeyListener {
         showBattleScene();
     }
 
-    public void hideBattleScreen() {
-        battleScene.setVisible(false);
-
-        //show game over
-//        showGameOver();
-    }
 
 
     /*
@@ -259,19 +273,14 @@ public class GameGUI extends JFrame implements KeyListener {
             }
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_SPACE) {
-            if (player.getpMonsters().get(0).getHP() <= 0) {
-                battleToGameOver();
-            }
-            else if (controller.getCurrentMonster().getHP() <= 0) {
+            if (player.getpMonsters().get(0).getHP() <= 0 || controller.getCurrentMonster().getHP() <= 0) {
                 battleToMainScreen();
             }
             fightMoves();
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.out.println("IN BATTLE ESCAPE");
-            isBattleScreen = false;
-            battleScene.setVisible(false);
-            mainScene.setVisible(true);
+            battleToMainScreen();
         }
     }
 
