@@ -9,11 +9,25 @@ public class PlayerTest {
 
     @Test
     public void shardGenShouldReturn10Shards() {
-        assertEquals(10,player.shardGen().size());
+        assertEquals(10,player.gameShardsGen().size());
     }
 
     @Test
-    public void dropShard() {
-        assertEquals(9,player.dropShard(player.shardGen()).size());
+    public void pShardsSizeShouldBeZero(){
+        assertEquals(0, player.getpShards().size());
+    }
+
+    @Test
+    public void pShardsShouldHaveOneElement() {
+        player.gameShardsGen();
+        player.dropShard();
+        assertEquals(1,player.getpShards().size());
+    }
+
+    @Test
+    public void gameShardsListShouldHaveNineElement() {
+        player.gameShardsGen();
+        player.dropShard();
+        assertEquals(9,player.getgameShardsList().size());
     }
 }

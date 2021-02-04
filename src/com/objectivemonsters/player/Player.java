@@ -12,7 +12,8 @@ public class Player {
     private String name; // more advanced version
     private List<Item> pItems;
     private List<Monster> pMonsters;
-    private List<String> shardsList = new ArrayList<>();
+    private List<String> gameShardsList = new ArrayList<>(); // list keep tracking all shards for the game.
+    private List<String> pShards = new ArrayList<>(); // list keep tracking the player's shard inventory.
 
     // CONSTRUCTOR
     public Player(){
@@ -51,8 +52,15 @@ public class Player {
         this.pMonsters = pMonsters;
     }
 
-    // Methods
+    public List<String> getpShards() {
+        return pShards;
+    }
 
+    public List<String> getgameShardsList() {
+        return gameShardsList;
+    }
+
+    // Methods
     /**
      * <p>
      * Generate 10 shards and populate into an arraylist named shardsList.
@@ -64,33 +72,35 @@ public class Player {
      * </pre>
      *
      * @param none
-     * @return an arraylist named shardList contain 10 element of type String. e.g. shard1, shard2...
+     * @return an arraylist named gameShardList contain 10 element of type String. e.g. shard1, shard2...
      */
-    public List<String> shardGen(){
+    public List<String> gameShardsGen(){
             for (int i = 1; i <= 10; i++ ){
-                shardsList.add("shard" + i);
+                gameShardsList.add("shard" + i);
             }
-        return shardsList;
+        return gameShardsList;
     }
 
     /**
      * <p>
-     * Generate 10 shards and populate into an arraylist named shardsList.
+     * remove 1 element off gameShardsList and populate that element onto pShards list.
      * </p>
      * <pre>
      * <code>
-     *     Player.shardGen();
+     *     Player.dropShard();
      * </code>
      * </pre>
      *
-     * @param shardsList the shards list.
-     * @return drop the last element in the shardsList and return the shardsList.
+     * @param none.
+     * @return none.
      */
-    public List<String> dropShard(List<String> shardsList){
-        int index = shardsList.size() - 1;
-        shardsList.remove(index);
-        return shardsList;
+    public void dropShard(){
+        // add 1 shard to pShards list.
+        pShards.add(gameShardsList.get(0));
+        // remove 1 element off
+        gameShardsList.remove(0);
     }
+
 
 
     // tailored toString
