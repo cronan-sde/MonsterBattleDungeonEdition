@@ -72,7 +72,7 @@ public class Player {
      * </code>
      * </pre>
      *
-     * @param none
+     * @param
      * @return an arraylist named gameShardList contain 10 element of type String. e.g. shard1, shard2...
      */
     public List<String> gameShardsGen(){
@@ -92,8 +92,8 @@ public class Player {
      * </code>
      * </pre>
      *
-     * @param none.
-     * @return none.
+     * @param
+     * @return
      */
     public void dropShard(){
         // add 1 shard to pShards list.

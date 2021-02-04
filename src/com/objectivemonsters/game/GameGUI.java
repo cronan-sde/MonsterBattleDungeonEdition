@@ -90,6 +90,7 @@ public class GameGUI extends JFrame implements KeyListener {
         Dungeon dungeon = initializer.dungeonInit(monster);
         player = new Player("player1", new ArrayList<>(), new ArrayList<>());
         player.setName("Cool Dude");
+        player.gameShardsGen(); // generate 10 shards when game started
         controller = new GameController(dungeon, monster, player);
 
         //initialize main game screen
@@ -190,9 +191,8 @@ public class GameGUI extends JFrame implements KeyListener {
 
         userMonsters.setText("MONSTERS:" + playerMonstersLabel());
         userInventory.setText("Inventory:" + player.getpItems());
-//        userShards.setText("Shards: " + player.shardGen().size() + "/10"); future call
-        userShards.setText("Shards: 0/10");
-        userKeys.setText("Keys: 0/1"); //TODO: figure out key, currently only 1 key per level, shards morph into key
+        userShards.setText("Shards " + player.getpShards().size() + "/10: " + player.getpShards());
+        userKeys.setText("Keys " + player.getKey(player.getpShards()) + "/1" + ": [" + player.getKey(player.getpShards())+"]"); //TODO: figure out key, currently only 1 key per level, shards morph into key
     }
 
     //create player monster label string
