@@ -13,7 +13,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void pShardsSizeShouldBeZero(){
+    public void pShardsSizeShouldBeZeroByDefault(){
         assertEquals(0, player.getpShards().size());
     }
 
@@ -29,5 +29,14 @@ public class PlayerTest {
         player.gameShardsGen();
         player.dropShard();
         assertEquals(9,player.getgameShardsList().size());
+    }
+
+    @Test
+    public void playerShouldGetAKey(){
+        player.gameShardsGen();
+        for (String shard: player.getgameShardsList()) {
+            player.getpShards().add(shard);
+        }
+        assertEquals(1,player.getKey(player.getpShards()));
     }
 }
