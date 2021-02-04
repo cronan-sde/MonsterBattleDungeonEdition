@@ -26,7 +26,7 @@ public class BattleScene extends JPanel {
         add(userMonsterHP);
 
         evilMonsterHP = new JLabel("Bad Monster: 100 HP");
-        evilMonsterHP.setBounds(580, 15, 300, 80);
+        evilMonsterHP.setBounds(560, 15, 300, 80);
         evilMonsterHP.setFont(new Font(fontName, Font.PLAIN, 20));
         evilMonsterHP.setForeground(Color.RED);
         add(evilMonsterHP);
@@ -68,6 +68,7 @@ public class BattleScene extends JPanel {
         css.addRule(".attack {color: orange;}");
         css.addRule(".damage {color: yellow;}");
         css.addRule(".text {color: white;}");
+        css.addRule(".shard {color: #00FFFF;}");
 
         Document doc = htmlEditorKit.createDefaultDocument();
         battleTextArea.setDocument(doc);
@@ -83,6 +84,10 @@ public class BattleScene extends JPanel {
 
     public JTextPane getBattleTextArea() {
         return battleTextArea;
+    }
+
+    public JTextArea getStayOrFlee() {
+        return stayOrFlee;
     }
 
     /*
