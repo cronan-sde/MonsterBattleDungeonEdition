@@ -85,6 +85,10 @@ public class GameController {
         String friendOrFoe = currentMonster.isFriendly()? " This monster appears to be friendly" : " Be careful this creature is no friend to you";
         sb.append(friendOrFoe);
 
+        if (currentRoom.isHasExitDoor()){ // description for the dungeon door if its in current room.
+         String dungeonExitDesc = "\n" + " Wait a minute, you saw light shine in from a giant stone door, That must be the exit of the dungeon";
+         sb.append(dungeonExitDesc);
+        }
         return sb.toString();
     }
 
