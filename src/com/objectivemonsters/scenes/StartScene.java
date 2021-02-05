@@ -79,4 +79,12 @@ public class StartScene extends JPanel {
     public JTextArea getHintText() {
         return hintText;
     }
+
+    public JTextArea getWelcomeText() {
+        return welcomeText;
+    }
+
+    public JTextArea getPlayGameText() {
+        return playGameText;
+    }
 }

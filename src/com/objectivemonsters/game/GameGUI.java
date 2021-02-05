@@ -10,7 +10,6 @@ import com.objectivemonsters.scenes.BattleScene;
 import com.objectivemonsters.scenes.GameOverScene;
 import com.objectivemonsters.scenes.MainScene;
 import com.objectivemonsters.scenes.StartScene;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -22,10 +21,8 @@ import java.util.List;
  * GameGUI is the GUI for the game, it will display a start screen to welcome user to game along with
  * helpful hints on how to play. When user presses [enter] the GUI will change to the main game.
  * GameGUI will update its components as the state of the game changes
- * TODO: Tie classes needed into GameGUI to be able to update interface, and pass data to and from game controller
  * DONE: NEED A BATTLE SCENE TO BE DISPLAYED
  * DONE: NEED TO COLOR TEXT
- * TODO: NEED TO REFACTOR
  * DONE: Find a way to move scenes elsewhere to clean up code
  */
 public class GameGUI extends JFrame implements KeyListener {
@@ -81,6 +78,8 @@ public class GameGUI extends JFrame implements KeyListener {
         isStartScreen = true;
         startScene = new StartScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
         startScene.getHintText().addKeyListener(this);
+        startScene.getWelcomeText().addKeyListener(this);
+        startScene.getPlayGameText().addKeyListener(this);
         startScene.addKeyListener(this);
         add(startScene);
         startScene.setVisible(true);
@@ -101,6 +100,7 @@ public class GameGUI extends JFrame implements KeyListener {
         mainScene = new MainScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
         mainScene.getInputText().addKeyListener(this);
         add(mainScene);
+        mainScene.getInputText().requestFocus(); //sets cursor automatically so user doesn't need to click
         //set inventory and desc text for main room
         updateInventory();
         dungeonStart();
@@ -115,6 +115,7 @@ public class GameGUI extends JFrame implements KeyListener {
         battleScene.getBattleTextArea().addKeyListener(this);
         battleScene.addKeyListener(this);
         add(battleScene);
+        battleScene.requestFocus();
         fightMoves();
     }
 
@@ -143,10 +144,12 @@ public class GameGUI extends JFrame implements KeyListener {
             showGameOverScreen();
         }
         else {
+            updateInventory();
             isBattleScreen = false;
             isMainScreen = true;
             battleScene.setVisible(false);
             mainScene.setVisible(true);
+            mainScene.getInputText().requestFocus();
             dungeonStart();
         }
     }
@@ -156,8 +159,11 @@ public class GameGUI extends JFrame implements KeyListener {
         //load game over screen
         gameOverScene = new GameOverScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
         gameOverScene.getWinLoseText().addKeyListener(this);
+        gameOverScene.getGameOverText().addKeyListener(this);
+        gameOverScene.getPlayAgainText().addKeyListener(this);
         gameOverScene.addKeyListener(this);
         add(gameOverScene);
+        gameOverScene.requestFocus();
         gameOverScene.setVisible(true);
         gameOverScene.getWinLoseText().setText("You're monsters have all been slain and without their help\n" +
                 controller.getCurrentMonster().getName() + " has consumed you!");
@@ -190,8 +196,9 @@ public class GameGUI extends JFrame implements KeyListener {
 
         userMonsters.setText("MONSTERS:" + playerMonstersLabel());
         userInventory.setText("Inventory:" + player.getpItems());
-        userShards.setText("Shards " + player.getpShards().size() + "/10: " + player.getpShards());
-        userKeys.setText("Keys " + player.getKey(player.getpShards()) + "/1" + ": [" + player.getKey(player.getpShards())+"]"); //TODO: figure out key, currently only 1 key per level, shards morph into key
+        //TODO: need to reset shards to 0 when key is created
+        userShards.setText("Shards " + player.getpShards().size() + "/10: ");
+        userKeys.setText("Keys " + player.getKey(player.getpShards()) + "/1");
     }
 
     //create player monster label string
