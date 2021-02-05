@@ -81,7 +81,6 @@ public class GameGUI extends JFrame implements KeyListener {
         startScene.requestFocus();
         startScene.setVisible(true);
     }
-
     /*
      * Method will set main game screen with current inventory and current room description
      * game loop will be in this method
@@ -89,7 +88,7 @@ public class GameGUI extends JFrame implements KeyListener {
     public void startGame() {
         //initialize game pieces
         MapInit initializer = new MapInit();
-//        MonsterGenerator mongen = new MonsterGenerator();
+        //MonsterGenerator mongen = new MonsterGenerator();
         MonsterList monsterList = new MonsterList();
         List<Monster> monster = monsterList.allMonsters();
         dungeon = initializer.dungeonInit(monster);
@@ -97,6 +96,7 @@ public class GameGUI extends JFrame implements KeyListener {
         player.setName("Freddy");
         player.gameShardsGen(); // generate 10 shards when game started
         controller = new GameController(dungeon, monster, player);
+        initializer.assignExitDoor(); // assign the exit door randomly on game start.
         //initialize main game screen
         showMainGameScene();
     }
@@ -171,9 +171,18 @@ public class GameGUI extends JFrame implements KeyListener {
         add(gameOverScene);
         gameOverScene.requestFocus();
         gameOverScene.setVisible(true);
-        gameOverScene.getWinLoseText().setText("You're monsters have all been slain and without their help\n" +
-                controller.getCurrentMonster().getName() + " has consumed you!");
-        gameOverScene.getWinLoseText().setForeground(Color.RED);
+
+        if (player.getpMonsters().size() == 0) {
+            gameOverScene.getWinLoseText().setText("You're monsters have all been slain and without their help\n" +
+                    controller.getCurrentMonster().getName() + " has consumed you!");
+            gameOverScene.getWinLoseText().setForeground(Color.RED);
+        } else {
+            gameOverScene.getWinLoseText().setText("You saw an Door in the room and since you got the Key\n" +
+                    "Congrats you get out of the dungeon and set your " + player.getpMonsters().size() + "monster free as well\n" +
+                    "Great Job!");
+            gameOverScene.getWinLoseText().setForeground(Color.GREEN);
+        }
+
         System.out.println("isMainScene" + isMainScreen);
         System.out.println("isBattleScene" + isBattleScreen);
         System.out.println("isStartScene" + isStartScreen);
@@ -202,9 +211,9 @@ public class GameGUI extends JFrame implements KeyListener {
 
         userMonsters.setText("MONSTERS:" + playerMonstersLabel());
         userInventory.setText("Inventory:" + player.getpItems());
-        userShards.setText("Shards: " + player.getpShards().size() + "/10");
-        userKeys.setText("Keys: " + player.getKey(player.getpShards()) + "/1"); //TODO: figure out key, currently only 1 key per level, shards morph into key
-        
+
+        userShards.setText("Shards [" + player.getpShards().size() + "/10]");
+        userKeys.setText("Keys [" + player.setKey(player.getpShards()) + "/1]"); //TODO: figure out key, currently only 1 key per level, shards morph into key
     }
 
     //create player monster label string

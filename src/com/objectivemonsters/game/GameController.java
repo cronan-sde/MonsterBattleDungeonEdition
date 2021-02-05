@@ -75,7 +75,7 @@ public class GameController {
     public String displayRoomScene() {
         StringBuilder sb = new StringBuilder();
         currentMonster = monGeny.randomMonster();
-        System.out.println(currentMonster);
+        //System.out.println(currentMonster);
 
         sb.append(player.getName()).append(", you are currently in the ").append(currentRoom.getName());
         sb.append(". You scan the room to see ").append(currentRoom.getDescription());
@@ -150,13 +150,12 @@ public class GameController {
         return htmlMess;
     }
 
-    //check is user is out of monsters
+    //check is user is out of monsters or if player has the key and there are a exit door in the currentRoom.
     public boolean isGameOver() {
         boolean isOver = false;
-        if (player.getpMonsters().size() == 0) {
+        if (player.getpMonsters().size() == 0 || (player.getKey() && currentRoom.isHasExitDoor())) {
             isOver = true;
         }
-
         return isOver;
     }
 

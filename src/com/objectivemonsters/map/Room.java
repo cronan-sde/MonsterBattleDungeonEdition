@@ -103,6 +103,7 @@ public class Room {
                 ", description='" + description + '\'' +
                 ", roomLeadTo=" + roomLeadTo +
                 ", exits=" + exits +
+                ", dungeon exits=" + hasExitDoor +
                 '}';
     }
 }
