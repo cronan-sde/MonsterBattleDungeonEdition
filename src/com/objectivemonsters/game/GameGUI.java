@@ -93,7 +93,7 @@ public class GameGUI extends JFrame implements KeyListener {
         List<Monster> monster = monsterList.allMonsters();
         dungeon = initializer.dungeonInit(monster);
         player = new Player("player1", new ArrayList<>(), new ArrayList<>());
-        player.setName("Freddy");
+        player.setName("Player One");
         player.gameShardsGen(); // generate 10 shards when game started
         controller = new GameController(dungeon, monster, player);
         initializer.assignExitDoor(); // assign the exit door randomly on game start.
