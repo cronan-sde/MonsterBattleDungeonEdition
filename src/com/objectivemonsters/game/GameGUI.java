@@ -9,7 +9,6 @@ import com.objectivemonsters.scenes.BattleScene;
 import com.objectivemonsters.scenes.GameOverScene;
 import com.objectivemonsters.scenes.MainScene;
 import com.objectivemonsters.scenes.StartScene;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
