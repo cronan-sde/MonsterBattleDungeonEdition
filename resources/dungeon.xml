@@ -8,7 +8,7 @@
             <roomleadTo>torn chamber</roomleadTo>
             <roomleadTo>the complex</roomleadTo>
             <exit>east</exit>
-            <exit>north</exit>
+            <exit>south</exit>
         </room>
         <room>
             <roomId>2</roomId>

@@ -5,13 +5,16 @@ import com.objectivemonsters.monsters.Monster;
 import java.util.Random;
 
 public class BattleSystem {
-    private Random rand;
+    private final Random rand;
     //tracks minimum base damage increase when strength over 100
     private static final int MIN_DAMAGE_INCREMENTS = 1;
     //tracks maximum base damage increase when strength under 101
     private static final int MAX_DAMAGE_INCREMENTS = 5;
     //tracks the strength point jumps that lead to damage increases
     private static final int STRENGTH_RANGE_JUMPS = 10;
+
+    //number that will equate to a miss
+    private static final int MISS_NUMBER = 3;
 
 
     public BattleSystem() {
@@ -96,22 +99,43 @@ public class BattleSystem {
     }
 
 
-    //prints the attack message, delays, then prints the hit message
-    private void printBattleMessage(String attackMessage, String hitMessage) {
-        System.out.println(attackMessage);
-        delayBattleMessages(2000);
-        System.out.println(hitMessage + "\n");
+    /*
+     * Simple miss calculator, every monster will have a 1 in 10 chance to miss
+     */
+    private boolean isMiss() {
+        boolean miss = false;
+        int randomNum = rand.nextInt(10);
+        if (randomNum == MISS_NUMBER) {
+            miss = true;
+        }
+        return miss;
     }
 
-    //Method to slow down the output and avoid bombarding the user with text
-    //help to simulate an actual battle
-    private void delayBattleMessages(int timeDelay) {
-        try {
-            Thread.sleep(timeDelay);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    /*
+     * TODO: feed the xml in here? grab single string at a time?
+     */
+    /*
+     * generate the String for monster that was hit
+     */
+    public String hitString() {
+        return null;
     }
+
+    /*
+     * generate string for monster that missed
+     */
+    public String missString() {
+        return null;
+    }
+
+    /*
+     * generate string for monster that attacked
+     */
+    public String attackString() {
+        return null;
+    }
+
+
 
     /*
      * Gets the valid dmg range based on the strengthLevel of the monster provided.
