@@ -8,8 +8,6 @@ import com.objectivemonsters.player.Player;
 import com.objectivemonsters.storylines.BattleTextGenerator;
 import com.objectivemonsters.storylines.StoryLineGenerator;
 import com.objectivemonsters.util.Prompter;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -42,6 +40,7 @@ public class GameController {
     private Monster currentMonster;
     //testing prompter and user name entry
     private String playerName;
+    //TODO: Track Player monster
 
 
     // class holding the random monsters and angry, friendly lists -- all monsters are in the monsterlist class
@@ -67,63 +66,10 @@ public class GameController {
         startMonster = monGeny.randoFriendlyMon();
         currentMonster = startMonster;
         currentRoom = startRoom;
-
-
     }
 
-    //start game
-    public void startGame() {
-        // build and stock dungeon with player, rooms, monsters
-        startRoom = dungeon.getDungeonRooms().get(0);
-        currentRoom = startRoom;
-        gameMonsters = dungeon.getDungeonMonsters();
-        startMonster = monGeny.randoFriendlyMon();
-        currentMonster = startMonster;
-//        new GameGUI();
-    }
+    //TODO: Put xml storylines for main game and gameover text
 
-    //welcome
-    public void welcome() {
-//       monGeny.randomMonster();
-
-
-
-//        System.out.println();
-//        System.out.println(storyBits.get("opening"));
-//        System.out.println(storyBits.get("moreInfo"));
-//        System.out.println(storyBits.get("friendlyGesture"));
-//        System.out.println(storyBits.get("hint"));
-
-
-//        System.out.println();
-//
-//        System.out.println("---------------------------------------");
-//        System.out.println("WELCOME TO MONSTER BATTLES: DUNGEON EDITION");
-//        System.out.println("---------------------------------------");
-//        playerName = prompter.prompt("What is your name? >");
-//        System.out.println("Welcome " + playerName);  // replace inside () w/ storyBits.get("welcome") + playerName
-//        System.out.println("You awake in a dungeon full of monsters, some are willing to help you escape, others wish to consume you!\n" +
-//                "Escaping this dungeon requires you to defeat the evil monsters, but you are nowhere near powerful enough to defeat them on your own!\n" +
-//                "Perhaps you can find monsters that are willing to help you in your quest.\n"); // TODO: replace inside () w/ storyBits.get("opening")
-        // TODO:  if possible, delayed time response and then: sout(storyBits.get("moreInfo"));
-        // TODO: if possible, delayed time response and then: sout(storyBits.get("friendlyGesture"));
-
-//        String getHint = prompter.prompt("Would you like hints on how to play the game? type y/n >"); // TODO: if possible, delayed time response and then: sout(storyBits.get("moreInfo"));
-//        if (getHint.equals("y")) {
-//            hints(); // replace w/ System.out.println(storyBits.get("hint"));
-//        }
-    }
-
-    //control hints
-    public void hints() {
-//        System.out.println("In order to traverse the dungeon, you will be provided with options on what to do.\n" +
-//                "You must type a recognized action, followed by a noun, in order to move and interact.\n" +
-//                "Example: If you would like to move into an available room, you would type GO ROOMNAME. If you would like to inspect your surroundings, you would type LOOK AROUND\n" +
-//                "List of recognized actions - " + gameVerbs);
-//    }
-
-//        System.out.println(slg.getStoryTxt().get("welcome"));
-    }
 
     //Display the scene of the room
     public String displayRoomScene() {
@@ -134,12 +80,11 @@ public class GameController {
         sb.append(player.getName()).append(", you are currently in the ").append(currentRoom.getName());
         sb.append(". You scan the room to see ").append(currentRoom.getDescription());
         sb.append(". You also notice there appears to be exits into other rooms ").append(currentRoom.getExits());
-//        if (currentRoom.getRoomMonster() != null) {
-            sb.append(". As you are looking around you notice a creature in the corner by the name of ").append(currentMonster.getName());
-            String friendOrFoe = currentMonster.isFriendly()? " This monster appears to be friendly" : " Be careful this creature is no friend to you";
-            sb.append(friendOrFoe);
 
-//        }
+        sb.append(". As you are looking around you notice a creature in the corner by the name of ").append(currentMonster.getName());
+        String friendOrFoe = currentMonster.isFriendly()? " This monster appears to be friendly" : " Be careful this creature is no friend to you";
+        sb.append(friendOrFoe);
+
         return sb.toString();
     }
 
@@ -187,9 +132,6 @@ public class GameController {
         playerMonster.setHP(100);
         int currStrength = playerMonster.getStrength();
         playerMonster.setStrength((currStrength + STRENGTH_XP_BOOST));
-        // display message of joy for winning - Yay your monster won  -- your monster gets a 10 point strength boost
-        // and you see a shard and pick it up now automatically have it in your shard inventory -- revisit exact shard
-        // situation later
         player.dropShard();
         System.out.println(player.getpShards().size());
         String htmlMess = "<h2 class='text'><span class='user'>" + playerMonster.getName() + "</span> " +
@@ -217,7 +159,6 @@ public class GameController {
 
         return isOver;
     }
-
 
 
 
@@ -261,5 +202,3 @@ public class GameController {
         return currentRoom;
     }
 }
-
-
