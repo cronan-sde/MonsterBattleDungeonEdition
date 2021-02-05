@@ -58,7 +58,8 @@ public class StartScene extends JPanel {
      */
     public void setStartDialogue() {
         welcomeText.setText("Welcome to MONSTER BATTLES: DUNGEON EDITION");
-//        welcomeText.setText((String) slg.getStoryTxt().get("welcome") + "\n" + "\n" + slg.getStoryTxt().get("opening") + "\n" + slg.getStoryTxt().get("moreInfo") + "\n" +
+//        welcomeText.setText((String) slg.getStoryTxt().get("welcome"));
+//        hintText.setText(slg.getStoryTxt().get("opening") + "\n" + slg.getStoryTxt().get("moreInfo") + "\n" +
 //                slg.getStoryTxt().get("friendlyGesture") + "\n" + "\n" + slg.getStoryTxt().get("hint"));
 //        welcomeText.setText((String) slg.getStoryTxt().get("opening"));
 //        welcomeText.setText((String) slg.getStoryTxt().get("moreInfo"));
