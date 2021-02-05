@@ -30,6 +30,7 @@ public class MonsterGenerator {
     }
 
     // iterate through list of all monsters and return only friendly monsters
+    // TODO: combine and send in whether wanting a f or a
     public List<Monster> friendlyMonstersAll() {
         List<Monster> friendlyMonsters = new ArrayList<>();
         for (Monster mon : ml.allMonsters()) {
