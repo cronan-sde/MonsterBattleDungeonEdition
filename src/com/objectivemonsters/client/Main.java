@@ -12,14 +12,8 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
-//        MapInit initializer = new MapInit();
-//        MonsterGenerator mongen = new MonsterGenerator();
-//        MonsterList monLis = new MonsterList();
-//        Monster monster = new Monster();
-//        Dungeon dungeon = initializer.dungeonInit(monLis);
-//        Player player = new Player("player1", new ArrayList<>(), new ArrayList<>());
-//        GameController controller = new GameController(dungeon, monster, player);
-//        controller.startGame();
-    }
+//    public static void main(String[] args) {
+//        GameController gc = new GameController();
+//        gc.startGame();
+//    }
 }

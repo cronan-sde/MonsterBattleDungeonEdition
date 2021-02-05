@@ -16,7 +16,7 @@ public class MonsterListTest {
         ml.allMonsters();
         String name = "Wacky Rabbit";
         assertEquals(name, ml.allMonsters().get(0).getName());
-        assertEquals(26, ml.allMonsters().size());
+        assertEquals(13, ml.allMonsters().size());
     }
 
     // testing method call in class

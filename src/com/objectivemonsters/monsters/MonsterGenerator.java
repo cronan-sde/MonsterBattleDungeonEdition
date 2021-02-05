@@ -45,15 +45,8 @@ public class MonsterGenerator {
     public Monster randomMonster() {
 
         int random = randomNumber(ml.allMonsters());
-        System.out.println(random+"  at line 48");
-        System.out.println(ml.allMonsters().size()+"  size of all monsters");
+        monty = ml.allMonsters().get(random);
 
-        for (int j = 0; j < ml.allMonsters().size(); j++) {
-            if (j == random) {
-                monty = ml.allMonsters().get(j);
-                return monty;
-            }
-        }
         return monty;
     }
 

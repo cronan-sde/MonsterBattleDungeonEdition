@@ -9,6 +9,7 @@ import com.objectivemonsters.storylines.BattleTextGenerator;
 import com.objectivemonsters.storylines.StoryLineGenerator;
 import com.objectivemonsters.util.Prompter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +19,7 @@ public class GameController {
     private static final int STRENGTH_XP_BOOST = 10;
 
     //list of acceptable verbs
-    List<String> gameVerbs = List.of("GO", "LOOK", "TAKE", "FIGHT");
+    List<String> gameVerbs = List.of("GO", "LOOK", "TAKE", "FIGHT"); // eventually these will come from xml
     //combat system
     private BattleSystem battleSystem;
     //allow user to interact
@@ -28,25 +29,28 @@ public class GameController {
     //need monsters
     private List<Monster> gameMonsters;
     //battle text hits
-   private HashMap<String, String> storyBits = new HashMap<>();
+    HashMap<String, String> storyBits = new HashMap<>();
     //need player
     private Player player;
     //start room
     private Room startRoom;
     //current room
     private Room currentRoom;
+    // starter monster
+    private Monster startMonster;
     //current monster
     private Monster currentMonster;
     //testing prompter and user name entry
     private String playerName;
 
-    // generate monsters
+
+    // class holding the random monsters and angry, friendly lists -- all monsters are in the monsterlist class
     MonsterGenerator monGeny = new MonsterGenerator();
 
-    // generate battleText
+    // generate battleText - can access the methods to retrieve random battle lines for hits and misses
     BattleTextGenerator btg = new BattleTextGenerator();
 
-    // generate storyText
+    // generate storyText slg w/ story bits will yield, well story bits
     StoryLineGenerator slg = new StoryLineGenerator();
 
 
@@ -59,37 +63,28 @@ public class GameController {
         this.player = player;
 
         startRoom = dungeon.getDungeonRooms().get(0);
+        gameMonsters = dungeon.getDungeonMonsters();
+        startMonster = monGeny.randoFriendlyMon();
+        currentMonster = startMonster;
         currentRoom = startRoom;
 
 
     }
 
-
-
     //start game
     public void startGame() {
-        //welcome user and give hints
-//        welcome();
-        //show user the room they are in
-//        startRoom = dungeon.getDungeonRooms().get(0);
-//        currentRoom = startRoom;
-//        displayRoomScene(startRoom);
-
-//        //begin game loop
-//        boolean gameOver = false;
-//        while (!gameOver) {
-//
-//            boolean stillPlaying = playerAction();
-//
-//            if (!stillPlaying) {
-//                gameOver = true;
-//            }
-//        }
+        // build and stock dungeon with player, rooms, monsters
+        startRoom = dungeon.getDungeonRooms().get(0);
+        currentRoom = startRoom;
+        gameMonsters = dungeon.getDungeonMonsters();
+        startMonster = monGeny.randoFriendlyMon();
+        currentMonster = startMonster;
+//        new GameGUI();
     }
 
     //welcome
     public void welcome() {
-       monGeny.randomMonster();
+//       monGeny.randomMonster();
 
 
 
@@ -100,31 +95,34 @@ public class GameController {
 //        System.out.println(storyBits.get("hint"));
 
 
-        System.out.println();
-
-        System.out.println("---------------------------------------");
-        System.out.println("WELCOME TO MONSTER BATTLES: DUNGEON EDITION");
-        System.out.println("---------------------------------------");
-        playerName = prompter.prompt("What is your name? >");
-        System.out.println("Welcome " + playerName);  // replace inside () w/ storyBits.get("welcome") + playerName
-        System.out.println("You awake in a dungeon full of monsters, some are willing to help you escape, others wish to consume you!\n" +
-                "Escaping this dungeon requires you to defeat the evil monsters, but you are nowhere near powerful enough to defeat them on your own!\n" +
-                "Perhaps you can find monsters that are willing to help you in your quest.\n"); // TODO: replace inside () w/ storyBits.get("opening")
+//        System.out.println();
+//
+//        System.out.println("---------------------------------------");
+//        System.out.println("WELCOME TO MONSTER BATTLES: DUNGEON EDITION");
+//        System.out.println("---------------------------------------");
+//        playerName = prompter.prompt("What is your name? >");
+//        System.out.println("Welcome " + playerName);  // replace inside () w/ storyBits.get("welcome") + playerName
+//        System.out.println("You awake in a dungeon full of monsters, some are willing to help you escape, others wish to consume you!\n" +
+//                "Escaping this dungeon requires you to defeat the evil monsters, but you are nowhere near powerful enough to defeat them on your own!\n" +
+//                "Perhaps you can find monsters that are willing to help you in your quest.\n"); // TODO: replace inside () w/ storyBits.get("opening")
         // TODO:  if possible, delayed time response and then: sout(storyBits.get("moreInfo"));
         // TODO: if possible, delayed time response and then: sout(storyBits.get("friendlyGesture"));
 
-        String getHint = prompter.prompt("Would you like hints on how to play the game? type y/n >"); // TODO: if possible, delayed time response and then: sout(storyBits.get("moreInfo"));
-        if (getHint.equals("y")) {
-            hints(); // replace w/ System.out.println(storyBits.get("hint"));
-        }
+//        String getHint = prompter.prompt("Would you like hints on how to play the game? type y/n >"); // TODO: if possible, delayed time response and then: sout(storyBits.get("moreInfo"));
+//        if (getHint.equals("y")) {
+//            hints(); // replace w/ System.out.println(storyBits.get("hint"));
+//        }
     }
 
     //control hints
     public void hints() {
-        System.out.println("In order to traverse the dungeon, you will be provided with options on what to do.\n" +
-                "You must type a recognized action, followed by a noun, in order to move and interact.\n" +
-                "Example: If you would like to move into an available room, you would type GO ROOMNAME. If you would like to inspect your surroundings, you would type LOOK AROUND\n" +
-                "List of recognized actions - " + gameVerbs);
+//        System.out.println("In order to traverse the dungeon, you will be provided with options on what to do.\n" +
+//                "You must type a recognized action, followed by a noun, in order to move and interact.\n" +
+//                "Example: If you would like to move into an available room, you would type GO ROOMNAME. If you would like to inspect your surroundings, you would type LOOK AROUND\n" +
+//                "List of recognized actions - " + gameVerbs);
+//    }
+
+//        System.out.println(slg.getStoryTxt().get("welcome"));
     }
 
     //Display the scene of the room

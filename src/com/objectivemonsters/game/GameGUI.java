@@ -47,7 +47,7 @@ public class GameGUI extends JFrame implements KeyListener {
     private Player player;
     private Dungeon dungeon;
     private GameController controller;
-    private  MonsterList monsterList;
+    private MonsterList monsterList;
 
     //testing scenes
     private StartScene startScene;
@@ -56,7 +56,10 @@ public class GameGUI extends JFrame implements KeyListener {
     private GameOverScene gameOverScene;
 
 
+
+
     //ctor to create GUI
+
     public GameGUI(Player player, Dungeon dungeon, GameController controller) {
         this.player = player;
         this.dungeon = dungeon;
@@ -216,9 +219,11 @@ public class GameGUI extends JFrame implements KeyListener {
     public void dungeonStart() {
         String roomName = controller.getCurrentRoom().getName();
         String roomDesc = controller.getCurrentRoom().getDescription();
+//        String monsterName = controller.getCurrentMonster().getName();
 
         JTextArea mainText = mainScene.getMainTextArea();
         mainText.setText("You are currently in the " + roomName + " room. " + roomDesc);
+//        mainText.setText("You see a monster " + monsterName);
     }
 
     /*
@@ -275,7 +280,6 @@ public class GameGUI extends JFrame implements KeyListener {
             else {
                 String description = controller.playerAction(userInput);
                 if (description.length() != 0) {
-                    System.out.println("Hello from the Code");
                     mainScene.getMainTextArea().setText(description);
                 }
                 mainScene.getInputText().setText("");
@@ -325,10 +329,17 @@ public class GameGUI extends JFrame implements KeyListener {
         List<Monster> monster = monsterList.allMonsters();
         Dungeon dungeon = initializer.dungeonInit(monster);
         Player player = new Player("player1", new ArrayList<>(), new ArrayList<>());
-        player.setName("Cool Dude");
+        player.setName("Freddy");
         player.gameShardsGen(); // generate 10 shards when game started
         GameController controller = new GameController(dungeon, monster, player);
 
         new GameGUI(player, dungeon, controller);
     }
+
+//    MapInit initializer = new MapInit();
+//    List<Monster> monsters = dungeon.getDungeonMonsters();
+//    Dungeon dungeon = initializer.dungeonInit(monsters);
+//    Player player = new Player("player1", new ArrayList<>(), new ArrayList<>());
+//        player.setName("Freddy");
+//    controller = new GameController(dungeon, monster, player);
 }
