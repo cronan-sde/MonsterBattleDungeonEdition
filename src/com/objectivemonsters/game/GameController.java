@@ -28,7 +28,7 @@ public class GameController {
     //need monsters
     private List<Monster> gameMonsters;
     //battle text hits
-   private HashMap<String, String> storyBits = new HashMap<>();
+    private HashMap<String, String> storyBits = new HashMap<>();
     //need player
     private Player player;
     //start room
