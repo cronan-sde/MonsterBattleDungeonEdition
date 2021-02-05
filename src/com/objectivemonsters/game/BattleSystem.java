@@ -96,22 +96,6 @@ public class BattleSystem {
     }
 
 
-    //prints the attack message, delays, then prints the hit message
-    private void printBattleMessage(String attackMessage, String hitMessage) {
-        System.out.println(attackMessage);
-        delayBattleMessages(2000);
-        System.out.println(hitMessage + "\n");
-    }
-
-    //Method to slow down the output and avoid bombarding the user with text
-    //help to simulate an actual battle
-    private void delayBattleMessages(int timeDelay) {
-        try {
-            Thread.sleep(timeDelay);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
     /*
      * Gets the valid dmg range based on the strengthLevel of the monster provided.
