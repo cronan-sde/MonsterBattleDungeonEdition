@@ -115,11 +115,31 @@ public class Player {
      * @param pShards the list of current shards the player possessed.
      * @return 1 when 10 shards are collected or 0.
      */
-    public int getKey(List<String> pShards){
+    public int setKey(List<String> pShards){
         if (pShards.size() == 10) {
             key = 1;
         }
         return key;
+    }
+
+    /**
+     * <p>
+     * return true if player get a key.
+     * </p>
+     * <pre>
+     * <code>
+     *     Player.getKey();
+     * </code>
+     * </pre>
+     *
+     * @param
+     * @return current key value
+     */
+    public boolean getKey(){
+        if(this.key == 1) {
+            return true;
+        }
+        return false;
     }
 
 

@@ -150,13 +150,12 @@ public class GameController {
         return htmlMess;
     }
 
-    //check is user is out of monsters
+    //check is user is out of monsters or if player has the key and there are a exit door in the currentRoom.
     public boolean isGameOver() {
         boolean isOver = false;
-        if (player.getpMonsters().size() == 0) {
+        if (player.getpMonsters().size() == 0 || (player.getKey() && currentRoom.isHasExitDoor())) {
             isOver = true;
-        } //TODO: elseif
-
+        }
         return isOver;
     }
 

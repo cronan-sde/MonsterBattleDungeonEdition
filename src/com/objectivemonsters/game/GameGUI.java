@@ -94,7 +94,7 @@ public class GameGUI extends JFrame implements KeyListener {
         MonsterList monsterList = new MonsterList();
         List<Monster> monster = monsterList.allMonsters();
         dungeon = initializer.dungeonInit(monster);
-        initializer.assignExitDoor(); // assign the exit door randomly.
+        initializer.assignExitDoor(); // assign the exit door randomly on game start.
         player = new Player("player1", new ArrayList<>(), new ArrayList<>());
         player.setName("Freddy");
         player.gameShardsGen(); // generate 10 shards when game started
@@ -205,7 +205,7 @@ public class GameGUI extends JFrame implements KeyListener {
         userMonsters.setText("MONSTERS:" + playerMonstersLabel());
         userInventory.setText("Inventory:" + player.getpItems());
         userShards.setText("Shards [" + player.getpShards().size() + "/10]");
-        userKeys.setText("Keys [" + player.getKey(player.getpShards()) + "/1]"); //TODO: figure out key, currently only 1 key per level, shards morph into key
+        userKeys.setText("Keys [" + player.setKey(player.getpShards()) + "/1]"); //TODO: figure out key, currently only 1 key per level, shards morph into key
         
     }
 
