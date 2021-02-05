@@ -215,8 +215,8 @@ public class GameGUI extends JFrame implements KeyListener {
         userMonsters.setText("MONSTERS:" + playerMonstersLabel());
         userInventory.setText("Inventory:" + player.getpItems());
 
-        userShards.setText("Shards [" + player.getpShards().size() + "/10]");
-        userKeys.setText("Keys [" + player.setKey(player.getpShards()) + "/1]"); //TODO: figure out key, currently only 1 key per level, shards morph into key
+        userShards.setText("Shards: " + player.getpShards().size() + "/10");
+        userKeys.setText("Keys: " + player.setKey(player.getpShards()) + "/1"); //TODO: figure out key, currently only 1 key per level, shards morph into key
     }
 
     //create player monster label string
