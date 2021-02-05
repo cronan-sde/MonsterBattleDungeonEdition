@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE gameWords>
+
+<gameWords>
+
+    <verb1>GO</verb1>
+    <verb2>LOOK</verb2>
+    <verb3>TAKE</verb3>
+    <verb4>FIGHT</verb4>
+    <verb5>KEEP</verb5>
+    <verb6>PICKUP</verb6>
+<!--    instead of providing alternates here for 'take' could use logic / regex to check for synonyms and make suggestions for the correct word
+(i.e. you typed x, perhaps you mean y ? I understand y.-->
+    <verb7>DROP</verb7>
+    <verb8>REMOVE</verb8>
+    <verb9>USE</verb9>
+    <verb10>CONSUME</verb10>
+    <verb11>EAT</verb11>
+    <verb12>INSPECT</verb12>
+
+    <noun1>MONSTER</noun1>
+    <noun2>SHARD</noun2>
+    <noun3>POTION</noun3>
+    <noun4>ROOM</noun4>
+    <noun5>AROUND</noun5>
+    <noun6>EXITS</noun6>
+    <noun7>HINT</noun7>
+    <noun8>SWORD</noun8>
+    <noun9>BAG</noun9>
+    <noun10>ITEM</noun10>
+    <noun12>COOKIE</noun12>
+</gameWords>

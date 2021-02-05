@@ -4,12 +4,12 @@ import com.objectivemonsters.map.Dungeon;
 import com.objectivemonsters.map.MapInit;
 import com.objectivemonsters.monsters.Monster;
 import com.objectivemonsters.monsters.MonsterGenerator;
+import com.objectivemonsters.monsters.MonsterList;
 import com.objectivemonsters.player.Player;
 import com.objectivemonsters.scenes.BattleScene;
 import com.objectivemonsters.scenes.GameOverScene;
 import com.objectivemonsters.scenes.MainScene;
 import com.objectivemonsters.scenes.StartScene;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -21,10 +21,8 @@ import java.util.List;
  * GameGUI is the GUI for the game, it will display a start screen to welcome user to game along with
  * helpful hints on how to play. When user presses [enter] the GUI will change to the main game.
  * GameGUI will update its components as the state of the game changes
- * TODO: Tie classes needed into GameGUI to be able to update interface, and pass data to and from game controller
  * DONE: NEED A BATTLE SCENE TO BE DISPLAYED
  * DONE: NEED TO COLOR TEXT
- * TODO: NEED TO REFACTOR
  * DONE: Find a way to move scenes elsewhere to clean up code
  */
 public class GameGUI extends JFrame implements KeyListener {
@@ -46,6 +44,7 @@ public class GameGUI extends JFrame implements KeyListener {
     private Player player;
     private Dungeon dungeon;
     private GameController controller;
+    private MonsterList monsterList;
 
     //testing scenes
     private StartScene startScene;
@@ -54,8 +53,14 @@ public class GameGUI extends JFrame implements KeyListener {
     private GameOverScene gameOverScene;
 
 
+
+
     //ctor to create GUI
-    public GameGUI() {
+
+    public GameGUI(Player player, Dungeon dungeon, GameController controller) {
+        this.player = player;
+        this.dungeon = dungeon;
+        this.controller = controller;
         setSize(FRAME_WIDTH, FRAME_HEIGHT); //set frame size
         setDefaultCloseOperation(EXIT_ON_CLOSE); //ensure program exits when window is closed
         getContentPane().setBackground(Color.BLACK); //set frame background color to black
@@ -73,6 +78,8 @@ public class GameGUI extends JFrame implements KeyListener {
         isStartScreen = true;
         startScene = new StartScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
         startScene.getHintText().addKeyListener(this);
+        startScene.getWelcomeText().addKeyListener(this);
+        startScene.getPlayGameText().addKeyListener(this);
         startScene.addKeyListener(this);
         add(startScene);
         startScene.setVisible(true);
@@ -83,15 +90,6 @@ public class GameGUI extends JFrame implements KeyListener {
      * game loop will be in this method
      */
     public void startGame() {
-        //initialize game pieces
-        MapInit initializer = new MapInit();
-        MonsterGenerator mongen = new MonsterGenerator();
-        List<Monster> monster = mongen.allMonsters();
-        Dungeon dungeon = initializer.dungeonInit(monster);
-        player = new Player("player1", new ArrayList<>(), new ArrayList<>());
-        player.setName("Cool Dude");
-        player.gameShardsGen(); // generate 10 shards when game started
-        controller = new GameController(dungeon, monster, player);
 
         //initialize main game screen
         showMainGameScene();
@@ -102,6 +100,7 @@ public class GameGUI extends JFrame implements KeyListener {
         mainScene = new MainScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
         mainScene.getInputText().addKeyListener(this);
         add(mainScene);
+        mainScene.getInputText().requestFocus(); //sets cursor automatically so user doesn't need to click
         //set inventory and desc text for main room
         updateInventory();
         dungeonStart();
@@ -116,6 +115,7 @@ public class GameGUI extends JFrame implements KeyListener {
         battleScene.getBattleTextArea().addKeyListener(this);
         battleScene.addKeyListener(this);
         add(battleScene);
+        battleScene.requestFocus();
         fightMoves();
     }
 
@@ -144,10 +144,12 @@ public class GameGUI extends JFrame implements KeyListener {
             showGameOverScreen();
         }
         else {
+            updateInventory();
             isBattleScreen = false;
             isMainScreen = true;
             battleScene.setVisible(false);
             mainScene.setVisible(true);
+            mainScene.getInputText().requestFocus();
             dungeonStart();
         }
     }
@@ -157,8 +159,11 @@ public class GameGUI extends JFrame implements KeyListener {
         //load game over screen
         gameOverScene = new GameOverScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
         gameOverScene.getWinLoseText().addKeyListener(this);
+        gameOverScene.getGameOverText().addKeyListener(this);
+        gameOverScene.getPlayAgainText().addKeyListener(this);
         gameOverScene.addKeyListener(this);
         add(gameOverScene);
+        gameOverScene.requestFocus();
         gameOverScene.setVisible(true);
         gameOverScene.getWinLoseText().setText("You're monsters have all been slain and without their help\n" +
                 controller.getCurrentMonster().getName() + " has consumed you!");
@@ -193,6 +198,7 @@ public class GameGUI extends JFrame implements KeyListener {
         userInventory.setText("Inventory:" + player.getpItems());
         userShards.setText("Shards [" + player.getpShards().size() + "/10:]");
         userKeys.setText("Keys [" + player.getKey(player.getpShards()) + "/1]"); //TODO: figure out key, currently only 1 key per level, shards morph into key
+        
     }
 
     //create player monster label string
@@ -220,9 +226,11 @@ public class GameGUI extends JFrame implements KeyListener {
     public void dungeonStart() {
         String roomName = controller.getCurrentRoom().getName();
         String roomDesc = controller.getCurrentRoom().getDescription();
+//        String monsterName = controller.getCurrentMonster().getName();
 
         JTextArea mainText = mainScene.getMainTextArea();
         mainText.setText("You are currently in the " + roomName + " room. " + roomDesc);
+//        mainText.setText("You see a monster " + monsterName);
     }
 
     /*
@@ -321,6 +329,24 @@ public class GameGUI extends JFrame implements KeyListener {
      * TODO: MAIN METHOD ONLY FOR TESTING PURPOSES, WILL BE REMOVED IN FINAL VERSION AND CALLED FROM MAIN CLIENT
      */
     public static void main(String[] args) {
-        new GameGUI();
+        //initialize game pieces
+        MapInit initializer = new MapInit();
+//        MonsterGenerator mongen = new MonsterGenerator();
+        MonsterList monsterList = new MonsterList();
+        List<Monster> monster = monsterList.allMonsters();
+        Dungeon dungeon = initializer.dungeonInit(monster);
+        Player player = new Player("player1", new ArrayList<>(), new ArrayList<>());
+        player.setName("Freddy");
+        player.gameShardsGen(); // generate 10 shards when game started
+        GameController controller = new GameController(dungeon, monster, player);
+
+        new GameGUI(player, dungeon, controller);
     }
+
+//    MapInit initializer = new MapInit();
+//    List<Monster> monsters = dungeon.getDungeonMonsters();
+//    Dungeon dungeon = initializer.dungeonInit(monsters);
+//    Player player = new Player("player1", new ArrayList<>(), new ArrayList<>());
+//        player.setName("Freddy");
+//    controller = new GameController(dungeon, monster, player);
 }

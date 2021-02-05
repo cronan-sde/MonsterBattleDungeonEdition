@@ -3,5 +3,6 @@
 <battleHits>
     <hit1>Ouch, you struck your opponent!</hit1>
     <hit2>Your opponent screams in pain from your attack.</hit2>
-    <hit3>A mighty blow hit your opponent.</hit3>
+    <hit3>A mighty blow hit your opponent causing </hit3>
+    <hit4>You dash into your opponent slamming into them and causing </hit4>
 </battleHits>

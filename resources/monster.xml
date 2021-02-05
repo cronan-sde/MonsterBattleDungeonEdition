@@ -35,13 +35,13 @@
         </monster>
         <monster>
             <name>Shady Spook</name>
-            <friendly></friendly>
+            <friendly>false</friendly>
             <HP>100</HP>
             <elemental>Air</elemental>
             <strength>190</strength>
             <intellect>90</intellect>
             <agility>130</agility>
-            <description>Can't seem me. Hear me shriek!</description>
+            <description>Can't see me. Hear me shriek!</description>
         </monster>
         <monster>
             <name>Hoppy Frog</name>
@@ -55,7 +55,7 @@
         </monster>
         <monster>
             <name>Sneaky Slime Blob</name>
-            <friendly></friendly>
+            <friendly>false</friendly>
             <HP>100</HP>
             <elemental>Fire</elemental>
             <strength>190</strength>
@@ -63,4 +63,75 @@
             <agility>10</agility>
             <description>Rather a sticky mess with eyes and teeth - bright orange glow surround it.</description>
         </monster>
+    <monster>
+        <name>Dust Bunny</name>
+        <friendly>false</friendly>
+        <HP>80</HP>
+        <elemental>Fire</elemental>
+        <strength>130</strength>
+        <intellect>60</intellect>
+        <agility>100</agility>
+        <description>We're everywhere - under your desk, under your chair, by your bed, by your bin, top of your fridge, toppling with the breeze around your house.</description>
+    </monster>
+    <monster>
+        <name>Git Gremlin</name>
+        <friendly>false</friendly>
+        <HP>100</HP>
+        <elemental>Fire</elemental>
+        <strength>200</strength>
+        <intellect>140</intellect>
+        <agility>100</agility>
+        <description>Think your a coder? I'll have you screaming in another language. Go ahead and close the door.</description>
+    </monster>
+    <monster>
+        <name>Decaf Dog</name>
+        <friendly>false</friendly>
+        <HP>100</HP>
+        <elemental>Fire</elemental>
+        <strength>140</strength>
+        <intellect>110</intellect>
+        <agility>80</agility>
+        <description>You would think a dawg would be friendly. But, only an angry evil monster would slip you decaf.</description>
+    </monster>
+    <monster>
+        <name>Ninja Squirrel</name>
+        <friendly>false</friendly>
+        <HP>100</HP>
+        <elemental>Fire</elemental>
+        <strength>190</strength>
+        <intellect>60</intellect>
+        <agility>10</agility>
+        <description>Lunch thief.</description>
+    </monster>
+    <monster>
+        <name>Roving Rat</name>
+        <friendly>false</friendly>
+        <HP>100</HP>
+        <elemental>Fire</elemental>
+        <strength>190</strength>
+        <intellect>60</intellect>
+        <agility>10</agility>
+        <description>Red eyes, chatters a lot, mean bite.</description>
+    </monster>
+    <monster>
+        <name>Roving Rat</name>
+        <friendly>false</friendly>
+        <HP>100</HP>
+        <elemental>Fire</elemental>
+        <strength>190</strength>
+        <intellect>60</intellect>
+        <agility>10</agility>
+        <description>Red eyes, chatters a lot, mean bite.</description>
+    </monster>
+    <monster>
+        <name>Roving Rat</name>
+        <friendly>false</friendly>
+        <HP>100</HP>
+        <elemental>Fire</elemental>
+        <strength>190</strength>
+        <intellect>60</intellect>
+        <agility>10</agility>
+        <description>Red eyes, chatters a lot, mean bite.</description>
+    </monster>
+
 </gameMonsters>
