@@ -57,23 +57,11 @@ public class StartScene extends JPanel {
      * TODO: generate hint text from XML?
      */
     public void setStartDialogue() {
-        welcomeText.setText("Welcome to MONSTER BATTLES: DUNGEON EDITION");
-//        welcomeText.setText((String) slg.getStoryTxt().get("welcome"));
-//        hintText.setText(slg.getStoryTxt().get("opening") + "\n" + slg.getStoryTxt().get("moreInfo") + "\n" +
-//                slg.getStoryTxt().get("friendlyGesture") + "\n" + "\n" + slg.getStoryTxt().get("hint"));
-//        welcomeText.setText((String) slg.getStoryTxt().get("opening"));
-//        welcomeText.setText((String) slg.getStoryTxt().get("moreInfo"));
-//        welcomeText.setText((String) slg.getStoryTxt().get("friendlyGesture"));
-//        welcomeText.setText((String) slg.getStoryTxt().get("hint"));
-
-        // also availalbe in the StoryTxt xml - directions, directionsMore, wordList
-
-        hintText.setText("In order to traverse the dungeon, you will be provided with options on what to do." +
-                " You must type a recognized action, followed by a noun, in order to move and interact.\n" +
-                "Example: If you would like to move into an available room, you would type GO ROOMNAME.\n" +
-                "If you would like to inspect your surroundings, you would type LOOK AROUND\n" + "If you find a friendly monster you can recruit them to fight for you" +
-                " by typing TAKE MONSTER\n" +
-                "List of recognized actions - [GO, LOOK, TAKE, FIGHT]");
+        // retrieve story text from parsed xml and display
+        welcomeText.setText(slg.getStoryTxt().get("welcome") + "\n" + "\n"  + slg.getStoryTxt().get("moreInfo"));
+        hintText.setText(slg.getStoryTxt().get("opening") + "\n"  + "\n" +
+                slg.getStoryTxt().get("directions") +  "\n" +
+                slg.getStoryTxt().get("directionsMore") + "\n" + "\n" + slg.getStoryTxt().get("hint"));
         playGameText.setText("-- press [enter] to start your journey --");
     }
 
