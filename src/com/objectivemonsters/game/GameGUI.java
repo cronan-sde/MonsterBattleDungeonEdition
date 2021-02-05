@@ -71,6 +71,8 @@ public class GameGUI extends JFrame implements KeyListener {
         isStartScreen = true;
         startScene = new StartScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
         startScene.getHintText().addKeyListener(this);
+        startScene.getWelcomeText().addKeyListener(this);
+        startScene.getPlayGameText().addKeyListener(this);
         startScene.addKeyListener(this);
         add(startScene);
         startScene.setVisible(true);
@@ -115,6 +117,7 @@ public class GameGUI extends JFrame implements KeyListener {
         battleScene.getBattleTextArea().addKeyListener(this);
         battleScene.addKeyListener(this);
         add(battleScene);
+        battleScene.requestFocus();
         fightMoves();
     }
 
@@ -148,6 +151,7 @@ public class GameGUI extends JFrame implements KeyListener {
             isMainScreen = true;
             battleScene.setVisible(false);
             mainScene.setVisible(true);
+            mainScene.getInputText().requestFocus();
             dungeonStart();
         }
     }
