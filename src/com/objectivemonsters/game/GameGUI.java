@@ -161,8 +161,11 @@ public class GameGUI extends JFrame implements KeyListener {
         //load game over screen
         gameOverScene = new GameOverScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
         gameOverScene.getWinLoseText().addKeyListener(this);
+        gameOverScene.getGameOverText().addKeyListener(this);
+        gameOverScene.getPlayAgainText().addKeyListener(this);
         gameOverScene.addKeyListener(this);
         add(gameOverScene);
+        gameOverScene.requestFocus();
         gameOverScene.setVisible(true);
         gameOverScene.getWinLoseText().setText("You're monsters have all been slain and without their help\n" +
                 controller.getCurrentMonster().getName() + " has consumed you!");
