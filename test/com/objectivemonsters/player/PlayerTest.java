@@ -37,6 +37,6 @@ public class PlayerTest {
         for (String shard: player.getgameShardsList()) {
             player.getpShards().add(shard);
         }
-        assertEquals(1,player.getKey(player.getpShards()));
+        assertEquals(1,player.setKey(player.getpShards()));
     }
 }
