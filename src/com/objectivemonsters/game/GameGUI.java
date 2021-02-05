@@ -82,7 +82,6 @@ public class GameGUI extends JFrame implements KeyListener {
         startScene.requestFocus();
         startScene.setVisible(true);
     }
-
     /*
      * Method will set main game screen with current inventory and current room description
      * game loop will be in this method
@@ -90,15 +89,15 @@ public class GameGUI extends JFrame implements KeyListener {
     public void startGame() {
         //initialize game pieces
         MapInit initializer = new MapInit();
-//        MonsterGenerator mongen = new MonsterGenerator();
+        //MonsterGenerator mongen = new MonsterGenerator();
         MonsterList monsterList = new MonsterList();
         List<Monster> monster = monsterList.allMonsters();
         dungeon = initializer.dungeonInit(monster);
-        initializer.assignExitDoor(); // assign the exit door randomly on game start.
         player = new Player("player1", new ArrayList<>(), new ArrayList<>());
         player.setName("Freddy");
         player.gameShardsGen(); // generate 10 shards when game started
         controller = new GameController(dungeon, monster, player);
+        initializer.assignExitDoor(); // assign the exit door randomly on game start.
         //initialize main game screen
         showMainGameScene();
     }

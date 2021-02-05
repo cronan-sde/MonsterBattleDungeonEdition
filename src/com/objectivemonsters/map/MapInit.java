@@ -58,8 +58,9 @@ public class MapInit {
 
     // will be called once and only when game started.
     public void assignExitDoor(){
+        int chosenRoom = getRandomNumber(1,roomList.size() + 1);
        for(Room room : roomList) {
-           if (room.getRoomId() == getRandomNumber(1,roomList.size())){
+           if (room.getRoomId() == chosenRoom){
                room.setHasExitDoor(true);
            }
        }
