@@ -4,6 +4,7 @@ import com.objectivemonsters.map.Dungeon;
 import com.objectivemonsters.map.Room;
 import com.objectivemonsters.monsters.Monster;
 import com.objectivemonsters.monsters.MonsterGenerator;
+import com.objectivemonsters.monsters.MonsterLocationGenerator;
 import com.objectivemonsters.player.Player;
 import com.objectivemonsters.storylines.BattleTextGenerator;
 import com.objectivemonsters.storylines.StoryLineGenerator;
@@ -46,6 +47,9 @@ public class GameController {
     // class holding the random monsters and angry, friendly lists -- all monsters are in the monsterlist class
     MonsterGenerator monGeny = new MonsterGenerator();
 
+    // monster location generator
+    MonsterLocationGenerator monLocGen = new MonsterLocationGenerator();
+
     // generate battleText - can access the methods to retrieve random battle lines for hits and misses
     BattleTextGenerator btg = new BattleTextGenerator();
 
@@ -78,11 +82,13 @@ public class GameController {
         System.out.println(currentMonster);
 
         sb.append(player.getName()).append(", you are currently in the ").append(currentRoom.getName());
-        sb.append(". You scan the room to see ").append(currentRoom.getDescription());
-        sb.append(". You also notice there appears to be exits into other rooms ").append(currentRoom.getExits());
-
-        sb.append(". As you are looking around you notice a creature in the corner by the name of ").append(currentMonster.getName());
-        String friendOrFoe = currentMonster.isFriendly()? " This monster appears to be friendly" : " Be careful this creature is no friend to you";
+        sb.append(" room. \nYou scan the room and see:   ").append(currentRoom.getDescription());
+        sb.append(". \n\nExits appear:  ").append(currentRoom.getExits());
+        // TODO: append a random generated location based on friendly or angry - maybe screen maybe full enough of info
+        sb.append(".\nYou notice a creature in the corner. It's ").append(currentMonster.getName()).append(".");
+        sb.append("\nHP : ").append(currentMonster.getHP()).append("  Strength: ").append(currentMonster.getStrength()).append("  Agility: ").append(currentMonster.getAgility()).append("  Intellect: ").append(currentMonster.getIntellect());
+//        sb.append("\n").append(currentMonster.getDesc());  only include if shortened to one line, probably too much info already
+        String friendOrFoe = currentMonster.isFriendly()? "\nThis monster appears to be friendly." : "\nThis monster looks Angry.";
         sb.append(friendOrFoe);
 
         return sb.toString();
