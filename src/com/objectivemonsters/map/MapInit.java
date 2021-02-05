@@ -56,7 +56,7 @@ public class MapInit {
     }
 
     public void assignExitDoor(){
-        int chosenRoomId = (Math.random() * roomList.size())
+       //TODO:
     }
 
     public Dungeon dungeonInit(List<Monster> monsters) {
