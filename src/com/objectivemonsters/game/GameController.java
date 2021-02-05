@@ -154,6 +154,7 @@ public class GameController {
             sb.append(". As you are looking around you notice a creature in the corner by the name of ").append(currentMonster.getName());
             String friendOrFoe = currentMonster.isFriendly()? " This monster appears to be friendly" : " Be careful this creature is no friend to you";
             sb.append(friendOrFoe);
+
 //        }
         return sb.toString();
     }
