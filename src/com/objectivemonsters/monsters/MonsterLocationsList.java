@@ -19,7 +19,6 @@ public class MonsterLocationsList {
     // Locate a monster in the room (from XML) Friendly
     public List<String> friendlyLocations() {
         NodeList friendLocal = tp.readXMLFiles("resources/friendlyMonLocation.xml", "friendlyLocation");
-        List<String> localList = new ArrayList<>();
 
         // iterate through the node list to extract each nonster and store it in a list
         for (int i = 0; i < friendLocal.getLength(); i++) {
@@ -30,14 +29,14 @@ public class MonsterLocationsList {
                 // set new element to cast node
                 Element eElement = (Element) nod;
                 // add to string list
-                localList.add(eElement.getElementsByTagName("local1").item(0).getTextContent());
-                localList.add(eElement.getElementsByTagName("local2").item(0).getTextContent());
-                localList.add(eElement.getElementsByTagName("local3").item(0).getTextContent());
-                localList.add(eElement.getElementsByTagName("local4").item(0).getTextContent());
-                localList.add(eElement.getElementsByTagName("local5").item(0).getTextContent());
+                friendlyMonsterLocations.add(eElement.getElementsByTagName("local1").item(0).getTextContent());
+                friendlyMonsterLocations.add(eElement.getElementsByTagName("local2").item(0).getTextContent());
+                friendlyMonsterLocations.add(eElement.getElementsByTagName("local3").item(0).getTextContent());
+                friendlyMonsterLocations.add(eElement.getElementsByTagName("local4").item(0).getTextContent());
+                friendlyMonsterLocations.add(eElement.getElementsByTagName("local5").item(0).getTextContent());
             }
         }
-        return localList;
+        return friendlyMonsterLocations;
     }
 
     // Locate a monster in the room (from XML) Friendly
@@ -54,14 +53,20 @@ public class MonsterLocationsList {
                 // set new element to case node
                 Element eElement = (Element) nod;
                 // add to string list
-                localList2.add(eElement.getElementsByTagName("local1").item(0).getTextContent());
-                localList2.add(eElement.getElementsByTagName("local2").item(0).getTextContent());
-                localList2.add(eElement.getElementsByTagName("local3").item(0).getTextContent());
-                localList2.add(eElement.getElementsByTagName("local4").item(0).getTextContent());
+               angryMonsterLocations.add(eElement.getElementsByTagName("local1").item(0).getTextContent());
+                angryMonsterLocations.add(eElement.getElementsByTagName("local2").item(0).getTextContent());
+                angryMonsterLocations.add(eElement.getElementsByTagName("local3").item(0).getTextContent());
+                angryMonsterLocations.add(eElement.getElementsByTagName("local4").item(0).getTextContent());
             }
         }
-        return localList2;
+        return angryMonsterLocations;
     }
+
+//    public String oneAngryLocation(List<String> aMon) {
+//        String localPass = "";
+//        int rando =
+//        return null;
+//    }
 
     public List<String> getFriendlyMonsterLocations() {
         return friendlyMonsterLocations;
