@@ -3,13 +3,13 @@ package com.objectivemonsters.game;
 import com.objectivemonsters.map.Dungeon;
 import com.objectivemonsters.map.MapInit;
 import com.objectivemonsters.monsters.Monster;
-import com.objectivemonsters.monsters.MonsterGenerator;
 import com.objectivemonsters.monsters.MonsterList;
 import com.objectivemonsters.player.Player;
 import com.objectivemonsters.scenes.BattleScene;
 import com.objectivemonsters.scenes.GameOverScene;
 import com.objectivemonsters.scenes.MainScene;
 import com.objectivemonsters.scenes.StartScene;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -57,10 +57,7 @@ public class GameGUI extends JFrame implements KeyListener {
 
     //ctor to create GUI
 
-    public GameGUI(Player player, Dungeon dungeon, GameController controller) {
-        this.player = player;
-        this.dungeon = dungeon;
-        this.controller = controller;
+    public GameGUI() {
         setSize(FRAME_WIDTH, FRAME_HEIGHT); //set frame size
         setDefaultCloseOperation(EXIT_ON_CLOSE); //ensure program exits when window is closed
         getContentPane().setBackground(Color.BLACK); //set frame background color to black
@@ -82,6 +79,7 @@ public class GameGUI extends JFrame implements KeyListener {
         startScene.getPlayGameText().addKeyListener(this);
         startScene.addKeyListener(this);
         add(startScene);
+        startScene.requestFocus();
         startScene.setVisible(true);
     }
 
@@ -90,7 +88,16 @@ public class GameGUI extends JFrame implements KeyListener {
      * game loop will be in this method
      */
     public void startGame() {
-
+        //initialize game pieces
+        MapInit initializer = new MapInit();
+//        MonsterGenerator mongen = new MonsterGenerator();
+        MonsterList monsterList = new MonsterList();
+        List<Monster> monster = monsterList.allMonsters();
+        dungeon = initializer.dungeonInit(monster);
+        player = new Player("player1", new ArrayList<>(), new ArrayList<>());
+        player.setName("Freddy");
+        player.gameShardsGen(); // generate 10 shards when game started
+        controller = new GameController(dungeon, monster, player);
         //initialize main game screen
         showMainGameScene();
     }
@@ -196,9 +203,9 @@ public class GameGUI extends JFrame implements KeyListener {
 
         userMonsters.setText("MONSTERS:" + playerMonstersLabel());
         userInventory.setText("Inventory:" + player.getpItems());
-        //TODO: need to reset shards to 0 when key is created
-        userShards.setText("Shards " + player.getpShards().size() + "/10: ");
-        userKeys.setText("Keys " + player.getKey(player.getpShards()) + "/1");
+        userShards.setText("Shards [" + player.getpShards().size() + "/10:]");
+        userKeys.setText("Keys [" + player.getKey(player.getpShards()) + "/1]"); //TODO: figure out key, currently only 1 key per level, shards morph into key
+        
     }
 
     //create player monster label string
@@ -324,29 +331,4 @@ public class GameGUI extends JFrame implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
     }
-
-    /*
-     * TODO: MAIN METHOD ONLY FOR TESTING PURPOSES, WILL BE REMOVED IN FINAL VERSION AND CALLED FROM MAIN CLIENT
-     */
-    public static void main(String[] args) {
-        //initialize game pieces
-        MapInit initializer = new MapInit();
-//        MonsterGenerator mongen = new MonsterGenerator();
-        MonsterList monsterList = new MonsterList();
-        List<Monster> monster = monsterList.allMonsters();
-        Dungeon dungeon = initializer.dungeonInit(monster);
-        Player player = new Player("player1", new ArrayList<>(), new ArrayList<>());
-        player.setName("Freddy");
-        player.gameShardsGen(); // generate 10 shards when game started
-        GameController controller = new GameController(dungeon, monster, player);
-
-        new GameGUI(player, dungeon, controller);
-    }
-
-//    MapInit initializer = new MapInit();
-//    List<Monster> monsters = dungeon.getDungeonMonsters();
-//    Dungeon dungeon = initializer.dungeonInit(monsters);
-//    Player player = new Player("player1", new ArrayList<>(), new ArrayList<>());
-//        player.setName("Freddy");
-//    controller = new GameController(dungeon, monster, player);
 }

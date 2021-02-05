@@ -59,9 +59,11 @@
             <roomleadTo>thecomplex</roomleadTo>
             <roomleadTo>rottenjournal</roomleadTo>
             <roomleadTo>shallowpit</roomleadTo>
+            <roomleadTo>tornchamber</roomleadTo>
             <exit>west</exit>
             <exit>east</exit>
             <exit>south</exit>
+            <exit>north</exit>
         </room>
         <room>
             <roomId>7</roomId>
@@ -70,9 +72,11 @@
             <roomleadTo>descendchamber</roomleadTo>
             <roomleadTo>deadfountain</roomleadTo>
             <roomleadTo>sulfurend</roomleadTo>
+            <roomleadTo>ghoulishchamber</roomleadTo>
             <exit>west</exit>
             <exit>east</exit>
             <exit>south</exit>
+            <exit>north</exit>
         </room>
         <room>
             <roomId>8</roomId>
