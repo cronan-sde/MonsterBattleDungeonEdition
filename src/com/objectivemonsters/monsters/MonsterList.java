@@ -10,11 +10,12 @@ import java.util.List;
 
 public class MonsterList {
 
-    List<Monster> monsters = new ArrayList<>();
     TextParser tp = new TextParser();
 
     // GENERATE LIST OF MONSTERS FROM XML
     public List<Monster> allMonsters() {
+        List<Monster> monsters = new ArrayList<>();
+
         /* pass in the file link and node name in a call on textParser to return a node list of monsters */
         NodeList monsNod = tp.readXMLFiles("resources/monster.xml", "monster");
 
@@ -43,32 +44,14 @@ public class MonsterList {
 
                 // add each monster to monster list
                 monsters.add(monty);
+                System.out.println(monsters.size()+"  at line 46 monster size");
             }
         }
         // return the newly stocked list of monsters
+        System.out.println(monsters.size()+"  monster size at line 49");
         return monsters;
     }
 
-    // CONSTRUCTOR
-    public MonsterList(){
-        // no-arg
-    }
-
-    // ACCESSORS
-    public List<Monster> getMonsters() {
-        return monsters;
-    }
-
-    public void setMonsters(List<Monster> monsters) {
-        this.monsters = allMonsters();
-    }
 
 
-    // toString - ugly one
-    @Override
-    public String toString() {
-        return "MonsterList{" +
-                "monsters=" + monsters +
-                '}';
-    }
 }

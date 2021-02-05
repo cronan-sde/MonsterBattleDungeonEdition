@@ -1,78 +1,38 @@
 package com.objectivemonsters.storylines;
 
-import com.objectivemonsters.util.TextParser;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class BattleTextGenerator {
+    BattleTextList btt;
+    String local;
 
-    TextParser tp = new TextParser();
-    private ArrayList<String> battleHits = new ArrayList<>();
-    private ArrayList<String> battleMiss = new ArrayList<>();
+    public String hitLine(){
 
-
-// Generate a map of the battle text HITS from xml
-    public ArrayList<String> battleTextHit() {
-        NodeList battleHitsNod = tp.readXMLFiles("resources/battleTextHit.xml", "battleHits");
-
-        // iterate through the node list to extract each monster and store it in a list
-        for (int i = 0; i < battleHitsNod.getLength(); i++) {
-            // initalize a new node based on index
-            Node nod = battleHitsNod.item(i);
-            //check if type is an element
-            if (nod.getNodeType() == Node.ELEMENT_NODE) {
-                // set new element to case node
-                Element eElement = (Element) nod;
-                // add to string list
-                battleHits.add(eElement.getElementsByTagName("hit1").item(0).getTextContent());
-                battleHits.add(eElement.getElementsByTagName("hit2").item(0).getTextContent());
-                battleHits.add(eElement.getElementsByTagName("hit3").item(0).getTextContent());
+        // get hit lines iterate through return a random one
+        int random = randomNumber(btt.getBattleHits());
+        for (int i = 0; i <= btt.getBattleHits().size(); i++) {
+            if ( i == random) {
+                local = btt.getBattleHits().get(i);
             }
         }
-        return battleHits;
+        return local;
     }
 
-    // Generate a list of the battle text MISS from xml
-        public ArrayList<String> battleTextMiss() {
-            NodeList battleMissNod = tp.readXMLFiles("resources/battleTextHit.xml", "battleHits");
+    public String missLine(){
 
-            // iterate through the node list to extract each monster and store it in a list
-            for (int i = 0; i < battleMissNod.getLength(); i++) {
-                // initalize a new node based on index
-                Node nod = battleMissNod.item(i);
-                //check if type is an element
-                if (nod.getNodeType() == Node.ELEMENT_NODE) {
-                    // set new element to case node
-                    Element eElement = (Element) nod;
-                    // add to string list
-                    battleMiss.add(eElement.getElementsByTagName("miss1").item(0).getTextContent());
-                    battleMiss.add(eElement.getElementsByTagName("miss2").item(0).getTextContent());
-                    battleMiss.add(eElement.getElementsByTagName("miss3").item(0).getTextContent());
-                }
+        // git miss lines iterate through return a random one
+        int random = randomNumber(btt.getBattleMiss());
+        for (int i = 0; i <= btt.battleTextMiss().size(); i++) {
+            if ( i == random) {
+                local = btt.getBattleMiss().get(i);
             }
-            return battleMiss;
         }
-
-
-
-    public ArrayList<String> getBattleHits() {
-        return battleHits;
+        return local;
     }
 
-    private void setBattleHits(ArrayList<String> battleHits) {
-        this.battleHits = battleTextHit();
+    // REUSABLE RANDOM NUMBER GENERATOR BASED ON LIST LENGTH
+    public int randomNumber(List<String> local) {
+        return (int)(Math.random() * local.size());
     }
 
-    public ArrayList<String> getBattleMiss() {
-        return battleMiss;
-    }
-
-    private void setBattleMiss(ArrayList<String> battleMiss) {
-        this.battleMiss = battleTextMiss();
-    }
 }

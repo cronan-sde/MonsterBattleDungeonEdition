@@ -321,9 +321,8 @@ public class GameGUI extends JFrame implements KeyListener {
         //initialize game pieces
         MapInit initializer = new MapInit();
 //        MonsterGenerator mongen = new MonsterGenerator();
-       MonsterList monsterList = new MonsterList();
-        monsterList.allMonsters();
-        List<Monster> monster = monsterList.getMonsters();
+        MonsterList monsterList = new MonsterList();
+        List<Monster> monster = monsterList.allMonsters();
         Dungeon dungeon = initializer.dungeonInit(monster);
         Player player = new Player("player1", new ArrayList<>(), new ArrayList<>());
         player.setName("Cool Dude");

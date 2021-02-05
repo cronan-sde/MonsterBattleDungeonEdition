@@ -21,7 +21,7 @@ public class MonsterGenerator {
     public List<Monster> angryMonstersAll() {
 
         // iterate through list of all monsters and return only angry monsters
-        for (Monster mon : ml.getMonsters()) {
+        for (Monster mon : ml.allMonsters()) {
             if (mon.isFriendly() == false) {
                 monLocalAngry.add(mon);
             }
@@ -32,7 +32,7 @@ public class MonsterGenerator {
     // iterate through list of all monsters and return only friendly monsters
     public List<Monster> friendlyMonstersAll() {
         List<Monster> friendlyMonsters = new ArrayList<>();
-        for (Monster mon : ml.getMonsters()) {
+        for (Monster mon : ml.allMonsters()) {
             if (mon.isFriendly() == true) {
                 monLocalFriendly.add(mon);
             }
@@ -45,10 +45,13 @@ public class MonsterGenerator {
     public Monster randomMonster() {
 
         int random = randomNumber(ml.allMonsters());
+        System.out.println(random+"  at line 48");
+        System.out.println(ml.allMonsters().size()+"  size of all monsters");
 
         for (int j = 0; j < ml.allMonsters().size(); j++) {
             if (j == random) {
                 monty = ml.allMonsters().get(j);
+                return monty;
             }
         }
         return monty;
@@ -62,6 +65,7 @@ public class MonsterGenerator {
         for (int j = 0; j < monLocalAngry.size(); j++) {
             if (j == random) {
                 monty = monLocalAngry.get(j);
+                return monty;
             }
         }
         return monty;
@@ -75,6 +79,7 @@ public class MonsterGenerator {
         for (int j = 0; j < monLocalFriendly.size(); j++) {
             if (j == random) {
                 monty = monLocalFriendly.get(j);
+                return monty;
             }
         }
         return monty;
