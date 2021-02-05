@@ -118,6 +118,7 @@ public class Player {
     public int setKey(List<String> pShards){
         if (pShards.size() == 10) {
             key = 1;
+            pShards.clear(); // reset player shards list
         }
         return key;
     }
