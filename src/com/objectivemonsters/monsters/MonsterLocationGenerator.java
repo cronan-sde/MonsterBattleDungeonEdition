@@ -11,22 +11,14 @@ public class MonsterLocationGenerator {
     public String friendMonLocal(){
         // get friendly monster locations and iterate through them
         int random = randomNumber(mll.getFriendlyMonsterLocations());
-        for (int i = 0; i <= mll.getFriendlyMonsterLocations().size(); i++) {
-            if ( i == random) {
-                local = mll.getFriendlyMonsterLocations().get(i);
-            }
-        }
+        local = mll.getAngryMonsterLocations().get(random);
         return local;
     }
 
     public String angryMonLocal(){
         // get friendly monster locations and iterate through them
         int random = randomNumber(mll.getAngryMonsterLocations());
-        for (int i = 0; i <= mll.getAngryMonsterLocations().size(); i++) {
-            if ( i == random) {
-                local = mll.getAngryMonsterLocations().get(i);
-            }
-        }
+        local = mll.getFriendlyMonsterLocations().get(random);
         return local;
     }
 

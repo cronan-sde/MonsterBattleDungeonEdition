@@ -3,11 +3,11 @@
 <!DOCTYPE storyText>
 <storyText>
     <welcome>Welcome to MONSTER BATTLES: DUNGEON EDITION</welcome>
-    <opening>You are in a dimly lit room.  There is a candle flickering on the far side. The walls are  stone, cold and hard. You hear water dripping onto the stone floor. You hear footsteps. As your eyes adjust to darkness you can make out exits, possibly to other rooms. Suddenly you hear a loud yawn and turn to see who might be there. </opening>
-    <moreInfo>Scrawled on a far wall you read: Monsters, Monsters, everywhere - Escape you desire? - Some are angry some are friends</moreInfo>
+    <opening>You are in a dimly lit room.  There is a candle flickering on the far side.           The walls are  stone, cold and hard. You hear water dripping on the stone floor. You hear footsteps. As your eyes adjust to darkness you can make out exits,      possibly to other rooms. Suddenly you hear a loud yawn and turn to see what orwho might be there... </opening>
+    <moreInfo>Monsters, Monsters, everywhere - Escape you desire?                               - Some are angry some are friends</moreInfo>
     <friendlyGesture>One of the monsters speaks in a soft voice: You will need our help. We know how to fight the angry monsters for you. One of us might be willing to go with you, if you ask nicely.</friendlyGesture>
-    <hint>Would you like hints on how to play the game? Type 'y' or 'n'</hint>
-    <diretions>You are trapped in a dungeon. You must traverse the rooms and kill the angry monsters to escape. There are friendly monsters you can take with you to fight your battles.</diretions>
-    <directionsMore>Kill an angry monster and collect a shard. Collect 10 shards, they morph to a key. Then find the locked escape room. Level Up.</directionsMore>
+    <hint>Type verbs and nouns to interact. (i.e. Look Around or Go West) suggestions:   [ GO, TAKE, FIGHT, LOOK, MONSTER, EAST, WEST, SOUTH, NORTH ]</hint>
+    <directions>You are trapped in a dungeon. Traverse the rooms &amp; kill the angry monsters to escape. Take friendly monsters you find, with you to fight your battles.</directions>
+    <directionsMore>Killed angry monster = 1 shard. 10 shards = 1 key. Key opens dungeon exit. :) </directionsMore>
     <wordList>GO, LOOK, TAKE, FIGHT - EAST, WEST, SOUTH, NORTH, MONSTER, MONSTER, AROUND </wordList>
 </storyText>

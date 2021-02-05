@@ -44,11 +44,9 @@ public class MonsterList {
 
                 // add each monster to monster list
                 monsters.add(monty);
-                System.out.println(monsters.size()+"  at line 46 monster size");
             }
         }
         // return the newly stocked list of monsters
-        System.out.println(monsters.size()+"  monster size at line 49");
         return monsters;
     }
 
