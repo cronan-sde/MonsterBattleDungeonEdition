@@ -129,7 +129,7 @@ public class GameController {
     public String displayRoomScene() {
         StringBuilder sb = new StringBuilder();
         currentMonster = monGeny.randomMonster();
-        System.out.println(currentMonster);
+        //System.out.println(currentMonster);
 
         sb.append(player.getName()).append(", you are currently in the ").append(currentRoom.getName());
         sb.append(". You scan the room to see ").append(currentRoom.getDescription());
