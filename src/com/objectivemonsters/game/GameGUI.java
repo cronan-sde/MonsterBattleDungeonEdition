@@ -100,6 +100,7 @@ public class GameGUI extends JFrame implements KeyListener {
         mainScene = new MainScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
         mainScene.getInputText().addKeyListener(this);
         add(mainScene);
+        mainScene.getInputText().requestFocus(); //sets cursor automatically so user doesn't need to click
         //set inventory and desc text for main room
         updateInventory();
         dungeonStart();
