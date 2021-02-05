@@ -40,6 +40,7 @@ public class GameController {
     private Monster currentMonster;
     //testing prompter and user name entry
     private String playerName;
+    //TODO: Track Player monster
 
 
     // class holding the random monsters and angry, friendly lists -- all monsters are in the monsterlist class
@@ -65,9 +66,9 @@ public class GameController {
         startMonster = monGeny.randoFriendlyMon();
         currentMonster = startMonster;
         currentRoom = startRoom;
-
-
     }
+
+    //TODO: Put xml storylines for main game and gameover text
 
 
     //Display the scene of the room
@@ -201,5 +202,3 @@ public class GameController {
         return currentRoom;
     }
 }
-
-
