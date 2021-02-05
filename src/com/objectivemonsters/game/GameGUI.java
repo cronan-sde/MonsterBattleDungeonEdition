@@ -4,6 +4,7 @@ import com.objectivemonsters.map.Dungeon;
 import com.objectivemonsters.map.MapInit;
 import com.objectivemonsters.monsters.Monster;
 import com.objectivemonsters.monsters.MonsterGenerator;
+import com.objectivemonsters.monsters.MonsterList;
 import com.objectivemonsters.player.Player;
 import com.objectivemonsters.scenes.BattleScene;
 import com.objectivemonsters.scenes.GameOverScene;
@@ -46,6 +47,7 @@ public class GameGUI extends JFrame implements KeyListener {
     private Player player;
     private Dungeon dungeon;
     private GameController controller;
+    private MonsterList monsterList;
 
     //testing scenes
     private StartScene startScene;
@@ -54,8 +56,14 @@ public class GameGUI extends JFrame implements KeyListener {
     private GameOverScene gameOverScene;
 
 
+
+
     //ctor to create GUI
-    public GameGUI() {
+
+    public GameGUI(Player player, Dungeon dungeon, GameController controller) {
+        this.player = player;
+        this.dungeon = dungeon;
+        this.controller = controller;
         setSize(FRAME_WIDTH, FRAME_HEIGHT); //set frame size
         setDefaultCloseOperation(EXIT_ON_CLOSE); //ensure program exits when window is closed
         getContentPane().setBackground(Color.BLACK); //set frame background color to black
@@ -83,15 +91,6 @@ public class GameGUI extends JFrame implements KeyListener {
      * game loop will be in this method
      */
     public void startGame() {
-        //initialize game pieces
-        MapInit initializer = new MapInit();
-        MonsterGenerator mongen = new MonsterGenerator();
-        List<Monster> monster = mongen.allMonsters();
-        Dungeon dungeon = initializer.dungeonInit(monster);
-        player = new Player("player1", new ArrayList<>(), new ArrayList<>());
-        player.setName("Cool Dude");
-        player.gameShardsGen(); // generate 10 shards when game started
-        controller = new GameController(dungeon, monster, player);
 
         //initialize main game screen
         showMainGameScene();
@@ -220,9 +219,11 @@ public class GameGUI extends JFrame implements KeyListener {
     public void dungeonStart() {
         String roomName = controller.getCurrentRoom().getName();
         String roomDesc = controller.getCurrentRoom().getDescription();
+//        String monsterName = controller.getCurrentMonster().getName();
 
         JTextArea mainText = mainScene.getMainTextArea();
         mainText.setText("You are currently in the " + roomName + " room. " + roomDesc);
+//        mainText.setText("You see a monster " + monsterName);
     }
 
     /*
@@ -321,6 +322,24 @@ public class GameGUI extends JFrame implements KeyListener {
      * TODO: MAIN METHOD ONLY FOR TESTING PURPOSES, WILL BE REMOVED IN FINAL VERSION AND CALLED FROM MAIN CLIENT
      */
     public static void main(String[] args) {
-        new GameGUI();
+        //initialize game pieces
+        MapInit initializer = new MapInit();
+//        MonsterGenerator mongen = new MonsterGenerator();
+        MonsterList monsterList = new MonsterList();
+        List<Monster> monster = monsterList.allMonsters();
+        Dungeon dungeon = initializer.dungeonInit(monster);
+        Player player = new Player("player1", new ArrayList<>(), new ArrayList<>());
+        player.setName("Freddy");
+        player.gameShardsGen(); // generate 10 shards when game started
+        GameController controller = new GameController(dungeon, monster, player);
+
+        new GameGUI(player, dungeon, controller);
     }
+
+//    MapInit initializer = new MapInit();
+//    List<Monster> monsters = dungeon.getDungeonMonsters();
+//    Dungeon dungeon = initializer.dungeonInit(monsters);
+//    Player player = new Player("player1", new ArrayList<>(), new ArrayList<>());
+//        player.setName("Freddy");
+//    controller = new GameController(dungeon, monster, player);
 }
