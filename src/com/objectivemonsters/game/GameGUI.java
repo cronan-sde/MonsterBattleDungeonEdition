@@ -181,9 +181,12 @@ public class GameGUI extends JFrame implements KeyListener {
 
     }
 
-
-
+    /*
+     * updates the monsters hp labels while in battle to reflect damage happening
+     * TODO: find way to display user monster hp bar after it dies, currently can't retrieve name due to the removal of the monster from list after death
+     */
     public void updateHPBars() {
+        //TODO: quick fix - need to store cur player monster somewhere, game controller? then check for hp <= 0
         if (player.getpMonsters().size() > 0) {
             battleScene.getUserMonsterHP().setText(player.getpMonsters().get(0).getName() + " : " + player.getpMonsters().get(0).getHP() + " HP");
         }
