@@ -12,6 +12,7 @@ public class MapInit {
 
     //private fields.
     TextParser parser = new TextParser();
+    Random random;
     private Dungeon dungeon;
     private List<Room> roomList = new ArrayList<>();
     private NodeList roomsNodeList;
@@ -55,8 +56,21 @@ public class MapInit {
         return roomList;
     }
 
+    // will be called once and only when game started.
     public void assignExitDoor(){
-       //TODO:
+       for(Room room : roomList) {
+           if (room.getRoomId() == getRandomNumber(1,roomList.size())){
+               room.setHasExitDoor(true);
+           }
+       }
+    }
+
+    // return a random number between 1 and roomList.size().
+    public int getRandomNumber(int min, int max){
+        random = new Random();
+        return random.ints(min,max)
+                .findFirst()
+                .getAsInt();
     }
 
     public Dungeon dungeonInit(List<Monster> monsters) {
