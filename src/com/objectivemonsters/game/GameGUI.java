@@ -21,10 +21,8 @@ import java.util.List;
  * GameGUI is the GUI for the game, it will display a start screen to welcome user to game along with
  * helpful hints on how to play. When user presses [enter] the GUI will change to the main game.
  * GameGUI will update its components as the state of the game changes
- * TODO: Tie classes needed into GameGUI to be able to update interface, and pass data to and from game controller
  * DONE: NEED A BATTLE SCENE TO BE DISPLAYED
  * DONE: NEED TO COLOR TEXT
- * TODO: NEED TO REFACTOR
  * DONE: Find a way to move scenes elsewhere to clean up code
  */
 public class GameGUI extends JFrame implements KeyListener {
