@@ -173,9 +173,18 @@ public class GameGUI extends JFrame implements KeyListener {
         add(gameOverScene);
         gameOverScene.requestFocus();
         gameOverScene.setVisible(true);
-        gameOverScene.getWinLoseText().setText("You're monsters have all been slain and without their help\n" +
-                controller.getCurrentMonster().getName() + " has consumed you!");
-        gameOverScene.getWinLoseText().setForeground(Color.RED);
+
+        if (player.getpMonsters().size() == 0) {
+            gameOverScene.getWinLoseText().setText("You're monsters have all been slain and without their help\n" +
+                    controller.getCurrentMonster().getName() + " has consumed you!");
+            gameOverScene.getWinLoseText().setForeground(Color.RED);
+        } else {
+            gameOverScene.getWinLoseText().setText("You saw an Door in the room and since you got the Key\n" +
+                    "Congrats you get out of the dungeon and set your " + player.getpMonsters().size() + "monster free as well\n" +
+                    "Great Job!");
+            gameOverScene.getWinLoseText().setForeground(Color.GREEN);
+        }
+
         System.out.println("isMainScene" + isMainScreen);
         System.out.println("isBattleScene" + isBattleScreen);
         System.out.println("isStartScene" + isStartScreen);
