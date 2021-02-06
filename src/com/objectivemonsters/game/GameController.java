@@ -86,7 +86,7 @@ public class GameController {
         sb.append(". \n\nExits appear:  ").append(currentRoom.getExits());
         // TODO: append a random generated location based on friendly or angry - maybe screen maybe full enough of info
         if (currentRoom.isHasExitDoor()){ // description for the dungeon door if its in current room.
-            String dungeonExitDesc = "\n" + "Wait a minute, you saw light shine in from a giant stone door, That must be the exit of the dungeon\n.";
+            String dungeonExitDesc = "\n" + "Wait a minute, you saw light shine in from a giant stone door, That must be the exit of the dungeon.";
             sb.append(dungeonExitDesc);
         }
         sb.append(".\nYou notice a creature in the corner. It's ").append(currentMonster.getName()).append(".");

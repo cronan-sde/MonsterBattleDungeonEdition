@@ -302,7 +302,7 @@ public class GameGUI extends JFrame implements KeyListener {
             else {
                 String description = controller.playerAction(userInput);
                 if (description.length() != 0) {
-                    mainScene.getMainTextArea().setText(description);
+                        mainScene.getMainTextArea().setText(description);
                 }
                 mainScene.getInputText().setText("");
                 updateInventory();
