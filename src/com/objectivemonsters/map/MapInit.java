@@ -60,7 +60,7 @@ public class MapInit {
     public void assignExitDoor(){
         int chosenRoom = getRandomNumber(1,roomList.size() + 1);
        for(Room room : roomList) {
-           if (room.getRoomId() == chosenRoom){
+           if (room.getRoomId() == 6){ // TODO
                room.setHasExitDoor(true);
            }
        }
