@@ -89,7 +89,7 @@ public class MainScene extends JPanel {
     //sets the main game text panel
     private void setMainTextPanel() {
         mainTextPanel = new JPanel();
-        mainTextPanel.setBounds(100, 150, 600, 300);
+        mainTextPanel.setBounds(100, 125, 600, 350);
         mainTextPanel.setBackground(Color.BLACK);
 
         setMainTextArea();
@@ -99,7 +99,7 @@ public class MainScene extends JPanel {
     private void setMainTextArea() {
         JPanel mainTextPan = getMainTextPanel();
         mainTextArea = new JTextArea();
-        mainTextArea.setBounds(100, 150, 600, 300);
+        mainTextArea.setBounds(100, 125, 600, 350);
         mainTextArea.setBackground(Color.BLACK);
         mainTextArea.setForeground(Color.WHITE);
         mainTextArea.setFont(new Font(fontName, Font.ITALIC, 22));
