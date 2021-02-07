@@ -126,7 +126,7 @@ public class GameGUI extends JFrame implements KeyListener {
 
     //display combat messages returned from game controller
     public void fightMoves() {
-        Monster playerMonster = player.getpMonsters().get(0);
+        Monster playerMonster = controller.getCurPlayerMonst();
         String htmlBattle = controller.playerAction("fight monster");
         battleScene.setHTMLString(htmlBattle);
 
@@ -191,10 +191,9 @@ public class GameGUI extends JFrame implements KeyListener {
      * TODO: find way to display user monster hp bar after it dies, currently can't retrieve name due to the removal of the monster from list after death
      */
     public void updateHPBars() {
+        Monster playerMonster = controller.getCurPlayerMonst();
         //TODO: quick fix - need to store cur player monster somewhere, game controller? then check for hp <= 0
-        if (player.getpMonsters().size() > 0) {
-            battleScene.getUserMonsterHP().setText(player.getpMonsters().get(0).getName() + " : " + player.getpMonsters().get(0).getHP() + " HP");
-        }
+        battleScene.getUserMonsterHP().setText(playerMonster.getName() + " : " + playerMonster.getHP() + " HP");
         battleScene.getEvilMonsterHP().setText(controller.getCurrentMonster().getName() + " : " + controller.getCurrentMonster().getHP() + " HP");
     }
 
@@ -327,7 +326,7 @@ public class GameGUI extends JFrame implements KeyListener {
             if (player.getpMonsters().size() == 0) {
                 battleToMainScreen();
             }
-            else if (player.getpMonsters().get(0).getHP() <= 0 || controller.getCurrentMonster().getHP() <= 0) {
+            else if (controller.getCurPlayerMonst().getHP() <= 0 || controller.getCurrentMonster().getHP() <= 0) {
                 battleToMainScreen();
             }
             else {

@@ -43,6 +43,7 @@ public class GameController {
     //testing prompter and user name entry
     private String playerName;
     //TODO: Track Player monster
+    private Monster curPlayerMonst;
 
 
     // class holding the random monsters and angry, friendly lists -- all monsters are in the monsterlist class
@@ -123,17 +124,17 @@ public class GameController {
                 //add monster to users monster collection
                 player.getpMonsters().add(roomMonster);
             }
+            curPlayerMonst = player.getpMonsters().get(0);
         }
         else if (verb.equals("fight") && noun.equals("monster") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
-            Monster playerMonster = player.getpMonsters().get(0);
             //battle monsters
-            message = battleSystem.battle(playerMonster, roomMonster);
-            if (playerMonster.getHP() <= 0) {
+            message = battleSystem.battle(curPlayerMonst, roomMonster);
+            if (curPlayerMonst.getHP() <= 0) {
                //player monster loses
-                message = userMonsterLoses(playerMonster);
+                message += userMonsterLoses(curPlayerMonst);
             } else if  (currentMonster.getHP() <= 0) {
                 // if enemy killed call function for winning
-                message = killedAngryMonster();
+                message += killedAngryMonster();
 
             }
         }
@@ -268,5 +269,9 @@ public class GameController {
 
     public Room getCurrentRoom() {
         return currentRoom;
+    }
+
+    public Monster getCurPlayerMonst() {
+        return curPlayerMonst;
     }
 }
