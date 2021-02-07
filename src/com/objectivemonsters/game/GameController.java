@@ -199,7 +199,7 @@ public class GameController {
         boolean isNotDuplicate = true;
 
         for (Monster monster : player.getpMonsters()) {
-            if (monster.equals(currentMonster)) {
+            if (monster.getName().equals(getCurrentMonster().getName())) {
                 isNotDuplicate = false;
                 break;
             }

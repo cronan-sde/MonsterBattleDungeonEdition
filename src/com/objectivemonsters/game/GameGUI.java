@@ -298,7 +298,7 @@ public class GameGUI extends JFrame implements KeyListener {
         else if (isMainScreen && e.getKeyCode() == KeyEvent.VK_ENTER) {
             String userInput = mainScene.getInputText().getText();
             String verb = userInput.trim().split(" ")[0];
-            if (verb.toLowerCase().equals("fight")) {
+            if (verb.toLowerCase().equals("fight") && player.getpMonsters().size() != 0) {
                 String[] controllerResponse = controller.validateUserInput(userInput);
                 if (controllerResponse[1].equals("monster")) {
                     isBattleScreen = true;
