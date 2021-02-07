@@ -118,9 +118,11 @@ public class GameController {
             message = displayRoomScene();
         }
         else if (verb.equals("take") && noun.equals("monster") && roomMonster.isFriendly()) {
-            //TODO: only allow to take 3 monsters
-            //add monster to users monster collection
-            player.getpMonsters().add(roomMonster);
+            //DONE: only allow to take 3 monsters and no duplicates
+            if (player.getpMonsters().size() < 3 && monsterNotDuplicate()) {
+                //add monster to users monster collection
+                player.getpMonsters().add(roomMonster);
+            }
         }
         else if (verb.equals("fight") && noun.equals("monster") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
             Monster playerMonster = player.getpMonsters().get(0);
@@ -189,6 +191,21 @@ public class GameController {
                 + currentMonster.getName() + "</span></h2>";
 
         return htmlMess;
+    }
+
+    //check to make sure monster being added to player is not already there
+    //helps avoid adding duplicate monsters to player list
+    private boolean monsterNotDuplicate() {
+        boolean isNotDuplicate = true;
+
+        for (Monster monster : player.getpMonsters()) {
+            if (monster.equals(currentMonster)) {
+                isNotDuplicate = false;
+                break;
+            }
+        }
+
+        return isNotDuplicate;
     }
 
     //check is user is out of monsters or if player has the key and there are a exit door in the currentRoom.
