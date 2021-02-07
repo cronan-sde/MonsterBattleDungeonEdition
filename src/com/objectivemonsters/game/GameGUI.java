@@ -294,17 +294,22 @@ public class GameGUI extends JFrame implements KeyListener {
             isMainScreen = true;
             hideStartScreen();
         }
+        //Done: need to ensure the fight monster is legit in controller before changing scene
         else if (isMainScreen && e.getKeyCode() == KeyEvent.VK_ENTER) {
             String userInput = mainScene.getInputText().getText();
-            if (userInput.toLowerCase().equals("fight monster")) {
-                isBattleScreen = true;
-                mainScene.getInputText().setText("");
-                hideMainScreen();
+            String verb = userInput.trim().split(" ")[0];
+            if (verb.toLowerCase().equals("fight")) {
+                String[] controllerResponse = controller.validateUserInput(userInput);
+                if (controllerResponse[1].equals("monster")) {
+                    isBattleScreen = true;
+                    mainScene.getInputText().setText("");
+                    hideMainScreen();
+                }
             }
             else {
                 String description = controller.playerAction(userInput);
                 if (description.length() != 0) {
-                        mainScene.getMainTextArea().setText(description);
+                    mainScene.getMainTextArea().setText(description);
                 }
                 mainScene.getInputText().setText("");
                 updateInventory();
@@ -322,11 +327,9 @@ public class GameGUI extends JFrame implements KeyListener {
             }
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            System.out.println("IN BATTLE ESCAPE");
             battleToMainScreen();
         }
         else if (isGameOverScreen && e.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("in gameover");
             getContentPane().removeAll();
             setStartScreen();
         }

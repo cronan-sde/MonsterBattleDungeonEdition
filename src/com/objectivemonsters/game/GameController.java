@@ -9,6 +9,7 @@ import com.objectivemonsters.player.Player;
 import com.objectivemonsters.storylines.BattleTextGenerator;
 import com.objectivemonsters.storylines.StoryLineGenerator;
 import com.objectivemonsters.util.Prompter;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -102,7 +103,7 @@ public class GameController {
     //TODO: more work needed, this is very basic for sprint 1
     public String playerAction(String playerAction) {
         String message = "";
-        String[] action = playerAction.split(" ");
+        String[] action = validateUserInput(playerAction);
         String verb = action[0];
         String noun = action[1];
         Monster roomMonster = currentMonster;
@@ -116,11 +117,12 @@ public class GameController {
             //move player to new room
             message = displayRoomScene();
         }
-        else if (verb.equals("take") && roomMonster.isFriendly()) {
+        else if (verb.equals("take") && noun.equals("monster") && roomMonster.isFriendly()) {
+            //TODO: only allow to take 3 monsters
             //add monster to users monster collection
             player.getpMonsters().add(roomMonster);
         }
-        else if (verb.equals("fight") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
+        else if (verb.equals("fight") && noun.equals("monster") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
             Monster playerMonster = player.getpMonsters().get(0);
             //battle monsters
             message = battleSystem.battle(playerMonster, roomMonster);
@@ -132,9 +134,38 @@ public class GameController {
                 message = killedAngryMonster();
 
             }
-            }
-
+        }
         return message;
+    }
+
+    /*
+     * validates the user input and sends back a String[] to be used by the playerAction method
+     * ensures the program doesn't blow up with invalid inputs
+     * also allows the user the choice to type monster or a monsters name to take and fight
+     */
+    public String[] validateUserInput(String userInput) {
+        String[] actionToTake = null;
+        String[] input = userInput.trim().split(" ");
+        if (input.length == 2) {
+            actionToTake = input;
+        }
+        else if (input.length == 3 || input.length == 4) {
+            String verb = input[0];
+            if (verb.toLowerCase().equals("take") || verb.toLowerCase().equals("fight")) {
+                String monsterName = input.length == 4 ? String.join(" ", input[1], input[2], input[3]) : String.join(" ", input[1], input[2]);
+                System.out.println(monsterName);
+                if (monsterName.toLowerCase().equals(currentMonster.getName().toLowerCase())) {
+                    actionToTake = new String[]{verb, "monster"};
+                }
+            }
+        }
+        else if (input.length == 1) {
+            String verb = input[0];
+            String noun = "";
+            actionToTake = new String[]{verb, noun};
+        }
+
+        return actionToTake;
     }
 
     public String killedAngryMonster() {
