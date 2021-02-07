@@ -89,8 +89,10 @@ public class BattleSystem {
                     //m1 dead
                     sb.append("<span class='user'> ").append(m1.getName()).append("</span>").append(" falls to the ground, trying to get back up, but finally collapses to the floor for the last time");
                 }
-                //m1 hit message
-                sb.append("<span class='user'> ").append(m1.getName()).append("</span>").append(" falls back wincing in pain, but begins to regain its composure");
+                else {
+                    //m1 hit message
+                    sb.append("<span class='user'> ").append(m1.getName()).append("</span>").append(" falls back wincing in pain, but begins to regain its composure");
+                }
             }
 
         sb.append("</h2>");

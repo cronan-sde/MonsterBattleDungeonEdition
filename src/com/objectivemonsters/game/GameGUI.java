@@ -126,13 +126,21 @@ public class GameGUI extends JFrame implements KeyListener {
 
     //display combat messages returned from game controller
     public void fightMoves() {
-        Monster playerMonster = player.getpMonsters().get(0);
+        Monster playerMonster = controller.getCurPlayerMonst();
         String htmlBattle = controller.playerAction("fight monster");
         battleScene.setHTMLString(htmlBattle);
 
-        if (playerMonster.getHP() <= 0 || controller.getCurrentMonster().getHP() <= 0) {
+        if ((playerMonster.getHP() <= 0 && player.getpMonsters().size() == 0) || controller.getCurrentMonster().getHP() <= 0) {
             battleScene.getStayOrFlee().setText("-- press [space-bar] to continue --");
             battleScene.getStayOrFlee().setBounds(220,500,600,100);
+        }
+        else if (playerMonster.getHP() <= 0) {
+            battleScene.getStayOrFlee().setText("-- press [space-bar] to use another monster or [escape] to flee --");
+            battleScene.getStayOrFlee().setBounds(120,500,600,100);
+        }
+        else {
+            battleScene.getStayOrFlee().setText("-- press [space-bar] to continue fighting or [escape] to flee --");
+            battleScene.getStayOrFlee().setBounds(125,500,600,100);
         }
 
         updateHPBars();
@@ -172,35 +180,28 @@ public class GameGUI extends JFrame implements KeyListener {
         gameOverScene.setVisible(true);
 
         if (player.getpMonsters().size() == 0) {
-            gameOverScene.getWinLoseText().setText("You're monsters have all been slain and without their help\n" +
-                    controller.getCurrentMonster().getName() + " has consumed you!");
+            gameOverScene.getWinLoseText().setText(controller.dungeonLoseText());
             gameOverScene.getWinLoseText().setForeground(Color.RED);
         } else {
-            gameOverScene.getWinLoseText().setText("You saw an Door in the room and since you got the Key\n" +
-                    "Congrats you get out of the dungeon and set your " + player.getpMonsters().size() + "monster free as well\n" +
-                    "Great Job!");
+            gameOverScene.getWinLoseText().setText(controller.dungeonWinText());
             gameOverScene.getWinLoseText().setForeground(Color.GREEN);
         }
-
-        System.out.println("isMainScene" + isMainScreen);
-        System.out.println("isBattleScene" + isBattleScreen);
-        System.out.println("isStartScene" + isStartScreen);
-        System.out.println("isGameOverScene" + isGameOverScreen);
-
     }
 
-
-
+    /*
+     * updates the monsters hp labels while in battle to reflect damage happening
+     * DONE: find way to display user monster hp bar after it dies, currently can't retrieve name due to the removal of the monster from list after death
+     */
     public void updateHPBars() {
-        if (player.getpMonsters().size() > 0) {
-            battleScene.getUserMonsterHP().setText(player.getpMonsters().get(0).getName() + " : " + player.getpMonsters().get(0).getHP() + " HP");
-        }
+        Monster playerMonster = controller.getCurPlayerMonst();
+        //DONE: quick fix - need to store cur player monster somewhere, game controller? then check for hp <= 0
+        battleScene.getUserMonsterHP().setText(playerMonster.getName() + " : " + playerMonster.getHP() + " HP");
         battleScene.getEvilMonsterHP().setText(controller.getCurrentMonster().getName() + " : " + controller.getCurrentMonster().getHP() + " HP");
     }
 
     /*
      * Updates the user inventory labels to reflect Players current state
-     * TODO: ensure working, call after every player turn? or somehow track when items and monsters are picked up then call
+     * DONE: ensure working, call after every player turn? or somehow track when items and monsters are picked up then call
      */
     public void updateInventory() {
         JLabel userMonsters = mainScene.getUserMonsterLabel();
@@ -211,8 +212,8 @@ public class GameGUI extends JFrame implements KeyListener {
         userMonsters.setText("MONSTERS:" + playerMonstersLabel());
         userInventory.setText("Inventory:" + player.getpItems());
 
+        userKeys.setText("Keys: " + player.setKey(player.getpShards()) + "/1");
         userShards.setText("Shards: " + player.getpShards().size() + "/10");
-        userKeys.setText("Keys: " + player.setKey(player.getpShards()) + "/1"); //TODO: figure out key, currently only 1 key per level, shards morph into key
     }
 
     //create player monster label string
@@ -240,11 +241,9 @@ public class GameGUI extends JFrame implements KeyListener {
     public void dungeonStart() {
         String roomName = controller.getCurrentRoom().getName();
         String roomDesc = controller.getCurrentRoom().getDescription();
-//        String monsterName = controller.getCurrentMonster().getName();
 
         JTextArea mainText = mainScene.getMainTextArea();
         mainText.setText("You are currently in the " + roomName + " room. " + roomDesc);
-//        mainText.setText("You see a monster " + monsterName);
     }
 
     /*
@@ -291,17 +290,35 @@ public class GameGUI extends JFrame implements KeyListener {
             isMainScreen = true;
             hideStartScreen();
         }
+        //Done: need to ensure the fight monster is legit in controller before changing scene
         else if (isMainScreen && e.getKeyCode() == KeyEvent.VK_ENTER) {
             String userInput = mainScene.getInputText().getText();
-            if (userInput.toLowerCase().equals("fight monster")) {
-                isBattleScreen = true;
+            String verb = userInput.trim().split(" ")[0];
+            if (verb.toLowerCase().equals("fight") && player.getpMonsters().size() != 0) {
+                String[] controllerResponse = controller.validateUserInput(userInput);
+                if (controllerResponse[1].equals("monster") && !controller.getCurrentMonster().isFriendly()) {
+                    isBattleScreen = true;
+                    hideMainScreen();
+                }
                 mainScene.getInputText().setText("");
-                hideMainScreen();
+            }
+            else if (userInput.equals("use key") && controller.getCurrentRoom().isHasExitDoor()) {
+                if (controller.isGameOver() && player.getpMonsters().size() != 0) {
+                    isMainScreen = false;
+                    isGameOverScreen = true;
+                    mainScene.setVisible(false);
+                    showGameOverScreen();
+                }
+                else {
+                    mainScene.getMainTextArea().setText("You need a special key to unlock this door!");
+                    updateInventory();
+                }
+                mainScene.getInputText().setText("");
             }
             else {
                 String description = controller.playerAction(userInput);
                 if (description.length() != 0) {
-                        mainScene.getMainTextArea().setText(description);
+                    mainScene.getMainTextArea().setText(description);
                 }
                 mainScene.getInputText().setText("");
                 updateInventory();
@@ -311,19 +328,26 @@ public class GameGUI extends JFrame implements KeyListener {
             if (player.getpMonsters().size() == 0) {
                 battleToMainScreen();
             }
-            else if (player.getpMonsters().get(0).getHP() <= 0 || controller.getCurrentMonster().getHP() <= 0) {
+            else if (controller.getCurrentMonster().getHP() <= 0) {
                 battleToMainScreen();
+            }
+            //if current player monster is dead, and user wants to continue, need to set the new player monster
+            else if (controller.getCurPlayerMonst().getHP() <= 0) {
+                controller.setCurPlayerMonst();
+                fightMoves();
             }
             else {
                 fightMoves();
             }
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            System.out.println("IN BATTLE ESCAPE");
+            //if player chooses to escape after a monster dies, need to set the new current monster
+            if (controller.getCurPlayerMonst().getHP() <= 0) {
+                controller.setCurPlayerMonst();
+            }
             battleToMainScreen();
         }
         else if (isGameOverScreen && e.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("in gameover");
             getContentPane().removeAll();
             setStartScreen();
         }

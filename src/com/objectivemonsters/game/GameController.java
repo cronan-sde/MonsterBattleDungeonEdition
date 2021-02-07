@@ -9,6 +9,7 @@ import com.objectivemonsters.player.Player;
 import com.objectivemonsters.storylines.BattleTextGenerator;
 import com.objectivemonsters.storylines.StoryLineGenerator;
 import com.objectivemonsters.util.Prompter;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -41,7 +42,8 @@ public class GameController {
     private Monster currentMonster;
     //testing prompter and user name entry
     private String playerName;
-    //TODO: Track Player monster
+    //DONE: Track Player monster
+    private Monster curPlayerMonst;
 
 
     // class holding the random monsters and angry, friendly lists -- all monsters are in the monsterlist class
@@ -99,10 +101,10 @@ public class GameController {
     }
 
     //action user wishes to take
-    //TODO: more work needed, this is very basic for sprint 1
+    //DONE: more work needed, this is very basic for sprint 1
     public String playerAction(String playerAction) {
         String message = "";
-        String[] action = playerAction.split(" ");
+        String[] action = validateUserInput(playerAction);
         String verb = action[0];
         String noun = action[1];
         Monster roomMonster = currentMonster;
@@ -114,27 +116,71 @@ public class GameController {
             //set new room to current room
             setCurrentRoom(getNextRoomName(noun));
             //move player to new room
-            message = displayRoomScene();
+            message = getCurrentRoom().getDescription();
         }
-        else if (verb.equals("take") && roomMonster.isFriendly()) {
-            //add monster to users monster collection
-            player.getpMonsters().add(roomMonster);
+        else if (verb.equals("take") && noun.equals("monster") && roomMonster.isFriendly()) {
+            //DONE: only allow to take 3 monsters and no duplicates
+            if (player.getpMonsters().size() < 3 && monsterNotDuplicate()) {
+                //add monster to users monster collection
+                player.getpMonsters().add(roomMonster);
+            }
+            //current player monster will be assigned when monster added, currently will always be 1st monster
+            curPlayerMonst = player.getpMonsters().get(0);
         }
-        else if (verb.equals("fight") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
-            Monster playerMonster = player.getpMonsters().get(0);
+        else if ((verb.equals("fight") && noun.equals("monster")) && (!roomMonster.isFriendly() && player.getpMonsters().size() > 0)) {
             //battle monsters
-            message = battleSystem.battle(playerMonster, roomMonster);
-            if (playerMonster.getHP() <= 0) {
+            message = battleSystem.battle(curPlayerMonst, roomMonster);
+            if (curPlayerMonst.getHP() <= 0) {
                //player monster loses
-                message = userMonsterLoses(playerMonster);
+                message += userMonsterLoses(curPlayerMonst);
             } else if  (currentMonster.getHP() <= 0) {
                 // if enemy killed call function for winning
-                message = killedAngryMonster();
+                message += killedAngryMonster();
 
             }
-            }
-
+        }
         return message;
+    }
+
+    /*
+     * validates the user input and sends back a String[] to be used by the playerAction method
+     * ensures the program doesn't blow up with invalid inputs
+     * also allows the user the choice to type monster or a monsters name to take and fight
+     */
+    public String[] validateUserInput(String userInput) {
+        String[] actionToTake = null;
+        String[] input = userInput.trim().split(" ");
+        if (input.length == 2) {
+            actionToTake = input;
+        }
+        else if (input.length == 3 || input.length == 4) {
+            String verb = input[0];
+            if (verb.toLowerCase().equals("take") || verb.toLowerCase().equals("fight")) {
+                String monsterName = input.length == 4 ? String.join(" ", input[1], input[2], input[3]) : String.join(" ", input[1], input[2]);
+
+                if (monsterName.toLowerCase().equals(currentMonster.getName().toLowerCase())) {
+                    actionToTake = new String[]{verb, "monster"};
+                }
+            }
+        }
+        else if (input.length == 1) {
+            String verb = input[0];
+            String noun = "";
+            actionToTake = new String[]{verb, noun};
+        }
+
+        return actionToTake;
+    }
+
+    public String dungeonWinText() {
+        return "You have unlocked the dungeon door with the shard key\n" +
+                "Congratulations you have escaped the monster dungeon!\nand set all your monsters free!\n" +
+                "You truly are an amazing adventurer!";
+    }
+
+    public String dungeonLoseText() {
+        return "You're monsters have all been slain and without their help\n" +
+                getCurrentMonster().getName() + " has consumed you!";
     }
 
     public String killedAngryMonster() {
@@ -143,7 +189,7 @@ public class GameController {
         int currStrength = playerMonster.getStrength();
         playerMonster.setStrength((currStrength + STRENGTH_XP_BOOST));
         player.dropShard();
-        System.out.println(player.getpShards().size());
+
         String htmlMess = "<h2 class='text'><span class='user'>" + playerMonster.getName() + "</span> " +
                 "has defeated <span class='enemy'> " + currentMonster.getName() + "</span><br><span class='user'> " + playerMonster.getName() + "</span> " +
                 "has grown in experience regaining full HP and a strength boost from <span class='damage'> " + currStrength + " Strength - " + playerMonster.getStrength() +
@@ -158,6 +204,21 @@ public class GameController {
                 + currentMonster.getName() + "</span></h2>";
 
         return htmlMess;
+    }
+
+    //check to make sure monster being added to player is not already there
+    //helps avoid adding duplicate monsters to player list
+    private boolean monsterNotDuplicate() {
+        boolean isNotDuplicate = true;
+
+        for (Monster monster : player.getpMonsters()) {
+            if (monster.getName().equals(getCurrentMonster().getName())) {
+                isNotDuplicate = false;
+                break;
+            }
+        }
+
+        return isNotDuplicate;
     }
 
     //check is user is out of monsters or if player has the key and there are a exit door in the currentRoom.
@@ -209,5 +270,19 @@ public class GameController {
 
     public Room getCurrentRoom() {
         return currentRoom;
+    }
+
+    public Monster getCurPlayerMonst() {
+        return curPlayerMonst;
+    }
+
+    /*
+     * allows the cur player monster to be set
+     * when user monster dies, needs to be called
+     */
+    public void setCurPlayerMonst() {
+        if (player.getpMonsters().size() > 0) {
+            curPlayerMonst = player.getpMonsters().get(0);
+        }
     }
 }
