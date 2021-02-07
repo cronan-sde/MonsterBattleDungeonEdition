@@ -126,7 +126,7 @@ public class GameController {
             }
             curPlayerMonst = player.getpMonsters().get(0);
         }
-        else if (verb.equals("fight") && noun.equals("monster") && !roomMonster.isFriendly() && player.getpMonsters().size() > 0) {
+        else if ((verb.equals("fight") && noun.equals("monster")) && (!roomMonster.isFriendly() && player.getpMonsters().size() > 0)) {
             //battle monsters
             message = battleSystem.battle(curPlayerMonst, roomMonster);
             if (curPlayerMonst.getHP() <= 0) {
@@ -273,5 +273,11 @@ public class GameController {
 
     public Monster getCurPlayerMonst() {
         return curPlayerMonst;
+    }
+
+    public void setCurPlayerMonst() {
+        if (player.getpMonsters().size() > 0) {
+            curPlayerMonst = player.getpMonsters().get(0);
+        }
     }
 }

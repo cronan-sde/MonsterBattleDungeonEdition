@@ -130,9 +130,17 @@ public class GameGUI extends JFrame implements KeyListener {
         String htmlBattle = controller.playerAction("fight monster");
         battleScene.setHTMLString(htmlBattle);
 
-        if (playerMonster.getHP() <= 0 || controller.getCurrentMonster().getHP() <= 0) {
+        if ((playerMonster.getHP() <= 0 && player.getpMonsters().size() == 0) || controller.getCurrentMonster().getHP() <= 0) {
             battleScene.getStayOrFlee().setText("-- press [space-bar] to continue --");
             battleScene.getStayOrFlee().setBounds(220,500,600,100);
+        }
+        else if (playerMonster.getHP() <= 0) {
+            battleScene.getStayOrFlee().setText("-- press [space-bar] to use another monster or [escape] to flee --");
+            battleScene.getStayOrFlee().setBounds(120,500,600,100);
+        }
+        else {
+            battleScene.getStayOrFlee().setText("-- press [space-bar] to continue fighting or [escape] to flee --");
+            battleScene.getStayOrFlee().setBounds(125,500,600,100);
         }
 
         updateHPBars();
@@ -294,11 +302,11 @@ public class GameGUI extends JFrame implements KeyListener {
             String verb = userInput.trim().split(" ")[0];
             if (verb.toLowerCase().equals("fight") && player.getpMonsters().size() != 0) {
                 String[] controllerResponse = controller.validateUserInput(userInput);
-                if (controllerResponse[1].equals("monster")) {
+                if (controllerResponse[1].equals("monster") && !controller.getCurrentMonster().isFriendly()) {
                     isBattleScreen = true;
-                    mainScene.getInputText().setText("");
                     hideMainScreen();
                 }
+                mainScene.getInputText().setText("");
             }
             else if (userInput.equals("use key") && controller.getCurrentRoom().isHasExitDoor()) {
                 if (controller.isGameOver() && player.getpMonsters().size() != 0) {
@@ -326,14 +334,21 @@ public class GameGUI extends JFrame implements KeyListener {
             if (player.getpMonsters().size() == 0) {
                 battleToMainScreen();
             }
-            else if (controller.getCurPlayerMonst().getHP() <= 0 || controller.getCurrentMonster().getHP() <= 0) {
+            else if (controller.getCurrentMonster().getHP() <= 0) {
                 battleToMainScreen();
+            }
+            else if (controller.getCurPlayerMonst().getHP() <= 0) {
+                controller.setCurPlayerMonst();
+                fightMoves();
             }
             else {
                 fightMoves();
             }
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            if (controller.getCurPlayerMonst().getHP() <= 0) {
+                controller.setCurPlayerMonst();
+            }
             battleToMainScreen();
         }
         else if (isGameOverScreen && e.getKeyCode() == KeyEvent.VK_ENTER) {
