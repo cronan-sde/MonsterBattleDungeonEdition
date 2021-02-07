@@ -115,7 +115,7 @@ public class GameController {
             //set new room to current room
             setCurrentRoom(getNextRoomName(noun));
             //move player to new room
-            message = displayRoomScene();
+            message = getCurrentRoom().getDescription();
         }
         else if (verb.equals("take") && noun.equals("monster") && roomMonster.isFriendly()) {
             //DONE: only allow to take 3 monsters and no duplicates
