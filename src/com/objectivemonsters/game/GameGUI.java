@@ -172,13 +172,10 @@ public class GameGUI extends JFrame implements KeyListener {
         gameOverScene.setVisible(true);
 
         if (player.getpMonsters().size() == 0) {
-            gameOverScene.getWinLoseText().setText("You're monsters have all been slain and without their help\n" +
-                    controller.getCurrentMonster().getName() + " has consumed you!");
+            gameOverScene.getWinLoseText().setText(controller.dungeonLoseText());
             gameOverScene.getWinLoseText().setForeground(Color.RED);
         } else {
-            gameOverScene.getWinLoseText().setText("You saw an Door in the room and since you got the Key\n" +
-                    "Congrats you get out of the dungeon and set your " + player.getpMonsters().size() + "monster free as well\n" +
-                    "Great Job!");
+            gameOverScene.getWinLoseText().setText(controller.dungeonWinText());
             gameOverScene.getWinLoseText().setForeground(Color.GREEN);
         }
 
@@ -214,8 +211,8 @@ public class GameGUI extends JFrame implements KeyListener {
         userMonsters.setText("MONSTERS:" + playerMonstersLabel());
         userInventory.setText("Inventory:" + player.getpItems());
 
+        userKeys.setText("Keys: " + player.setKey(player.getpShards()) + "/1");
         userShards.setText("Shards: " + player.getpShards().size() + "/10");
-        userKeys.setText("Keys: " + player.setKey(player.getpShards()) + "/1"); //TODO: figure out key, currently only 1 key per level, shards morph into key
     }
 
     //create player monster label string
@@ -243,11 +240,9 @@ public class GameGUI extends JFrame implements KeyListener {
     public void dungeonStart() {
         String roomName = controller.getCurrentRoom().getName();
         String roomDesc = controller.getCurrentRoom().getDescription();
-//        String monsterName = controller.getCurrentMonster().getName();
 
         JTextArea mainText = mainScene.getMainTextArea();
         mainText.setText("You are currently in the " + roomName + " room. " + roomDesc);
-//        mainText.setText("You see a monster " + monsterName);
     }
 
     /*
@@ -305,6 +300,19 @@ public class GameGUI extends JFrame implements KeyListener {
                     mainScene.getInputText().setText("");
                     hideMainScreen();
                 }
+            }
+            else if (userInput.equals("use key") && controller.getCurrentRoom().isHasExitDoor()) {
+                if (controller.isGameOver() && player.getpMonsters().size() != 0) {
+                    isMainScreen = false;
+                    isGameOverScreen = true;
+                    mainScene.setVisible(false);
+                    showGameOverScreen();
+                }
+                else {
+                    mainScene.getMainTextArea().setText("You need a special key to unlock this door!");
+                    updateInventory();
+                }
+                mainScene.getInputText().setText("");
             }
             else {
                 String description = controller.playerAction(userInput);

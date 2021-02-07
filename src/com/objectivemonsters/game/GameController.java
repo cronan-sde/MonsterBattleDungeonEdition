@@ -170,6 +170,17 @@ public class GameController {
         return actionToTake;
     }
 
+    public String dungeonWinText() {
+        return "You have unlocked the dungeon door with the shard key\n" +
+                "Congratulations you have escaped the monster dungeon!\nand set all your monsters free!\n" +
+                "You truly are an amazing adventurer!";
+    }
+
+    public String dungeonLoseText() {
+        return "You're monsters have all been slain and without their help\n" +
+                getCurrentMonster().getName() + " has consumed you!";
+    }
+
     public String killedAngryMonster() {
         Monster playerMonster = player.getpMonsters().get(0);
         playerMonster.setHP(100);
