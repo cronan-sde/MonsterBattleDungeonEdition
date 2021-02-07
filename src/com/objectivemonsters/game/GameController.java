@@ -42,7 +42,7 @@ public class GameController {
     private Monster currentMonster;
     //testing prompter and user name entry
     private String playerName;
-    //TODO: Track Player monster
+    //DONE: Track Player monster
     private Monster curPlayerMonst;
 
 
@@ -101,7 +101,7 @@ public class GameController {
     }
 
     //action user wishes to take
-    //TODO: more work needed, this is very basic for sprint 1
+    //DONE: more work needed, this is very basic for sprint 1
     public String playerAction(String playerAction) {
         String message = "";
         String[] action = validateUserInput(playerAction);
@@ -124,6 +124,7 @@ public class GameController {
                 //add monster to users monster collection
                 player.getpMonsters().add(roomMonster);
             }
+            //current player monster will be assigned when monster added, currently will always be 1st monster
             curPlayerMonst = player.getpMonsters().get(0);
         }
         else if ((verb.equals("fight") && noun.equals("monster")) && (!roomMonster.isFriendly() && player.getpMonsters().size() > 0)) {
@@ -156,7 +157,7 @@ public class GameController {
             String verb = input[0];
             if (verb.toLowerCase().equals("take") || verb.toLowerCase().equals("fight")) {
                 String monsterName = input.length == 4 ? String.join(" ", input[1], input[2], input[3]) : String.join(" ", input[1], input[2]);
-                System.out.println(monsterName);
+
                 if (monsterName.toLowerCase().equals(currentMonster.getName().toLowerCase())) {
                     actionToTake = new String[]{verb, "monster"};
                 }
@@ -188,7 +189,7 @@ public class GameController {
         int currStrength = playerMonster.getStrength();
         playerMonster.setStrength((currStrength + STRENGTH_XP_BOOST));
         player.dropShard();
-        System.out.println(player.getpShards().size());
+
         String htmlMess = "<h2 class='text'><span class='user'>" + playerMonster.getName() + "</span> " +
                 "has defeated <span class='enemy'> " + currentMonster.getName() + "</span><br><span class='user'> " + playerMonster.getName() + "</span> " +
                 "has grown in experience regaining full HP and a strength boost from <span class='damage'> " + currStrength + " Strength - " + playerMonster.getStrength() +
@@ -275,6 +276,10 @@ public class GameController {
         return curPlayerMonst;
     }
 
+    /*
+     * allows the cur player monster to be set
+     * when user monster dies, needs to be called
+     */
     public void setCurPlayerMonst() {
         if (player.getpMonsters().size() > 0) {
             curPlayerMonst = player.getpMonsters().get(0);

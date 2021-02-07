@@ -186,28 +186,22 @@ public class GameGUI extends JFrame implements KeyListener {
             gameOverScene.getWinLoseText().setText(controller.dungeonWinText());
             gameOverScene.getWinLoseText().setForeground(Color.GREEN);
         }
-
-        System.out.println("isMainScene" + isMainScreen);
-        System.out.println("isBattleScene" + isBattleScreen);
-        System.out.println("isStartScene" + isStartScreen);
-        System.out.println("isGameOverScene" + isGameOverScreen);
-
     }
 
     /*
      * updates the monsters hp labels while in battle to reflect damage happening
-     * TODO: find way to display user monster hp bar after it dies, currently can't retrieve name due to the removal of the monster from list after death
+     * DONE: find way to display user monster hp bar after it dies, currently can't retrieve name due to the removal of the monster from list after death
      */
     public void updateHPBars() {
         Monster playerMonster = controller.getCurPlayerMonst();
-        //TODO: quick fix - need to store cur player monster somewhere, game controller? then check for hp <= 0
+        //DONE: quick fix - need to store cur player monster somewhere, game controller? then check for hp <= 0
         battleScene.getUserMonsterHP().setText(playerMonster.getName() + " : " + playerMonster.getHP() + " HP");
         battleScene.getEvilMonsterHP().setText(controller.getCurrentMonster().getName() + " : " + controller.getCurrentMonster().getHP() + " HP");
     }
 
     /*
      * Updates the user inventory labels to reflect Players current state
-     * TODO: ensure working, call after every player turn? or somehow track when items and monsters are picked up then call
+     * DONE: ensure working, call after every player turn? or somehow track when items and monsters are picked up then call
      */
     public void updateInventory() {
         JLabel userMonsters = mainScene.getUserMonsterLabel();
@@ -337,6 +331,7 @@ public class GameGUI extends JFrame implements KeyListener {
             else if (controller.getCurrentMonster().getHP() <= 0) {
                 battleToMainScreen();
             }
+            //if current player monster is dead, and user wants to continue, need to set the new player monster
             else if (controller.getCurPlayerMonst().getHP() <= 0) {
                 controller.setCurPlayerMonst();
                 fightMoves();
@@ -346,6 +341,7 @@ public class GameGUI extends JFrame implements KeyListener {
             }
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            //if player chooses to escape after a monster dies, need to set the new current monster
             if (controller.getCurPlayerMonst().getHP() <= 0) {
                 controller.setCurPlayerMonst();
             }
