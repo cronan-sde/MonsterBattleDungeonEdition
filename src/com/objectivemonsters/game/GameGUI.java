@@ -8,6 +8,7 @@ import com.objectivemonsters.player.Player;
 import com.objectivemonsters.scenes.BattleScene;
 import com.objectivemonsters.scenes.GameOverScene;
 import com.objectivemonsters.scenes.MainScene;
+import com.objectivemonsters.scenes.MapScene;
 import com.objectivemonsters.scenes.StartScene;
 import javax.swing.*;
 import java.awt.*;
@@ -38,6 +39,7 @@ public class GameGUI extends JFrame implements KeyListener {
     private boolean isMainScreen = false;
     private boolean isBattleScreen = false;
     private boolean isGameOverScreen = false;
+    private boolean isMapScreen = false;
 
     //Game pieces
     private Player player;
@@ -49,6 +51,7 @@ public class GameGUI extends JFrame implements KeyListener {
     private MainScene mainScene;
     private BattleScene battleScene;
     private GameOverScene gameOverScene;
+    private MapScene mapScene;
 
 
 
@@ -188,6 +191,17 @@ public class GameGUI extends JFrame implements KeyListener {
         }
     }
 
+    //show dungeon map
+    public void showMap() {
+        mapScene = new MapScene(FRAME_WIDTH, FRAME_HEIGHT, GAME_FONT);
+        mapScene.addKeyListener(this);
+        mapScene.getExitSceneText().addKeyListener(this);
+        mapScene.getImageLabel().addKeyListener(this);
+        add(mapScene);
+        mapScene.requestFocus();
+        mapScene.setVisible(true);
+    }
+
     /*
      * updates the monsters hp labels while in battle to reflect damage happening
      * DONE: find way to display user monster hp bar after it dies, currently can't retrieve name due to the removal of the monster from list after death
@@ -315,6 +329,14 @@ public class GameGUI extends JFrame implements KeyListener {
                 }
                 mainScene.getInputText().setText("");
             }
+            //add map view
+            else if (isMainScreen && userInput.equals("view map")) {
+                isMainScreen = false;
+                isMapScreen = true;
+                mainScene.setVisible(false);
+                showMap();
+                mainScene.getInputText().setText("");
+            }
             else {
                 String description = controller.playerAction(userInput);
                 if (description.length() != 0) {
@@ -323,6 +345,14 @@ public class GameGUI extends JFrame implements KeyListener {
                 mainScene.getInputText().setText("");
                 updateInventory();
             }
+        }
+        //get out of map view
+        else if (isMapScreen && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            isMapScreen = false;
+            isMainScreen = true;
+            mapScene.setVisible(false);
+            mainScene.setVisible(true);
+            mainScene.getInputText().requestFocus();
         }
         else if (isBattleScreen && e.getKeyCode() == KeyEvent.VK_SPACE) {
             if (player.getpMonsters().size() == 0) {
