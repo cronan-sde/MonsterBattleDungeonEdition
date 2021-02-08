@@ -41,7 +41,7 @@ This project exists thanks to all the people who contribute.
 | <a href="https://github.com/cronan-sde" target="_blank">**Cody**</a> | <a href="https://github.com/javasmuse" target="_blank">**Candace**</a> | <a href="https://github.com/JASONG2G" target="_blank">**Jason**</a> |
 | :---: |:---:| :---:|
 | [![FVCproductions](https://avatars.githubusercontent.com/u/73966102?s=400&v=4)](http://fvcproductions.com)    | [![FVCproductions](https://avatars.githubusercontent.com/u/50122081?s=400&u=5055720cbf329b3d410076be00524b5c579842fe&v=4)](http://fvcproductions.com) | [![FVCproductions](https://avatars.githubusercontent.com/u/51686756?s=460&u=40128922a8fcf5941e22b97984e76a5f97299b64&v=4)](http://fvcproductions.com)  |
-| <a href="http://github.com/cronan-sde" target="_blank">`github.com/cronan-sde`</a> | <a href="http://github.com/javasmuse" target="_blank">`github.com/javasmuse`</a> | <a href="github.com/JASONG2G" target="_blank">`github.com/JASONG2G`</a> |
+| <a href="https://github.com/cronan-sde" target="_blank">`github.com/cronan-sde`</a> | <a href="https://github.com/javasmuse" target="_blank">`github.com/javasmuse`</a> | <a href="https://github.com/JASONG2G" target="_blank">`github.com/JASONG2G`</a> |
 
 ---
 
