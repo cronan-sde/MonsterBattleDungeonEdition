@@ -34,6 +34,9 @@ In order to navigate through the dungeon you have to use the right words.
 > to fight a monster - say "__fight monster__"
 
 
+> to view the map - say "__view map__"
+
+
 ## Contributors
 ___
 This project exists thanks to all the people who contribute.
