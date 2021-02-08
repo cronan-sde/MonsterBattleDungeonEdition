@@ -15,6 +15,8 @@ public class Player {
     private List<String> gameShardsList = new ArrayList<>(); // list keep tracking all shards for the game.
     private List<String> pShards = new ArrayList<>(); // list keep tracking the player's shard inventory.
     private int key = 0;
+    //tracks how many shards to win
+    private int shardsToWin = 10;
 
     // CONSTRUCTOR
     public Player(){
@@ -116,7 +118,7 @@ public class Player {
      * @return 1 when 10 shards are collected or 0.
      */
     public int setKey(List<String> pShards){
-        if (pShards.size() == 10) {
+        if (pShards.size() == shardsToWin) {
             key = 1;
             pShards.clear(); // reset player shards list
         }
@@ -141,6 +143,10 @@ public class Player {
             return true;
         }
         return false;
+    }
+
+    public int getShardsToWin() {
+        return shardsToWin;
     }
 
 

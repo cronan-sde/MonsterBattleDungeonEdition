@@ -227,7 +227,7 @@ public class GameGUI extends JFrame implements KeyListener {
         userInventory.setText("Inventory:" + player.getpItems());
 
         userKeys.setText("Keys: " + player.setKey(player.getpShards()) + "/1");
-        userShards.setText("Shards: " + player.getpShards().size() + "/10");
+        userShards.setText("Shards: " + player.getpShards().size() + "/" + player.getShardsToWin());
     }
 
     //create player monster label string
