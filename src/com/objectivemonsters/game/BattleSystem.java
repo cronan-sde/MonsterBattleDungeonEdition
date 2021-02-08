@@ -1,6 +1,7 @@
 package com.objectivemonsters.game;
 
 import com.objectivemonsters.monsters.Monster;
+import com.objectivemonsters.storylines.BattleTextGenerator;
 
 import java.util.Random;
 
@@ -15,6 +16,9 @@ public class BattleSystem {
 
     //number that will equate to a miss
     private static final int MISS_NUMBER = 3;
+
+    // bring in battle text generator
+    BattleTextGenerator btg = new BattleTextGenerator();
 
 
     public BattleSystem() {
@@ -68,7 +72,8 @@ public class BattleSystem {
             int m2DmgHp = m2.getHP() - m1AtckDmg;
             m2.setHP(m2DmgHp);
             //display m1 attack
-            sb.append("<span class='user'>").append(m1.getName()).append("</span>").append("<span class='attack'> charges out and slashes </span>").append("<span class='enemy'>" ).append(m2.getName()).append("</span> accross the face in a powerful attack that caused ").append("<span class='damage' >").append(m1AtckDmg).append(" dmg. </span><br>");
+            String hit = btg.hitLine();
+            sb.append("<span class='user'>").append(m1.getName()).append("</span>").append("<span class='attack'> charges out and slashes </span>").append("<span class='enemy'>" ).append(m2.getName()).append("</span><br><br>" +  hit).append("<span class='damage' >").append(" " + m1AtckDmg).append(" dmg. </span><br><br>");
             // check if m2 is dead
             if (m2.getHP() <= 0) {
                 // m2 hit message
@@ -76,14 +81,14 @@ public class BattleSystem {
 
             } else {
                 //m2 hit message
-                sb.append("<span class='enemy'> ").append(m2.getName()).append("</span>").append(" stumbles back from the attack, but begins to regain its balance<br>");
+                sb.append("<span class='enemy'> ").append(m2.getName()).append("</span>").append(" stumbles back from the attack, but regains its balance<br><br>");
 
                 //m2 takes turn
                 int m2AtckDmg = attackDamage(m2.getStrength());
                 int m1DmgHp = m1.getHP() - m2AtckDmg;
                 m1.setHP(m1DmgHp);
                 //display m2 attack
-                sb.append("<span class='enemy'>").append(m2.getName()).append("</span>").append(" dashes forward <span class='attack'>and swings its arms, slamming into  </span>").append("<span class='user'>" ).append(m1.getName()).append("</span> causing ").append("<span class='damage' >").append(m2AtckDmg).append(" dmg. </span><br>");
+                sb.append("<span class='enemy'>").append(m2.getName()).append("</span>").append(" dashes forward <span class='and strikes  </span>").append("<span class='user'>" ).append(m1.getName()).append("</span> causing ").append("<span class='damage' >").append(m2AtckDmg).append(" dmg. </span><br><br>");
                 //check if m1 is dead
                 if (m1.getHP() <= 0) {
                     //m1 dead
@@ -91,7 +96,7 @@ public class BattleSystem {
                 }
                 else {
                     //m1 hit message
-                    sb.append("<span class='user'> ").append(m1.getName()).append("</span>").append(" falls back wincing in pain, but begins to regain its composure");
+                    sb.append("<span class='user'> ").append(m1.getName()).append("</span>").append(" falls back wincing in pain, but regains its composure");
                 }
             }
 
@@ -121,7 +126,7 @@ public class BattleSystem {
      */
     public String hitString() {
         return null;
-    }
+    } // added into battle
 
     /*
      * generate string for monster that missed

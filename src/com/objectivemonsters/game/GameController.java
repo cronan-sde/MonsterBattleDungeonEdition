@@ -7,6 +7,7 @@ import com.objectivemonsters.monsters.MonsterGenerator;
 import com.objectivemonsters.monsters.MonsterLocationGenerator;
 import com.objectivemonsters.player.Player;
 import com.objectivemonsters.storylines.BattleTextGenerator;
+import com.objectivemonsters.storylines.BattleTextList;
 import com.objectivemonsters.storylines.StoryLineGenerator;
 import com.objectivemonsters.util.Prompter;
 
@@ -54,6 +55,7 @@ public class GameController {
 
     // generate battleText - can access the methods to retrieve random battle lines for hits and misses
     BattleTextGenerator btg = new BattleTextGenerator();
+    BattleTextList btl = new BattleTextList();
 
     // generate storyText slg w/ story bits will yield, well story bits
     StoryLineGenerator slg = new StoryLineGenerator();
@@ -84,13 +86,14 @@ public class GameController {
         //System.out.println(currentMonster);
 
         sb.append(player.getName()).append(", you are currently in the ").append(currentRoom.getName());
-        sb.append(" room. \nYou scan the room and see:   ").append(currentRoom.getDescription());
-        sb.append(". \n\nExits appear:  ").append(currentRoom.getExits());
+        sb.append(" room. \n").append(currentRoom.getDescription());
+
         // TODO: append a random generated location based on friendly or angry - maybe screen maybe full enough of info
         if (currentRoom.isHasExitDoor()){ // description for the dungeon door if its in current room.
             String dungeonExitDesc = "\n" + "Wait a minute, you saw light shine in from a giant stone door, That must be the exit of the dungeon.";
             sb.append(dungeonExitDesc);
         }
+        sb.append(". \n\nExits appear:  ").append(currentRoom.getExits());
         sb.append(".\nYou notice a creature in the corner. It's ").append(currentMonster.getName()).append(".");
         sb.append("\nHP : ").append(currentMonster.getHP()).append("  Strength: ").append(currentMonster.getStrength()).append("  Agility: ").append(currentMonster.getAgility()).append("  Intellect: ").append(currentMonster.getIntellect());
 //        sb.append("\n").append(currentMonster.getDesc());  only include if shortened to one line, probably too much info already
@@ -179,7 +182,8 @@ public class GameController {
     }
 
     public String dungeonLoseText() {
-        return "You're monsters have all been slain and without their help\n" +
+        return "You're monsters have all been slain and without their help you cannot kill the angry monsters." +
+                "\n" +
                 getCurrentMonster().getName() + " has consumed you!";
     }
 
@@ -191,9 +195,9 @@ public class GameController {
         player.dropShard();
 
         String htmlMess = "<h2 class='text'><span class='user'>" + playerMonster.getName() + "</span> " +
-                "has defeated <span class='enemy'> " + currentMonster.getName() + "</span><br><span class='user'> " + playerMonster.getName() + "</span> " +
-                "has grown in experience regaining full HP and a strength boost from <span class='damage'> " + currStrength + " Strength - " + playerMonster.getStrength() +
-                " Strength</span><br>You also pick up a <span class='shard'>"+ player.getpShards().get(player.getpShards().size() - 1)+"</span> that has fallen from the defeated creature</h2>";
+                "has defeated <span class='enemy'> " + currentMonster.getName() + "</span><br><br><span class='user'> " + playerMonster.getName() + "</span> " +
+                "has regained full HP and a strength boost from <span class='damage'> " + currStrength + " to " + playerMonster.getStrength() +
+                " Strength</span><br><br>You also pick up a <span class='shard'>"+ player.getpShards().get(player.getpShards().size() - 1)+"</span> that has fallen from the defeated creature</h2>";
         return htmlMess;
     }
 
