@@ -1,5 +1,7 @@
 package com.objectivemonsters.scenes;
 
+import com.objectivemonsters.storylines.StoryLineGenerator;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,6 +9,9 @@ public class StartScene extends JPanel {
     private JTextArea welcomeText;
     private JTextArea hintText;
     private JTextArea playGameText;
+
+    // bring in text
+    StoryLineGenerator slg = new StoryLineGenerator();
 
     public StartScene(int width, int height, String fontName) {
         setSize(width, height);
@@ -16,7 +21,7 @@ public class StartScene extends JPanel {
 
         //create text areas
         welcomeText = new JTextArea();
-        welcomeText.setBounds(150, 15, 600, 100);
+        welcomeText.setBounds(100, 15, 600, 100);
         welcomeText.setBackground(Color.BLACK);
         welcomeText.setForeground(Color.RED);
         welcomeText.setFont(new Font(fontName, Font.PLAIN, 20));
@@ -52,17 +57,23 @@ public class StartScene extends JPanel {
      * TODO: generate hint text from XML?
      */
     public void setStartDialogue() {
-        welcomeText.setText("Welcome to MONSTER BATTLES: DUNGEON EDITION");
-        hintText.setText("In order to traverse the dungeon, you will be provided with options on what to do." +
-                " You must type a recognized action, followed by a noun, in order to move and interact.\n" +
-                "Example: If you would like to move into an available room, you would type GO ROOMNAME.\n" +
-                "If you would like to inspect your surroundings, you would type LOOK AROUND\n" + "If you find a friendly monster you can recruit them to fight for you" +
-                " by typing TAKE MONSTER\n" +
-                "List of recognized actions - [GO, LOOK, TAKE, FIGHT]");
+        // retrieve story text from parsed xml and display
+        welcomeText.setText(slg.getStoryTxt().get("welcome") + "\n" + "\n"  + slg.getStoryTxt().get("moreInfo"));
+        hintText.setText(slg.getStoryTxt().get("opening") + "\n"  + "\n" +
+                slg.getStoryTxt().get("directions") +  "\n" +
+                slg.getStoryTxt().get("directionsMore") + "\n" + "\n" + slg.getStoryTxt().get("hint"));
         playGameText.setText("-- press [enter] to start your journey --");
     }
 
     public JTextArea getHintText() {
         return hintText;
+    }
+
+    public JTextArea getWelcomeText() {
+        return welcomeText;
+    }
+
+    public JTextArea getPlayGameText() {
+        return playGameText;
     }
 }

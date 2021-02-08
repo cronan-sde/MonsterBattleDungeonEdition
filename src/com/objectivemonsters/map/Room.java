@@ -22,6 +22,8 @@ public class Room {
     private Monster roomMonster;
     // Item in room
     private List<Item> item;
+    // determine if a room has the exits of the dungeon.
+    private boolean hasExitDoor;
 
     // constructors
     public Room(){
@@ -34,6 +36,7 @@ public class Room {
         this.description = description;
         this.roomLeadTo = roomLeadTo;
         this.exits = exits;
+        this.hasExitDoor = false;
     }
 
     public Room(int roomId, String name, String description, List<String> roomLeadTo) {
@@ -41,6 +44,7 @@ public class Room {
         this.name = name;
         this.description = description;
         this.roomLeadTo = roomLeadTo;
+        this.hasExitDoor = false;
     }
 
     public Room(int roomId, String name, String description, List<String> roomLeadTo, Monster roomMonster, List<Item> item) {
@@ -50,6 +54,7 @@ public class Room {
         this.roomLeadTo = roomLeadTo;
         this.roomMonster = roomMonster;
         this.item = item;
+        this.hasExitDoor = false;
     }
 
     // Getters and Setters
@@ -81,7 +86,13 @@ public class Room {
         return item;
     }
 
+    public boolean isHasExitDoor() {
+        return hasExitDoor;
+    }
 
+    public void setHasExitDoor(boolean hasExitDoor) {
+        this.hasExitDoor = hasExitDoor;
+    }
 
     // Tailored toString
     @Override
@@ -92,6 +103,7 @@ public class Room {
                 ", description='" + description + '\'' +
                 ", roomLeadTo=" + roomLeadTo +
                 ", exits=" + exits +
+                ", dungeon exits=" + hasExitDoor +
                 '}';
     }
 }

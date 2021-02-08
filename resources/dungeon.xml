@@ -3,112 +3,116 @@
     <dungeon>
         <room>
             <roomId>1</roomId>
-            <roomName>humanoidbones</roomName>
+            <roomName>humanoid bones</roomName>
             <roomFeature>The floor is covered with humanoid bones, and a rusted breastplate lies in the east side of the room</roomFeature>
-            <roomleadTo>tornchamber</roomleadTo>
-            <roomleadTo>thecomplex</roomleadTo>
+            <roomleadTo>torn chamber</roomleadTo>
+            <roomleadTo>the complex</roomleadTo>
             <exit>east</exit>
-            <exit>north</exit>
+            <exit>south</exit>
         </room>
         <room>
             <roomId>2</roomId>
-            <roomName>tornchamber</roomName>
+            <roomName>torn chamber</roomName>
             <roomFeature>A chute descends from the room into a midden chamber below, and a faded and torn tapestry hangs from the north wall</roomFeature>
-            <roomleadTo>humanoidbones</roomleadTo>
-            <roomleadTo>ghoulishchamber</roomleadTo>
-            <roomleadTo>descendchamber</roomleadTo>
+            <roomleadTo>humanoid bones</roomleadTo>
+            <roomleadTo>ghoulish chamber</roomleadTo>
+            <roomleadTo>descend chamber</roomleadTo>
             <exit>west</exit>
             <exit>east</exit>
             <exit>south</exit>
         </room>
         <room>
             <roomId>3</roomId>
-            <roomName>ghoulishchamber</roomName>
+            <roomName>ghoulish chamber</roomName>
             <roomFeature>A tapestry of ghoulish carnage hangs from the south wall, and a bent dagger lies in the north side of the room</roomFeature>
-            <roomleadTo>tornchamber</roomleadTo>
-            <roomleadTo>glowingchamber</roomleadTo>
-            <roomleadTo>rottenjournal</roomleadTo>
+            <roomleadTo>tornch amber</roomleadTo>
+            <roomleadTo>glowing chamber</roomleadTo>
+            <roomleadTo>rotten journal</roomleadTo>
             <exit>west</exit>
             <exit>east</exit>
             <exit>south</exit>
         </room>
         <room>
             <roomId>4</roomId>
-            <roomName>glowingchamber</roomName>
+            <roomName>glowing chamber</roomName>
             <roomFeature>A stone ramp ascends towards the north wall, and the north and west walls have been engraved with glowing glyphs</roomFeature>
-            <roomleadTo>ghoulishchamber</roomleadTo>
-            <roomleadTo>deadfountain</roomleadTo>
+            <roomleadTo>ghoulish chamber</roomleadTo>
+            <roomleadTo>dead fountain</roomleadTo>
             <exit>west</exit>
             <exit>south</exit>
         </room>
         <room>
             <roomId>5</roomId>
-            <roomName>thecomplex</roomName>
+            <roomName>the complex</roomName>
             <roomFeature>A stair ascends to a wooden platform in the east side of the room, and the scent of urine fills the south-east corner of the room</roomFeature>
-            <roomleadTo>humanoidbones</roomleadTo>
-            <roomleadTo>descendchamber</roomleadTo>
-            <roomleadTo>whisperchamber</roomleadTo>
+            <roomleadTo>humanoid bones</roomleadTo>
+            <roomleadTo>descend chamber</roomleadTo>
+            <roomleadTo>whisper chamber</roomleadTo>
             <exit>north</exit>
             <exit>east</exit>
             <exit>south</exit>
         </room>
         <room>
             <roomId>6</roomId>
-            <roomName>descendchamber</roomName>
+            <roomName>descend chamber</roomName>
             <roomFeature>A narrow shaft descends from the room into a midden chamber below, and a faded and torn tapestry hangs from the east wall</roomFeature>
-            <roomleadTo>thecomplex</roomleadTo>
-            <roomleadTo>rottenjournal</roomleadTo>
-            <roomleadTo>shallowpit</roomleadTo>
+            <roomleadTo>the complex</roomleadTo>
+            <roomleadTo>rotten journal</roomleadTo>
+            <roomleadTo>shallow pit</roomleadTo>
+            <roomleadTo>torn chamber</roomleadTo>
             <exit>west</exit>
             <exit>east</exit>
             <exit>south</exit>
+            <exit>north</exit>
         </room>
         <room>
             <roomId>7</roomId>
-            <roomName>rottenjournal</roomName>
+            <roomName>rotten journal</roomName>
             <roomFeature>A tile labyrinth covers the floor, and a rotting journal lies in the north-east corner of the room</roomFeature>
-            <roomleadTo>descendchamber</roomleadTo>
-            <roomleadTo>deadfountain</roomleadTo>
-            <roomleadTo>sulfurend</roomleadTo>
+            <roomleadTo>descend chamber</roomleadTo>
+            <roomleadTo>dead fountain</roomleadTo>
+            <roomleadTo>sulfur end</roomleadTo>
+            <roomleadTo>ghoulish chamber</roomleadTo>
             <exit>west</exit>
             <exit>east</exit>
             <exit>south</exit>
+            <exit>north</exit>
         </room>
         <room>
             <roomId>8</roomId>
-            <roomName>deadfountain</roomName>
+            <roomName>dead fountain</roomName>
             <roomFeature>A fountain of water sits against the east wall, and a pile of broken arrows lies in the south-west corner of the room</roomFeature>
-            <roomleadTo>glowingchamber</roomleadTo>
-            <roomleadTo>rottenjournal</roomleadTo>
+            <roomleadTo>glowing chamber</roomleadTo>
+            <roomleadTo>rotten journal</roomleadTo>
             <exit>north</exit>
             <exit>west</exit>
         </room>
         <room>
             <roomId>9</roomId>
-            <roomName>whisperchamber</roomName>
+            <roomName>whisper chamber</roomName>
             <roomFeature>Someone has scrawled 'You cannot kill it with swords' on the west wall, and sporadic knocking can be heard in the south side of the room</roomFeature>
-            <roomleadTo>thecomplex</roomleadTo>
-            <roomleadTo>shallowpit</roomleadTo>
+            <roomleadTo>the complex</roomleadTo>
+            <roomleadTo>shallow pit</roomleadTo>
             <exit>north</exit>
             <exit>east</exit>
         </room>
         <room>
             <roomId>10</roomId>
-            <roomName>shallowpit</roomName>
-            <roomFeature>A shallow pit lies in the north side of the room, and a tapping sound can be faintly heard near the north wall</roomFeature>
-            <roomleadTo>descendchamber</roomleadTo>
-            <roomleadTo>whisperchamber</roomleadTo>
-            <roomleadTo>sulfurend</roomleadTo>
+            <roomName>shallow pit</roomName>
+            <roomFeature>A shallow pit lies in the north side of the     room, and a tapping sound can be faintly heard near the north wall</roomFeature>
+            <roomleadTo>descend chamber</roomleadTo>
+            <roomleadTo>whisper chamber</roomleadTo>
+            <roomleadTo>sulfur end</roomleadTo>
             <exit>north</exit>
             <exit>west</exit>
             <exit>east</exit>
         </room>
         <room>
             <roomId>11</roomId>
-            <roomName>sulfurend</roomName>
+            <roomName>sulfur end</roomName>
             <roomFeature>Someone has scrawled 'This paladin is dead' in draconic script on the east wall, and a sulphurous odor fills the room</roomFeature>
-            <roomleadTo>rottenjournal</roomleadTo>
-            <roomleadTo>shallowpit</roomleadTo>
+            <roomleadTo>rotten journal</roomleadTo>
+            <roomleadTo>shallow pit</roomleadTo>
             <exit>north</exit>
             <exit>west</exit>
         </room>

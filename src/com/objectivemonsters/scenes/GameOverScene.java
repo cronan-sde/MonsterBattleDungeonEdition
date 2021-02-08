@@ -61,4 +61,12 @@ public class GameOverScene extends JPanel {
     public JTextArea getWinLoseText() {
         return winLoseText;
     }
+
+    public JTextArea getGameOverText() {
+        return gameOverText;
+    }
+
+    public JTextArea getPlayAgainText() {
+        return playAgainText;
+    }
 }

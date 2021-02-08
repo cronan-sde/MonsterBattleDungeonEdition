@@ -2,6 +2,7 @@ package com.objectivemonsters.map;
 
 import com.objectivemonsters.consumables.Item;
 import com.objectivemonsters.monsters.Monster;
+import com.objectivemonsters.storylines.BattleTextList;
 
 import java.util.List;
 
@@ -14,6 +15,10 @@ public class Dungeon {
     private List<Monster> dungeonMonsters;
     // Item available in this level of dungeon
     private List<Item> dungeonItem;
+    // lines of batle text hits
+    private List<String> battleHitsLines;
+    // lines of battle text miss
+    private List<String> getBattleMissLines;
     // when escape is true, generate new dungeon level, this is true when player uses shard created key to open door
     private Boolean escape;
     // Dungeon level for advanced dungeons
@@ -64,6 +69,14 @@ public class Dungeon {
         this.dungeonItem = dungeonItem;
     }
 
+    public List<String> getBattleHitsLines() { return battleHitsLines; }
+
+    public void setBattleHitsLines(List<String> battleHitsLines) { this.battleHitsLines = battleHitsLines; }
+
+    public List<String> getGetBattleMissLines() { return getBattleMissLines; }
+
+    public void setGetBattleMissLines(List<String> getBattleMissLines) { this.getBattleMissLines = getBattleMissLines; }
+
     public Boolean getEscape() {
         return escape;
     }
@@ -79,6 +92,7 @@ public class Dungeon {
     public void setLevel(int level) {
         this.level = level;
     }
+
 
 
     // tailored toString

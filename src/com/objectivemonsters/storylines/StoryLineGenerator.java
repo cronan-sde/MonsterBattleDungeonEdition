@@ -27,6 +27,9 @@ public class StoryLineGenerator {
                 storyLines.put("moreInfo", eElement.getElementsByTagName("moreInfo").item(0).getTextContent());
                 storyLines.put("friendlyGesture", eElement.getElementsByTagName("friendlyGesture").item(0).getTextContent());
                 storyLines.put("hint", eElement.getElementsByTagName("hint").item(0).getTextContent());
+                storyLines.put("directions", eElement.getElementsByTagName("directions").item(0).getTextContent());
+                storyLines.put("directionsMore", eElement.getElementsByTagName("directionsMore").item(0).getTextContent());
+                storyLines.put("wordList", eElement.getElementsByTagName("wordList").item(0).getTextContent());
 
             }
         }
