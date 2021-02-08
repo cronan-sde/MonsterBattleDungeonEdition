@@ -99,7 +99,7 @@
         <room>
             <roomId>10</roomId>
             <roomName>shallow pit</roomName>
-            <roomFeature>A shallow pit lies in the north side of the room, and a tapping sound can be faintly heard near the north wall</roomFeature>
+            <roomFeature>A shallow pit lies in the north side of the     room, and a tapping sound can be faintly heard near the north wall</roomFeature>
             <roomleadTo>descend chamber</roomleadTo>
             <roomleadTo>whisper chamber</roomleadTo>
             <roomleadTo>sulfur end</roomleadTo>
